@@ -1,6 +1,8 @@
 import React, {useState, useRef} from "react";
 import FullCalendar from '@fullcalendar/react' // must go before plugins
-import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
 import NewEventModal from "./NewEventModal";
 import axios from "axios";
 
@@ -23,7 +25,7 @@ const Calendar = () => {
         <div style={{position: "relative", zIndex: 0}}>
           <FullCalendar
             ref={calendarRef}
-            plugins={[ dayGridPlugin ]}
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             initialView="dayGridMonth"
             eventAdd = {event => handleEventAdd(event)}
           />
