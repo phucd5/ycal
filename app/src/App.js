@@ -1,12 +1,20 @@
 import React from "react";
 import "./App.css";
-import Calandar from "./components/Calendar/Calendar";
+import Calendar from "./components/Calendar/Calendar";
 import HomePage from "./components/HomePage/HomePage";
+import RegPage from "./components/RegPage/RegPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <HomePage></HomePage>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/reg" element={<RegPage />} />
+          <Route path="/calendar/:userId" element={<Calendar />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
