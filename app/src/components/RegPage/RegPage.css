@@ -1,0 +1,26 @@
+.App {
+    text-align: center;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-form-container, .login-form, .reg-form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    text-align: left;
+    padding: 0.2rem 0;
+}
+
+input {
+    margin: 0.5rem 0;
+}
+
+.link-button {
+    background: none;
+    text-decoration: underline;    
+}
