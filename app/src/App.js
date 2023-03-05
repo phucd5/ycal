@@ -1,12 +1,14 @@
 import React from "react";
+import Modal from "react-modal";
 import "./App.css";
-import Calandar from "./components/Calendar/Calendar";
+import Calendar from "./components/Calendar/Calendar";
 import HomePage from "./components/HomePage/HomePage";
 
+Modal.setAppElement("#root")
 function App() {
   return (
     <div className="App">
-      <HomePage></HomePage>
+     <Calendar />
     </div>
   );
 }
