@@ -22,7 +22,7 @@ export const getUserById = async (req, res) => {
   }
 };
 
-//Get a user's friend
+//Get a user's friend list
 export const getUserFriends = async (req, res) => {
   try {
     const user = await User.findById(req.params.userId).populate("friends");
