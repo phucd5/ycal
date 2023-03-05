@@ -1,6 +1,6 @@
 // import { Form  } from "react-bootstrap"
 import React, { useState } from "react";
-import "../RegPage/RegPage.css"
+import "../RegistrationPage/RegistrationPage.css"
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');

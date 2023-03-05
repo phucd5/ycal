@@ -1,8 +1,8 @@
 // import { Form  } from "react-bootstrap"
 import React, { useState } from "react";
-import "./RegPage.css"
+import "./RegistrationPage.css"
 
-const RegPage = () => {
+const RegistrationPage = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -31,4 +31,4 @@ const RegPage = () => {
   )      
 }
 
-export default RegPage;
+export default RegistrationPage;
