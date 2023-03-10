@@ -14,7 +14,6 @@ const EventSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
-    default: "N/A",
   },
   description: {
     type: String,
@@ -24,7 +23,6 @@ const EventSchema = mongoose.Schema({
   date: {
     type: Date,
     required: true,
-    default: "N/A",
   },
   location: {
     type: String,
