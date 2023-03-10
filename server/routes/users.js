@@ -5,8 +5,8 @@ import {
   getUserFriends,
   updateUserEvents,
   updateUserFriends,
-} from "../controllers/users";
-import { verifyAuth } from "../middleware/auth";
+} from "../controllers/users.js";
+import { verifyAuth } from "../middleware/auth.js";
 
 const router = express.Router();
 

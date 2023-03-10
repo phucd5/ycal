@@ -3,7 +3,7 @@ import {
   handleNotFound,
   handleServerError,
   handleSuccess,
-} from "../utils/query_response";
+} from "../utils/query_response.js";
 
 //GET
 

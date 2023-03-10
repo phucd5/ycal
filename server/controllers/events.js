@@ -1,9 +1,9 @@
-import Event from "../models/Event";
+import Event from "../models/Event.js";
 import {
   handleNotFound,
   handleServerError,
   handleSuccess,
-} from "../utils/query_response";
+} from "../utils/query_response.js";
 
 //Create a new event
 export const createEvent = async (req, es) => {

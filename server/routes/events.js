@@ -3,8 +3,8 @@ import {
   createEvent,
   getEventById,
   updateEventById,
-} from "../controllers/events";
-import { verifyAuth } from "../middleware/auth";
+} from "../controllers/events.js";
+import { verifyAuth } from "../middleware/auth.js";
 
 const router = express.Router();
 

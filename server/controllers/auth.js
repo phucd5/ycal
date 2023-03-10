@@ -5,12 +5,12 @@ import {
   handleNotFound,
   handleServerError,
   handleSuccess,
-} from "../utils/query_response";
+} from "../utils/query_response.js";
 
 //Create a new user
 export const register = async (req, res) => {
   try {
-    const { firstName, lastName, email, password, friends, events } = req.body;
+    const { firstName, lastName, email, password } = req.body;
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
 
@@ -19,8 +19,6 @@ export const register = async (req, res) => {
       lastName,
       email,
       password: passwordHash,
-      friends,
-      events,
     });
 
     const savedUser = await newUser.save();

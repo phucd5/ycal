@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { handleServerError } from "../utils/query_response";
+import { handleServerError } from "../utils/query_response.js";
 
 export const verifyAuth = async (req, res, next) => {
   try {
