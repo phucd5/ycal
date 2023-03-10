@@ -10,11 +10,11 @@ import { verifyAuth } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/:userId", verifyAuth, getUserById);
-router.get("/:userId/friends", verifyAuth, getUserFriends);
-router.get("/:userId/events", verifyAuth, getUserEvents);
+router.get("/:userId", getUserById);
+router.get("/:userId/friends", getUserFriends);
+router.get("/:userId/events", getUserEvents);
 
-router.put("/:userId/friends", verifyAuth, updateUserFriends);
-router.put("/:userId/events", verifyAuth, updateUserEvents);
+router.put("/:userId/friends", updateUserFriends);
+router.put("/:userId/events", updateUserEvents);
 
 export default router;

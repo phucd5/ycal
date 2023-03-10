@@ -14,18 +14,22 @@ const EventSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
+    default: "N/A",
   },
   description: {
     type: String,
-    required: true,
+    required: false,
+    default: "N/A",
   },
   date: {
     type: Date,
     required: true,
+    default: "N/A",
   },
   location: {
     type: String,
-    required: true,
+    required: false,
+    default: "N/A",
   },
   createdAt: {
     type: Date,
