@@ -11,7 +11,7 @@ const RegistrationPage = () => {
 
   const handleRegister = () => {
     axios
-      .post("http://localhost:3000/auth/register", {
+      .post("http://localhost:3002/auth/register", {
         firstName: firstName,
         lastName: lastName,
         email: email,

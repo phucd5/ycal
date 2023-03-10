@@ -19,7 +19,8 @@ const Calendar = () => {
   useEffect(() => {
     const loggedInUser = localStorage.getItem("token");
     setUser(JSON.parse(localStorage.getItem("user")));
-
+    console.log(user)
+  
     if (loggedInUser) {
       console.log(loggedInUser);
       setauthenticated(true);
@@ -27,33 +28,33 @@ const Calendar = () => {
       alert("Please login!");
       navigate("/login");
     }
-
-    if (loggedInUser) {
-      if (user) {
-        console.log(user.events)
-      }
-    }
-
-    async function fetchEvents() {
-      try {
-        const response = await axios.get('http://localhost:3002/users/640afb88275df12d874233c8/events');
-        setEvents(response.data);
-      } catch (error) {
-        console.error('Error fetching events:', error);
-      }
-    }
-
-    fetchEvents();
-
-
-
   }, []);
+  
+  useEffect(() => {
+    if (user && user._id) {
+      async function fetchEvents() {
+        try {
+          const response = await axios.get(`http://localhost:3002/users/${user._id}/events`);
+          setEvents(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+  
+      fetchEvents();
+    }
+  }, [user]);
 
   const onEventAdded = (event) => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.addEvent(event);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login")
+  };
 
 
   async function handleEventAdd(data) {
@@ -70,7 +71,7 @@ const Calendar = () => {
       
       try {
         const response_2 = await axios.put(
-          `http://localhost:3002/users/640afb88275df12d874233c8/events`,
+          `http://localhost:3002/users/${user._id}/events`,
           {
             eventId: response.data._id,
             add: true
@@ -93,6 +94,7 @@ const Calendar = () => {
     return (
       <section>
         <button onClick={() => setModalOpen(true)}>Add New Event</button>
+        <button onClick={handleLogout}>Logout</button>
         <div style={{ position: "relative", zIndex: 0 }}>
           <FullCalendar
             ref={calendarRef}
