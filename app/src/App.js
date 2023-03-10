@@ -7,7 +7,7 @@ import RegistrationPage from "./components/RegistrationPage/RegistrationPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./components/LoginPage/LoginPage";
 
-Modal.setAppElement("#root")
+Modal.setAppElement("#root");
 function App() {
   return (
     <div className="App">
@@ -16,7 +16,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/registration" element={<RegistrationPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/calendar/:userId" element={<Calendar />} />
+          <Route path="/calendar" element={<Calendar />} />
         </Routes>
       </BrowserRouter>
     </div>
