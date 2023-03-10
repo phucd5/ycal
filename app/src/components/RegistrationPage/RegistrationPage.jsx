@@ -56,7 +56,7 @@ const RegistrationPage = () => {
       })
       .then((response) => {
         console.log(response.data);
-        navigate("/calendar");
+        navigate("/login");
       })
       .catch((error) => {
         console.log(error);
@@ -65,7 +65,7 @@ const RegistrationPage = () => {
 
   return (
     <div>
-      <h2>Registtration</h2>
+      <h2>YCal Registration</h2>
       <div>First Name</div>
       <input
         type="text"
@@ -91,6 +91,7 @@ const RegistrationPage = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <br />
+      <br></br>
       <button onClick={handleRegister}>Register</button>
     </div>
   );

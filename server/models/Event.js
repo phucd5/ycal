@@ -4,7 +4,7 @@ const EventSchema = mongoose.Schema({
   organizer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    required: false,
   },
   attendees: {
     type: [mongoose.Schema.Types.ObjectId],

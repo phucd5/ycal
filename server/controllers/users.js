@@ -36,13 +36,33 @@ export const getUserFriends = async (req, res) => {
 };
 
 //Get a user's events
+// export const getUserEvents = async (req, res) => {
+//   try {
+//     const user = await User.findById(req.params.userId).populate("events");
+//     if (!user) {
+//       return handleNotFound(res);
+//     }
+//     handleSuccess(res, user.events);
+//   } catch (error) {
+//     console.error(error);
+//     handleServerError(res, err);
+//   }
+// };
+
 export const getUserEvents = async (req, res) => {
   try {
-    const user = await User.findById(req.params.userId).populate("events");
+    const user = await User.findById(req.params.userId)
+      .populate("events")
+      .lean();
     if (!user) {
       return handleNotFound(res);
     }
-    handleSuccess(res, user.events);
+    const events = user.events.map((event) => ({
+      title: event.name,
+      start: event.date,
+      end: event.date,
+    }));
+    handleSuccess(res, events);
   } catch (error) {
     console.error(error);
     handleServerError(res, err);
@@ -77,9 +97,11 @@ export const updateUserEvents = async (req, res) => {
     if (!user) {
       return handleNotFound(res);
     }
-    if (req.query.add === "true") {
+    if (req.body.add === true) {
+      console.log("Added");
       user.events.push(req.body.eventId);
     } else {
+      console.log("Removed");
       user.events.pull(req.body.eventId);
     }
     await user.save();

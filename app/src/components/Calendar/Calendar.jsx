@@ -12,20 +12,41 @@ const Calendar = () => {
   const [authenticated, setauthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [eventAdd, setEventAdd] = useState(null);
+  const [events, setEvents] = useState([]);
   const calendarRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("token");
+    setUser(JSON.parse(localStorage.getItem("user")));
 
     if (loggedInUser) {
-      // console.log(loggedInUser);
-      setUser(JSON.parse(localStorage.getItem("user")));
+      console.log(loggedInUser);
       setauthenticated(true);
     } else {
       alert("Please login!");
       navigate("/login");
     }
+
+    if (loggedInUser) {
+      if (user) {
+        console.log(user.events)
+      }
+    }
+
+    async function fetchEvents() {
+      try {
+        const response = await axios.get('http://localhost:3002/users/640afb88275df12d874233c8/events');
+        setEvents(response.data);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    }
+
+    fetchEvents();
+
+
+
   }, []);
 
   const onEventAdded = (event) => {
@@ -33,27 +54,39 @@ const Calendar = () => {
     calendarApi.addEvent(event);
   };
 
+
+
   async function handleEventAdd(data) {
     console.log(data.event.title);
 
     try {
       const response = await axios.post(
-        "http://172.27.112.217:3001/events/create",
+        "http://localhost:3002/events/create",
         {
           name: data.event.title,
           date: data.event.startStr,
         }
       );
-      console.log(response.data);
-      setEventAdd(response.data);
+      
+      try {
+        const response_2 = await axios.put(
+          `http://localhost:3002/users/640afb88275df12d874233c8/events`,
+          {
+            eventId: response.data._id,
+            add: true
+          }
+        );
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+      
+
     } catch (error) {
       console.log(error);
     }
 
-    // console.log(user.id);
-    // console.log(eventAdd.id);
-    // console.log(response.ObjectId);
-    // await axios.post("/api/calendar/create-event", data.event);
+
   }
 
   if (authenticated) {
@@ -65,6 +98,7 @@ const Calendar = () => {
             ref={calendarRef}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             initialView="dayGridMonth"
+            events={events}
             eventAdd={(event) => handleEventAdd(event)}
           />
         </div>

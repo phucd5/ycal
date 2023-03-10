@@ -32,8 +32,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function LoginForm() {
+function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ function LoginForm() {
 
     try {
       const response = await axios.post(
-        "http://172.27.112.217:3001/auth/login",
+        "http://localhost:3002/auth/login",
         {
           email: email,
           password: password,
@@ -84,8 +85,13 @@ function LoginForm() {
         <br></br>
         <button type="submit">Login</button>
       </form>
+      <br></br>
+      <div>
+        Need an account?{" "}
+        <Link to="/registration">Register here</Link>
+      </div>
     </div>
   );
 }
 
-export default LoginForm;
+export default LoginPage;

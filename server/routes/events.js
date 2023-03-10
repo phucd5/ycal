@@ -8,8 +8,8 @@ import { verifyAuth } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/create", verifyAuth, createEvent);
-router.get("/:id", verifyAuth, getEventById);
-router.put("/:id", verifyAuth, updateEventById);
+router.post("/create", createEvent);
+router.get("/:id", getEventById);
+router.put("/:id", updateEventById);
 
 export default router;

@@ -6,7 +6,7 @@ import {
 } from "../utils/query_response.js";
 
 //Create a new event
-export const createEvent = async (req, es) => {
+export const createEvent = async (req, res) => {
   try {
     const newEvent = new Event(req.body);
     const savedEvent = await newEvent.save();
