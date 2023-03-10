@@ -12,6 +12,7 @@ const LoginPage = () => {
   }
 
   return (
+    <div className="login_page">
     <div className="auth-form-container">
       <form className="reg-form" onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
@@ -21,6 +22,7 @@ const LoginPage = () => {
         <button type="submit">Register</button>
       </form>
       <button className="link-button">Don't have an account? Register here.</button>
+    </div>
     </div>
   )      
 };
