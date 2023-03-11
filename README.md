@@ -8,14 +8,14 @@ Running Instructions:
 
 Server Instructions:
 
-cd server
-npm i
-nodemon index.js
+- cd server
+- npm i
+- nodemon index.js
 
 App Instructions:
 
-cd app
-npm i
-npm start
+- cd app
+- npm i
+- npm start
 
 PLEASE NOTE: While creating a new event, DO NOT change the item in the textbox directly. Rather, to set date, click on a date in the mini calendar interface. To set time, click on the time below the mini calendar interface. 
