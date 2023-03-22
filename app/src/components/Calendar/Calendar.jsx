@@ -6,6 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import NewEventModal from "./NewEventModal";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./Calendar.css"
 
 const Calendar = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -92,14 +93,20 @@ const Calendar = () => {
 
   if (authenticated) {
     return (
-      <section>
-        <button onClick={() => setModalOpen(true)}>Add New Event</button>
-        <button onClick={handleLogout}>Logout</button>
+    <body>
+      <nav class="logo">
+        YCal
+        <div class="options-container">
+          <button class="nav-button" onClick={() => setModalOpen(true)}>Add New Event</button>
+          <button class="nav-button" onClick={handleLogout}>Logout</button>
+        </div>        
+      </nav>
+      <section>     
         <div style={{ position: "relative", zIndex: 0 }}>
           <FullCalendar
             ref={calendarRef}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            initialView="dayGridMonth"
+            initialView="timeGridWeek"
             events={events}
             eventAdd={(event) => handleEventAdd(event)}
           />
@@ -110,6 +117,7 @@ const Calendar = () => {
           onEventAdded={(event) => onEventAdded(event)}
         />
       </section>
+    </body>
     );
   }
 };

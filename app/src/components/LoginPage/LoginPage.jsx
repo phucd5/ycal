@@ -7,6 +7,9 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const linkStyle = {
+    fontStyle: 'italic'
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,33 +34,31 @@ function LoginPage() {
   };
 
   return (
-    <div>
-      <h2>YCal Login Page</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <div>Email</div>
+    <div class="main-container">
+      <h1>YCal</h1>
+      <div class="entry-container">
+        <form onSubmit={handleSubmit}>
           <input
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
+            placeholder="email"
           />
-        </div>
-        <br></br>
-        <div>
-          <div>Password</div>
           <input
             type="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
+            placeholder="password"
           />
-        </div>
-        <br></br>
-        <button type="submit">Login</button>
-      </form>
+          <button class="submit-button" type="submit">login</button>
+        </form>
+      </div>
       <br></br>
       <div>
-        Need an account?{" "}
-        <Link to="/registration">Register here</Link>
+        {""}
+        <Link to="/registration" style={linkStyle}>
+          need an account? sign up.
+        </Link>
       </div>
     </div>
   );

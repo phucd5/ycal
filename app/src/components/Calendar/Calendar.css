@@ -1,0 +1,41 @@
+* {  
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+.logo {
+    color: white;
+    font-size: 35px;
+    line-height: 80px;
+    padding: 0 50px;
+    font-weight: bold;
+}
+
+.nav-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 15px;
+    line-height: 70px;
+    vertical-align: middle;
+    margin: 0 5px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.options-container {
+    float: right;
+}
+
+nav {
+    background: #0099ffec;
+    height: 80px;
+    width: 100%;
+} 
+
+body {
+    margin: 0px;
+}
+
+section {
+    margin: 20px;
+}

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import './RegistrationPage.css'
+import { Link } from "react-router-dom";
 
 const RegistrationPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -8,6 +10,9 @@ const RegistrationPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const linkStyle = {
+    fontStyle: 'italic'
+  }
 
   const handleRegister = () => {
     axios
@@ -27,35 +32,45 @@ const RegistrationPage = () => {
   };
 
   return (
-    <div>
-      <h2>YCal Registration</h2>
-      <div>First Name</div>
-      <input
-        type="text"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <div>Last Name</div>
-      <input
-        type="text"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-      />
-      <div>Email</div>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <div>Password</div>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+    <div class="main-container">
+      <h1>YCal</h1>
+      <div class="entry-container">
+        <input
+          type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}   
+          placeholder="first name"
+        />
+        
+        <input
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          placeholder="last name"
+        />
+
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="email"
+        />
+
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="password"
+        />
+        <button class="submit-button" onClick={handleRegister}>register</button>
+      </div>
       <br />
-      <br></br>
-      <button onClick={handleRegister}>Register</button>
+      <div>
+        {""}
+        <Link to="/login" style={linkStyle}>
+          already have an account? login.
+        </Link>
+      </div>
     </div>
   );
 };
