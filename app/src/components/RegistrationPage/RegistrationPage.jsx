@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import './RegistrationPage.css'
 import { Link } from "react-router-dom";
+import styled from 'styled-components';
+
 
 const RegistrationPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -10,9 +12,7 @@ const RegistrationPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const linkStyle = {
-    fontStyle: 'italic'
-  }
+
 
   const handleRegister = () => {
     axios
@@ -32,9 +32,10 @@ const RegistrationPage = () => {
   };
 
   return (
-    <div class="main-container">
-      <h1>YCal</h1>
-      <div class="entry-container">
+    <div className="reg-page">
+    <div className="main-container">
+      <div className="ycal-title">YCal</div>
+      <div className="entry-container">
         <input
           type="text"
           value={firstName}
@@ -62,17 +63,24 @@ const RegistrationPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="password"
         />
-        <button class="submit-button" onClick={handleRegister}>register</button>
+        <button className="submit-button" onClick={handleRegister}>register</button>
       </div>
       <br />
       <div>
         {""}
-        <Link to="/login" style={linkStyle}>
+        <StyledLink to="/login">
           already have an account? login.
-        </Link>
+        </StyledLink>
       </div>
+    </div>
     </div>
   );
 };
+
+const StyledLink = styled(Link)`
+  color: #1E1E1E;
+  font-style: italic;
+  text-decoration: underline;
+`;
 
 export default RegistrationPage;
