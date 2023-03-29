@@ -4,7 +4,7 @@ const EventSchema = mongoose.Schema({
   organizer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: false,
+    required: true,
   },
   attendees: {
     type: [mongoose.Schema.Types.ObjectId],
@@ -20,7 +20,11 @@ const EventSchema = mongoose.Schema({
     required: false,
     default: "N/A",
   },
-  date: {
+  start_date: {
+    type: Date,
+    required: true,
+  },
+  end_date: {
     type: Date,
     required: true,
   },

@@ -4,7 +4,6 @@ import {
   getEventById,
   updateEventById,
 } from "../controllers/events.js";
-import { verifyAuth } from "../middleware/auth.js";
 
 const router = express.Router();
 

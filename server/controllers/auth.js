@@ -5,9 +5,9 @@ import {
   handleNotFound,
   handleServerError,
   handleSuccess,
+  handleBadRequest,
 } from "../utils/query_response.js";
 
-//Create a new user
 export const register = async (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
@@ -24,11 +24,10 @@ export const register = async (req, res) => {
     const savedUser = await newUser.save();
     handleSuccess(res, savedUser);
   } catch (err) {
-    handleServerError(res, error);
+    handleServerError(res, err);
   }
 };
 
-//Login
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -39,8 +38,9 @@ export const login = async (req, res) => {
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch)
-      return res.status(400).json({ msg: "Password/Email is incorrect " });
+    if (!isMatch) {
+      return handleBadRequest("Password/Email is incorrect");
+    }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     delete user.password;
