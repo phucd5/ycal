@@ -18,7 +18,7 @@ const EventSchema = mongoose.Schema({
   description: {
     type: String,
     required: false,
-    default: "N/A",
+    default: "",
   },
   start_date: {
     type: Date,
@@ -28,10 +28,15 @@ const EventSchema = mongoose.Schema({
     type: Date,
     required: true,
   },
+  location_marker: {
+    type: String,
+    required: false,
+    default: "None",
+  },
   location: {
     type: String,
     required: false,
-    default: "N/A",
+    default: "",
   },
   createdAt: {
     type: Date,

@@ -22,7 +22,6 @@ export const getUserById = async (req, res) => {
 };
 
 export const getUserFriends = async (req, res) => {
-  console.log("Test");
   try {
     const user = await User.findById(req.params.userId).populate("friends");
 
@@ -69,7 +68,10 @@ export const updateUserFriends = async (req, res) => {
 
     await user.save();
     await friend.save();
-    handleSuccess(res, user.friends);
+
+    const updatedUser = await User.findById(userId).populate("friends");
+
+    handleSuccess(res, updatedUser.friends);
   } catch (err) {
     handleServerError(res, err);
   }
@@ -77,7 +79,10 @@ export const updateUserFriends = async (req, res) => {
 
 export const getUserEvents = async (req, res) => {
   try {
-    const user = await User.findById(req.params.userId).populate("events");
+    const user = await User.findById(req.params.userId).populate({
+      path: "events",
+      populate: { path: "attendees" },
+    });
 
     if (!user) {
       return handleNotFound(res, "User not found");
@@ -109,9 +114,35 @@ export const updateUserEvents = async (req, res) => {
     } else if (action === "remove") {
       user.events.remove(eventId);
     }
+    const events = await Promise.all(
+      user.events.map((eventId) => Event.findById(eventId))
+    );
+
+    events.sort((a, b) => {
+      const startDiff = new Date(a.start_date) - new Date(b.start_date);
+      if (startDiff !== 0) {
+        return startDiff;
+      } else {
+        return new Date(a.end_date) - new Date(b.end_date);
+      }
+    });
+    user.events = events.map((event) => event._id);
+
     await user.save();
     handleSuccess(res, user.events);
   } catch (err) {
     handleServerError(res, err);
+  }
+};
+
+export const getUserByEmail = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    if (!user) {
+      return handleNotFound(res, "User not found");
+    }
+    handleSuccess(res, user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };

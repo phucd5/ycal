@@ -31,7 +31,15 @@ export const getEventById = async (req, res) => {
 
 export const updateEventById = async (req, res) => {
   const { id } = req.params;
-  const { name, description, start_date, end_date, location } = req.body;
+  const {
+    name,
+    description,
+    start_date,
+    end_date,
+    location,
+    attendees,
+    location_marker,
+  } = req.body;
   try {
     const updateFields = {};
     if (name) updateFields.name = name;
@@ -39,6 +47,8 @@ export const updateEventById = async (req, res) => {
     if (start_date) updateFields.start_date = start_date;
     if (end_date) updateFields.end_date = end_date;
     if (location) updateFields.location = location;
+    if (attendees) updateFields.attendees = attendees;
+    if (location_marker) updateFields.location_marker = location_marker;
     updateFields.updatedAt = Date.now();
 
     const event = await Event.findByIdAndUpdate(id, updateFields, {
@@ -54,5 +64,3 @@ export const updateEventById = async (req, res) => {
     handleServerError(res, err);
   }
 };
-
-//"6423c65a09ba2674f950300f"
