@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./Cal.css";
 
 const CreateEventForm = ({ user, setEvents, friends }) => {
-  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -16,10 +16,10 @@ const CreateEventForm = ({ user, setEvents, friends }) => {
     try {
       const response = await axios.post("http://localhost:3002/events/create", {
         organizer: user,
-        name,
+        title,
         description,
-        start_date: startDate,
-        end_date: endDate,
+        start: startDate,
+        end: endDate,
         location,
         userId: user._id,
         location_marker: locationMarker,
@@ -48,7 +48,7 @@ const CreateEventForm = ({ user, setEvents, friends }) => {
           console.log(updatedEvents);
           return updatedEvents;
         });
-        setName("");
+        setTitle("");
         setDescription("");
         setStartDate("");
         setEndDate("");
@@ -71,9 +71,9 @@ const CreateEventForm = ({ user, setEvents, friends }) => {
         <input
           type="text"
           id="name"
-          value={name}
+          value={title}
           className="input-box"
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
           required
         />
       </div>

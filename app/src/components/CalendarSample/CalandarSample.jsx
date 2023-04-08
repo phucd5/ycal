@@ -1,6 +1,10 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import React, { useState, useEffect, useRef } from "react";
 import FriendsCalandar from "./FriendsCalandar";
 import CreateEventForm from "./CreateEventForm";
 import FindFriend from "./FindFriend";
@@ -19,6 +23,39 @@ const CalendarSample = () => {
     end_date: "",
     location: "",
   });
+  const calendarRef = useRef(null);
+  const calendar_fake = [
+    {
+      title: "Meeting with John",
+      start: "2023-04-12T10:30:00",
+      end: "2023-04-12T12:00:00",
+      color: "#36c7d0",
+    },
+    {
+      title: "Product launch",
+      start: "2023-04-16T13:00:00",
+      end: "2023-04-16T15:00:00",
+      color: "#f77b7b",
+    },
+    {
+      title: "Team building",
+      start: "2023-04-20T09:00:00",
+      end: "2023-04-20T17:00:00",
+      color: "#2a9d8f",
+    },
+    {
+      title: "Deadline for project X",
+      start: "2023-04-23T12:00:00",
+      end: "2023-04-23T16:00:00",
+      color: "#fcbf49",
+    },
+    {
+      title: "Conference call with partners",
+      start: "2023-04-28T16:30:00",
+      end: "2023-04-28T17:30:00",
+      color: "#e76f51",
+    },
+  ];
 
   async function removeFriend() {
     try {
@@ -41,6 +78,7 @@ const CalendarSample = () => {
         `http://localhost:3002/users/${user._id}/events`
       );
       setEvents(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -171,10 +209,10 @@ const CalendarSample = () => {
         <tbody>
           {events.map((event) => (
             <tr key={event._id}>
-              <td>{event.name}</td>
+              <td>{event.title}</td>
               <td>{event.description}</td>
-              <td>{event.start_date}</td>
-              <td>{event.end_date}</td>
+              <td>{event.start}</td>
+              <td>{event.end}</td>
               <td>{event.location}</td>
               <td>{event.location_marker}</td>
               <td>
@@ -195,6 +233,15 @@ const CalendarSample = () => {
           ))}
         </tbody>
       </table>
+      <div>
+        <FullCalendar
+          timeZone="UTC"
+          ref={calendarRef}
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          initialView="timeGridWeek"
+          events={events}
+        />
+      </div>
       {selectedFriendId && <FriendsCalandar friendId={selectedFriendId} />}
       <CreateEventForm user={user} setEvents={setEvents} friends={friends} />
     </div>

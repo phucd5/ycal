@@ -11,7 +11,7 @@ const EventSchema = mongoose.Schema({
     ref: "User",
     default: [],
   },
-  name: {
+  title: {
     type: String,
     required: true,
   },
@@ -20,11 +20,11 @@ const EventSchema = mongoose.Schema({
     required: false,
     default: "",
   },
-  start_date: {
+  start: {
     type: Date,
     required: true,
   },
-  end_date: {
+  end: {
     type: Date,
     required: true,
   },
