@@ -5,9 +5,9 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import React, { useState, useEffect, useRef } from "react";
-import FriendsCalandar from "./FriendsCalandar";
+import FriendsCalandar from "../Calendar/FriendsCalandar";
 import CreateEventForm from "./CreateEventForm";
-import FindFriend from "./FindFriend";
+import FindFriend from "../Calendar/FindFriend";
 
 const CalendarSample = () => {
   const navigate = useNavigate();

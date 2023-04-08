@@ -56,9 +56,9 @@ const handleSubmit = async (event) => {
       <br></br>
       <div>
         {""}
-        <StyledLink to="/registration">
+        <Link to="/registration">
           need an account? sign up.
-        </StyledLink>
+        </Link>
       </div>
     </div>
     </div>
