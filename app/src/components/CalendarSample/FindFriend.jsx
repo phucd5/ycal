@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./Cal.css";
+
 
 const FindFriend = ({ user, setFriends }) => {
   const [email, setEmail] = useState("");

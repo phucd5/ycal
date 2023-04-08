@@ -6,6 +6,7 @@ import CalendarSample from "./components/CalendarSample/CalandarSample";
 import RegistrationPage from "./components/RegistrationPage/RegistrationPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./components/LoginPage/LoginPage";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 Modal.setAppElement("#root");
 function App() {

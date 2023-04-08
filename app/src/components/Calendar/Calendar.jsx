@@ -7,7 +7,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import React, { useState, useEffect, useRef } from "react";
 import FriendsCalandar from "./FriendsCalandar";
 import CreateEventForm from "../CalendarSample/CreateEventForm";
-import FindFriend from "./FindFriend";
+import AddFriend from "./AddFriend";
 
 
 const CalendarSample = () => {
@@ -162,7 +162,7 @@ const CalendarSample = () => {
   return (
     <div>
       <h2>Friends:</h2>
-
+      <AddFriend user={user} setFriends={setFriends} />
       <table>
         <thead>
           <tr>
@@ -192,7 +192,7 @@ const CalendarSample = () => {
       </table>
       <br />
       <br />
-      <FindFriend user={user} setFriends={setFriends} />
+
 
       <h2>My Events:</h2>
       <table>

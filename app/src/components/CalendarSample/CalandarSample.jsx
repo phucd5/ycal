@@ -7,7 +7,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import React, { useState, useEffect, useRef } from "react";
 import FriendsCalandar from "../Calendar/FriendsCalandar";
 import CreateEventForm from "./CreateEventForm";
-import FindFriend from "../Calendar/FindFriend";
+import FindFriend from "../Calendar/AddFriend";
 
 const CalendarSample = () => {
   const navigate = useNavigate();
