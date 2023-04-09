@@ -1,10 +1,21 @@
 import axios from "axios";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef} from "react";
+import Button from "react-bootstrap/Button"
+import Modal from 'react-bootstrap/Modal';
 
 const FriendsCalandar = ({ friendId }) => {
   const [events, setEvents] = useState([]);
   const [friend, setFriend] = useState([]);
+  const [show, setShow] = useState(false);
+  const calendarRef = useRef(null);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const fetchFriend = async () => {
     try {
@@ -33,43 +44,33 @@ const FriendsCalandar = ({ friendId }) => {
     fetchFriend();
   }, [friendId]);
 
-  if (events.length === 0) {
-    return  (
-      <div>
-        <h2>{friend.firstName}'s Events</h2>
-        <p>No events to display for this friend</p>
-      </div>
-    )
-  }
-
   return (
-    <div>
-      <h2>{friend.firstName}'s Events</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Location</th>
-            <th>Yale Location</th>
-          </tr>
-        </thead>
-        <tbody>
-          {events.map((event) => (
-            <tr key={event._id}>
-              <td>{event.name}</td>
-              <td>{event.description}</td>
-              <td>{event.start_date}</td>
-              <td>{event.end_date}</td>
-              <td>{event.location}</td>
-              <td>{event.location}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <>
+      <Button variant="primary" onClick={handleShow}>View Calendar</Button>
+      <Modal
+        size='lg'
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="friends-calendar-title">
+            {friend.firstName}'s Events
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <FullCalendar
+            timeZone="UTC"
+            ref={calendarRef}
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            initialView="timeGridWeek"
+            events={events}
+          />
+        </Modal.Body>
+      </Modal>
+
+    </>
   );
 };
 

@@ -19,7 +19,8 @@ const CreateEventForm = ({ user, setEvents, friends }) => {
   const handleShow =  () => setShow(true);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    handleClose()
+    e.preventDefault();
     try {
       const response = await axios.post("http://localhost:3002/events/create", {
         organizer: user,
@@ -73,7 +74,7 @@ const CreateEventForm = ({ user, setEvents, friends }) => {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Submit
+        New Event
       </Button>
 
       <Modal
@@ -87,6 +88,17 @@ const CreateEventForm = ({ user, setEvents, friends }) => {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
+            <Form.Group>
+              <Form.Label>Title:</Form.Label>
+              <Form.Control
+                type="text"
+                value={title}
+                className="input-box"
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <br />
             <Form.Group>
               <Form.Label>Description:</Form.Label>
               <Form.Control
@@ -159,12 +171,12 @@ const CreateEventForm = ({ user, setEvents, friends }) => {
                   ))}
               </Form.Select>
             </Form.Group>
+            <Button variant="primary" type="submit">
+                  Submit
+            </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" type="submit">
-                Submit
-          </Button>
+        <Modal.Footer>          
         </Modal.Footer>
       </Modal>
     </>

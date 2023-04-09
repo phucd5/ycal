@@ -6,11 +6,21 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import React, { useState, useEffect, useRef } from "react";
 import FriendsCalandar from "./FriendsCalandar";
-import CreateEventForm from "../CalendarSample/CreateEventForm";
+import CreateEventForm from "./CreateEventForm";
 import AddFriend from "./AddFriend";
+import EventDetails from "./EventDetails";
+import AddCourse from "./AddCourse"
 
 
-const CalendarSample = () => {
+
+const Calendar = () => {
+  const [modalShow, setModalShow] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const handleModalShow = () => setModalShow(true);
+  const handleModalClose = () => setModalShow(false);
+  const handleSelectedEvent = (event) => setSelectedEvent(event)
+
   const navigate = useNavigate();
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
@@ -159,6 +169,13 @@ const CalendarSample = () => {
     }
   };
 
+  const handleEventClick = (info) => {      
+      handleSelectedEvent(info.event)
+      console.log(info.event);
+      console.log("Test", );
+      handleModalShow();
+  };
+
   return (
     <div>
       <h2>Friends:</h2>
@@ -182,19 +199,24 @@ const CalendarSample = () => {
                 >
                   Delete Friend
                 </button>
-                <button onClick={() => handleViewFriendCal(friend._id)}>
-                  View Calandar
-                </button>
+                <FriendsCalandar friendId={friend._id}></FriendsCalandar>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
       <br />
+      
+      <h2>Courses:</h2>
+        <AddCourse 
+            user={user}
+            setEvents={setEvents}
+            friends={friends}></AddCourse>
       <br />
-
-
+      <br />
+      
       <h2>My Events:</h2>
+      <CreateEventForm user={user} setEvents={setEvents} friends={friends} />
       <table>
         <thead>
           <tr>
@@ -241,12 +263,21 @@ const CalendarSample = () => {
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView="timeGridWeek"
           events={events}
+          eventClick= {(info) => handleEventClick(info)}
         />
       </div>
-      {selectedFriendId && <FriendsCalandar friendId={selectedFriendId} />}
-      <CreateEventForm user={user} setEvents={setEvents} friends={friends} />
+      <EventDetails             
+            event={selectedEvent}     
+            events={events}       
+            show={modalShow}
+            handleClose={handleModalClose}
+            handleDelete={handleDelete}
+            handleAttendDelete={handleAttendDelete}
+            fetchEvents={fetchEvents}
+            >                
+      </EventDetails>
     </div>
   );
 };
 
-export default CalendarSample;
+export default Calendar;
