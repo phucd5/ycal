@@ -25,7 +25,9 @@ const Calendar = () => {
   const [user, setUser] = useState(null);
   const [events, setEvents] = useState([]);
   const [friends, setFriends] = useState([]);
+  const [classes, setClasses] = useState([]);
   const [selectedFriendId, setSelectedFriendId] = useState(null);
+  const [mergeSchedule, setMergeSchedule] = useState(null);
   const [eventCreateData, setEventCreateData] = useState({
     name: "",
     description: "",
@@ -34,39 +36,6 @@ const Calendar = () => {
     location: "",
   });
   const calendarRef = useRef(null);
-  const calendar_fake = [
-    {
-      title: "Meeting with John",
-      start: "2023-04-12T10:30:00",
-      end: "2023-04-12T12:00:00",
-      color: "#36c7d0",
-    },
-    {
-      title: "Product launch",
-      start: "2023-04-16T13:00:00",
-      end: "2023-04-16T15:00:00",
-      color: "#f77b7b",
-    },
-    {
-      title: "Team building",
-      start: "2023-04-20T09:00:00",
-      end: "2023-04-20T17:00:00",
-      color: "#2a9d8f",
-    },
-    {
-      title: "Deadline for project X",
-      start: "2023-04-23T12:00:00",
-      end: "2023-04-23T16:00:00",
-      color: "#fcbf49",
-    },
-    {
-      title: "Conference call with partners",
-      start: "2023-04-28T16:30:00",
-      end: "2023-04-28T17:30:00",
-      color: "#e76f51",
-    },
-  ];
-
   async function removeFriend() {
     try {
       const response = await axios.put(
@@ -94,6 +63,24 @@ const Calendar = () => {
     }
   }
 
+  async function fetchClasses() {
+    const allClass = [];
+    const classesResponse = await axios.get(`http://localhost:3002/users/${user._id}/classes`);
+    const classesData = classesResponse.data;
+
+
+    for (const classObj of classesData) {
+      const scheduleResponse = await axios.get(`http://localhost:3002/yclasses/${classObj._id}/schedule`);
+      const scheduleData = scheduleResponse.data;
+    
+      for (const scheduleStuff of scheduleData) {
+        allClass.push(scheduleStuff);
+      }
+    }
+
+    setClasses(allClass);
+  }
+
   async function fetchFriends() {
     try {
       const response = await axios.get(
@@ -103,6 +90,12 @@ const Calendar = () => {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async function mergeTheSchedule() {
+    setMergeSchedule([...events, ...classes])
+    console.log("MERGE SCHEDULE", mergeSchedule);
+
   }
 
   useEffect(() => {
@@ -122,7 +115,16 @@ const Calendar = () => {
   useEffect(() => {
     if (user && user._id) {
       fetchEvents();
+      fetchClasses();
       fetchFriends();
+      mergeTheSchedule();
+      // console.log("CLASS PRINT", {...events, ...classes
+      // })
+
+      console.log(events)
+      // setEvents(events.concat(classes))
+      // console.log("CLASSES CONCAT", classes)
+      // console.log(events.concat(classes))
     }
   }, [user]);
 
@@ -214,7 +216,7 @@ const Calendar = () => {
           <AddCourse 
               user={user}
               setEvents={setEvents}
-              friends={friends}></AddCourse>
+              events={events}></AddCourse>
       </div>
       <h2>My Calendar</h2>
       <div class="item events-item">
@@ -227,7 +229,7 @@ const Calendar = () => {
             ref={calendarRef}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             initialView="timeGridWeek"
-            events={events}
+            events={[...events, ...classes]}
             eventClick= {(info) => handleEventClick(info)}
           />
         </div>

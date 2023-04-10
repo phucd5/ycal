@@ -1,24 +1,10 @@
 import mongoose from "mongoose";
 
-const EventSchema = mongoose.Schema({
-	organizer: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "User",
-		required: true,
-	},
-	attendees: {
-		type: [mongoose.Schema.Types.ObjectId],
-		ref: "User",
-		default: [],
-	},
-	title: {
-		type: String,
-		required: true,
-	},
-	description: {
+const YClassEventSchema = mongoose.Schema({
+	color: {
 		type: String,
 		required: false,
-		default: "",
+		default: "#90ee90",
 	},
 	start: {
 		type: Date,
@@ -41,7 +27,7 @@ const EventSchema = mongoose.Schema({
 	isClass: {
 		type: Boolean,
 		required: false,
-		default: false,
+		default: true,
 	},
 	createdAt: {
 		type: Date,
@@ -53,5 +39,5 @@ const EventSchema = mongoose.Schema({
 	},
 });
 
-const Event = mongoose.model("Event", EventSchema);
-export default Event;
+const YClassEvent = mongoose.model("YClassEvent", YClassEventSchema);
+export default YClassEvent;

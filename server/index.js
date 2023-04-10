@@ -11,6 +11,8 @@ import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import eventRoutes from "./routes/events.js";
+import yClassRoutes from "./routes/yclass.js";
+import yClassEventRoutes from "./routes/yclassevents.js";
 
 // Boilerplate Configurations
 const __filename = fileURLToPath(import.meta.url);
@@ -30,18 +32,20 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/events", eventRoutes);
+app.use("/yclasses", yClassRoutes);
+app.use("/yclassevents", yClassEventRoutes);
 
 //MongoDB database
 const PORT = process.env.PORT || 6001;
 console.log(process.env.MONGO_URL);
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    app.listen(PORT, () =>
-      console.log(`Connected to Database at Port: ${PORT}`)
-    );
-  })
-  .catch((error) => console.log(`${error}`));
+	.connect(process.env.MONGO_URL, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
+	.then(() => {
+		app.listen(PORT, () =>
+			console.log(`Connected to Database at Port: ${PORT}`)
+		);
+	})
+	.catch((error) => console.log(`${error}`));

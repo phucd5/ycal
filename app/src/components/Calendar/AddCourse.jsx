@@ -5,35 +5,59 @@ import Button from "react-bootstrap/Button"
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form'
 
-const AddCourse = ({user, setEvents, friends}) => {
+const AddCourse = ({user, setEvents, events}) => {
   const [show, setShow] = useState(false);
+  const [courseCode, setcourseCode] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handleCourseChange = (course) => {
+    setcourseCode(course.target.value);
+  }
 
   const handleAddCourse = async (event) => {
     event.preventDefault();
 
-    // try {
-    //   const response = await axios.get(
-    //     `http://localhost:3002/users/${email}/email`
-    //   );
-    //   try {
-    //     const response_2 = await axios.put(
-    //       `http://localhost:3002/users/${user._id}/friends`,
-    //       {
-    //         friendId: response.data._id,
-    //         action: "add",
-    //       }
-    //     );
-    //     setFriends(response_2.data);
-    //   } catch (error) {
-    //     alert("Person is already in your friend's list!");
-    //   }
-    // } catch (error) {
-    //   alert("Can't find friend", error);
-    // }
+    try {
+      //course
+      console.log("COURSE CODDE")
+      console.log("COURSE CODE", courseCode);
+      const response = await axios.get(
+        `http://localhost:3002/yclasses/${courseCode}/name`
+        
+      );
+      console.log("Response pass 1", response.data);
+      try {
+     const response_2 = await axios.put(
+          `http://localhost:3002/users/${user._id}/classes`,
+          {
+            classId: response.data._id,
+            action: "add",
+          }
+          
+        );
+        // console.log("Response 2 pass", response_2.data);
+        // try {
+        //   //getting schedule
+        //   const response_3 = await axios.put(
+        //     `http://localhost:3002/yclasses/${response._id}/schedule`
+        //   );
+
+        //   const mergedEvents =  events.concat(response_3.data);
+        //   setEvents(mergedEvents)
+        //   console.log(mergedEvents)
+
+        // } catch (err) {
+        //   console.log(err)
+        // }
+        window.location.reload(true);
+      } catch (error) {
+        alert("Course is already in your list");
+      }
+    } catch (error) {
+      alert("Can't find course", error);
+    }
   };
 
   return (
@@ -60,6 +84,8 @@ const AddCourse = ({user, setEvents, friends}) => {
                   type="courseCode"
                   id="courseCode"
                   placeholder="CPSC419"
+                  value={courseCode}
+                  onChange={handleCourseChange}
                 />
                 <Button type="submit">Add Course</Button>
               </Form.Group>
