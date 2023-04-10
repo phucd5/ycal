@@ -19,3 +19,5 @@ App Instructions:
 - npm start
 
 PLEASE NOTE: While creating a new event, DO NOT change the item in the textbox directly. Rather, to set date, click on a date in the mini calendar interface. To set time, click on the time below the mini calendar interface. 
+
+NOTE: Script is still populating courses so right now to test the feature would recommend: CPSC 490, CPSC 223, CPSC 323.
