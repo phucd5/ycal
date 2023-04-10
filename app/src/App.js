@@ -2,7 +2,6 @@ import React from "react";
 import Modal from "react-modal";
 import "./App.css";
 import Calendar from "./components/Calendar/Calendar";
-import CalendarSample from "./components/CalendarSample/CalandarSample";
 import RegistrationPage from "./components/RegistrationPage/RegistrationPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./components/LoginPage/LoginPage";
@@ -18,7 +17,6 @@ function App() {
           <Route path="/registration" element={<RegistrationPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/calendar" element={<Calendar />} />
-          <Route path="/calendarsample" element={<CalendarSample />} />
         </Routes>
       </BrowserRouter>
     </div>

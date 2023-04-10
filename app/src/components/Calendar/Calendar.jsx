@@ -1,3 +1,4 @@
+import "./Calendar.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import FullCalendar from "@fullcalendar/react";
@@ -10,8 +11,6 @@ import CreateEventForm from "./CreateEventForm";
 import AddFriend from "./AddFriend";
 import EventDetails from "./EventDetails";
 import AddCourse from "./AddCourse"
-
-
 
 const Calendar = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -178,104 +177,72 @@ const Calendar = () => {
 
   return (
     <div>
-      <h2>Friends:</h2>
-      <AddFriend user={user} setFriends={setFriends} />
-      <table>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {friends.map((friend) => (
-            <tr key={friend._id}>
-              <td>{friend.firstName}</td>
-              <td>{friend.lastName}</td>
-              <td>
-                <button
-                  style={{ marginRight: "15px" }}
-                  onClick={() => handleRemoveFriend(friend._id)}
-                >
-                  Delete Friend
-                </button>
-                <FriendsCalandar friendId={friend._id}></FriendsCalandar>
-              </td>
+      <h1> YCal </h1>
+    <div class="container">
+      <div class="item friends-item">
+        <h2>Friends:</h2>
+        <AddFriend user={user} setFriends={setFriends} />
+        <table>
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <br />
-      
-      <h2>Courses:</h2>
-        <AddCourse 
-            user={user}
-            setEvents={setEvents}
-            friends={friends}></AddCourse>
-      <br />
-      <br />
-      
-      <h2>My Events:</h2>
-      <CreateEventForm user={user} setEvents={setEvents} friends={friends} />
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Location</th>
-            <th>Yale Location</th>
-            <th>Attendees</th>
-          </tr>
-        </thead>
-        <tbody>
-          {events.map((event) => (
-            <tr key={event._id}>
-              <td>{event.title}</td>
-              <td>{event.description}</td>
-              <td>{event.start}</td>
-              <td>{event.end}</td>
-              <td>{event.location}</td>
-              <td>{event.location_marker}</td>
-              <td>
-                {event.attendees.map((attendee) => (
-                  <div
-                    key={attendee._id}
-                    style={{ textDecoration: "underline", cursor: "pointer" }}
-                    onClick={() => handleAttendDelete(event, attendee._id)}
+          </thead>
+          <tbody>
+            {friends.map((friend) => (
+              <tr key={friend._id}>
+                <td>{friend.firstName}</td>
+                <td>{friend.lastName}</td>
+                <td>
+                  <button
+                    style={{ marginRight: "15px" }}
+                    onClick={() => handleRemoveFriend(friend._id)}
                   >
-                    {attendee.firstName} {attendee.lastName}
-                  </div>
-                ))}
-              </td>
-              <td>
-                <button onClick={() => handleDelete(event._id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div>
-        <FullCalendar
-          timeZone="UTC"
-          ref={calendarRef}
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          initialView="timeGridWeek"
-          events={events}
-          eventClick= {(info) => handleEventClick(info)}
-        />
+                    Delete Friend
+                  </button>
+                  <FriendsCalandar friendId={friend._id}></FriendsCalandar>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      <EventDetails             
-            event={selectedEvent}     
-            events={events}       
-            show={modalShow}
-            handleClose={handleModalClose}
-            handleDelete={handleDelete}
-            handleAttendDelete={handleAttendDelete}
-            fetchEvents={fetchEvents}
-            >                
-      </EventDetails>
+      
+      <div class="item courses-item">
+        <h2>Courses:</h2>
+          <AddCourse 
+              user={user}
+              setEvents={setEvents}
+              friends={friends}></AddCourse>
+      </div>
+      <h2>My Calendar</h2>
+      <div class="item events-item">
+        <CreateEventForm user={user} setEvents={setEvents} friends={friends} />
+      </div>
+      <div class="item calendar-item">
+        <div>
+          <FullCalendar
+            timeZone="UTC"
+            ref={calendarRef}
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            initialView="timeGridWeek"
+            events={events}
+            eventClick= {(info) => handleEventClick(info)}
+          />
+        </div>
+        <EventDetails             
+              event={selectedEvent}     
+              events={events}       
+              show={modalShow}
+              handleClose={handleModalClose}
+              handleDelete={handleDelete}
+              handleAttendDelete={handleAttendDelete}
+              fetchEvents={fetchEvents}
+              >                
+        </EventDetails>
+      </div>
+    </div>
     </div>
   );
 };
