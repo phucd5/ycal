@@ -1,68 +1,67 @@
-* {  
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  }
+* {
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
 .logo {
-    color: rgb(255, 255, 255);
-    font-size: 35px;
-    line-height: 80px;
-    padding: 0 50px;
-    font-weight: bold;
+	color: rgb(255, 255, 255);
+	font-size: 35px;
+	line-height: 80px;
+	padding: 0 50px;
+	font-weight: bold;
 }
 
 .container {
-    display: grid;
-    grid-template-rows: auto; /* two rows with equal height */
-    grid-template-columns: auto; /* three columns with equal width */
-    grid-row-gap: 40px; /* spacing between grid cells */
+	display: grid;
+	grid-template-rows: auto; /* two rows with equal height */
+	grid-template-columns: auto; /* three columns with equal width */
+	grid-row-gap: 40px; /* spacing between grid cells */
 }
 
 .friends-item {
-    grid-row: 1 / span 1; /* occupies the first row */
-    grid-column: 1 / span 1; /* occupies the first column */
+	grid-row: 1 / span 1; /* occupies the first row */
+	grid-column: 1 / span 1; /* occupies the first column */
 }
- 
+
 .courses-item {
-    grid-row: 1 / span 1; /* occupies the first row */
-    grid-column: 2 / span 1; /* occupies the second column */
+	grid-row: 1 / span 1; /* occupies the first row */
+	grid-column: 2 / span 1; /* occupies the second column */
 }
 
 .events-item {
-    justify-self: end;
+	justify-self: end;
 }
 
 .calendar-item {
-    grid-row: 3 / span 1; /* occupies the second row */
-    grid-column: 1 / span 2; /* occupies all three columns in the first row */
+	grid-row: 3 / span 1; /* occupies the second row */
+	grid-column: 1 / span 2; /* occupies all three columns in the first row */
 }
-  
 
 .nav-button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 15px;
-    line-height: 70px;
-    vertical-align: middle;
-    margin: 0 5px;
-    font-weight: bold;
-    display: inline-block;
+	background: none;
+	border: none;
+	color: white;
+	font-size: 15px;
+	line-height: 70px;
+	vertical-align: middle;
+	margin: 0 5px;
+	font-weight: bold;
+	display: inline-block;
 }
 
 .options-container {
-    float: right;
+	float: right;
 }
 
 nav {
-    background: #0099ffec;
-    height: 80px;
-    width: 100%;
-} 
+	background: #0099ffec;
+	height: 80px;
+	width: 100%;
+}
 
 body {
-    margin: 0px;
+	margin: 0px;
 }
 
 section {
-    margin: 20px;
+	margin: 20px;
 }
