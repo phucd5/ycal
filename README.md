@@ -26,3 +26,4 @@ TO DO:
 
 - Add friend request system
 - Finish getting courses from YSC
+
