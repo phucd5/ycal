@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/button";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const CreateEventForm = ({ user, setEvents, friends }) => {
 	const [title, setTitle] = useState("");

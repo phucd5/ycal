@@ -1,12 +1,13 @@
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect, useRef } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 
 const FriendsCalandar = ({ friendId }) => {
 	const [events, setEvents] = useState([]);
