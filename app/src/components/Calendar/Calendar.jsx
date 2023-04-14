@@ -166,8 +166,8 @@ const Calendar = () => {
 				<div class="item events-item">
 					<CreateEventForm
 						user={user}
-						setEvents={setEvents}
 						friends={friends}
+						fetchEvents={fetchEvents}
 					/>
 				</div>
 				<div class="item calendar-item">

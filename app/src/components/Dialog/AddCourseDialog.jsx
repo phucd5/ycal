@@ -4,7 +4,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
-const AddCourseDialog = ({ user, setEvents, events }) => {
+const AddCourseDialog = (props) => {
+	const { user, setEvents, events } = props
 	const [show, setShow] = useState(false);
 	const [courseCode, setcourseCode] = useState(false);
 

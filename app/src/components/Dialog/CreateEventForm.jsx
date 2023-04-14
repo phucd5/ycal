@@ -7,7 +7,8 @@ import Button from "react-bootstrap/button";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const CreateEventForm = ({ user, setEvents, friends }) => {
+const CreateEventForm = (props) => {
+	const { user, friends, fetchEvents } = props;
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [startDate, setStartDate] = useState("");
@@ -45,10 +46,7 @@ const CreateEventForm = ({ user, setEvents, friends }) => {
 						action: "add",
 					}
 				);
-				setEvents((prevEvents) => {
-					const updatedEvents = [...prevEvents, response.data];
-					return updatedEvents;
-				});
+				fetchEvents();
 				setTitle("");
 				setDescription("");
 				setStartDate("");

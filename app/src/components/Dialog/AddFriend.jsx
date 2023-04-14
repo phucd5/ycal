@@ -4,7 +4,9 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
-const AddFriendDialog = ({ user, setFriends }) => {
+const AddFriendDialog = (props) => {
+	const { user, setFriends } = props;
+
 	const [email, setEmail] = useState("");
 	const [show, setShow] = useState(false);
 
