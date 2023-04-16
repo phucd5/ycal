@@ -7,23 +7,15 @@ const YClassSchema = new mongoose.Schema({
 	},
 	classTitle: {
 		type: String,
-		required: false,
+		required: true,
+	},
+	displayName: {
+		type: String,
+		required: true,
 	},
 	sectionNumber: {
 		type: String,
-		required: false,
-	},
-	cSectionStatus: {
-		type: String,
-		required: false,
-	},
-	sectionStatus: {
-		type: String,
-		required: false,
-	},
-	time: {
-		type: String,
-		required: false,
+		required: true,
 	},
 	location: {
 		type: String,
@@ -31,7 +23,7 @@ const YClassSchema = new mongoose.Schema({
 	},
 	period: {
 		type: String,
-		required: false,
+		required: true,
 	},
 	schedule: [
 		{

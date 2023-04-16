@@ -191,7 +191,11 @@ async function printYaleCourses() {
 	console.log("Courses and events added to database.");
 }
 
-printYaleCourses();
+// printYaleCourses();
+
+const meetingPattern = ["TTh 1.00-2.15", "1 HTBA LUCE 101"];
+
+// console.log(mapDays(parseMeetingPattern(meetingPattern)));
 
 // async function printYaleCourses() {
 // 	await fetchCourses();
@@ -201,8 +205,8 @@ printYaleCourses();
 
 // printYaleCourses();
 
-// const new_obj = generateNewList(mapDays(parseMeetingPattern(meetingPattern)));
-// console.log(new_obj);
+const new_obj = generateNewList(mapDays(parseMeetingPattern(meetingPattern)));
+console.log(new_obj);
 
 // const newList = generateNewList(new_obj, startDate, endDate);
 // console.log(newList);

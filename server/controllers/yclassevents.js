@@ -31,10 +31,11 @@ export const getYClassEventById = async (req, res) => {
 
 export const updateEventById = async (req, res) => {
 	const { id } = req.params;
-	const { className, color, start, end, location_marker, location } =
+	const { className, title, color, start, end, location_marker, location } =
 		req.body;
 	try {
 		const updateFields = {};
+		if (title) updateFields.title = title;
 		if (className) updateFields.className = className;
 		if (color) updateFields.color = color;
 		if (start) updateFields.start = color;

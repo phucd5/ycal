@@ -30,10 +30,27 @@ export const getYClassById = async (req, res) => {
 	}
 };
 
+// export const getYClassByName = async (req, res) => {
+// 	const searchTerm = req.params.className;
+// 	try {
+// 		const YClassResponse = await YClass.find({
+// 			$text: { $search: searchTerm },
+// 		});
+
+// 		if (!YClassResponse.length) {
+// 			return handleNotFound(res, "No classes found matching search term");
+// 		}
+
+// 		handleSuccess(res, YClassResponse);
+// 	} catch (err) {
+// 		handleServerError(res, err);
+// 	}
+// };
+
 export const getYClassByName = async (req, res) => {
 	try {
 		const YClassResponse = await YClass.findOne({
-			className: req.params.className,
+			displayName: req.params.className,
 		});
 		if (!YClassResponse) {
 			return handleNotFound(res, "Class not found");
@@ -96,6 +113,7 @@ export const updateYClassById = async (req, res) => {
 	const {
 		className,
 		classTitle,
+		displayName,
 		sectionNumber,
 		cSectionStatus,
 		sectionStatus,
@@ -107,6 +125,7 @@ export const updateYClassById = async (req, res) => {
 
 	try {
 		const updateFields = {};
+		if (displayName) updateFields.displayName = displayName;
 		if (className) updateFields.className = className;
 		if (sectionNumber) updateFields.sectionNumber = sectionNumber;
 		if (cSectionStatus) updateFields.cSectionStatus = cSectionStatus;

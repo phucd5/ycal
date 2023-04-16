@@ -1,6 +1,15 @@
 import mongoose from "mongoose";
 
 const YClassEventSchema = mongoose.Schema({
+	class: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "YClass",
+		required: true,
+	},
+	title: {
+		type: String,
+		required: true,
+	},
 	color: {
 		type: String,
 		required: false,
