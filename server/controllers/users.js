@@ -197,3 +197,67 @@ export const updateUserClasses = async (req, res) => {
 		handleServerError(res, err);
 	}
 };
+
+export const getUserFriendRequests = async (req, res) => {
+	console.log("FRiend request");
+	try {
+		const user = await User.findById(req.params.userId).populate(
+			"friend_requests"
+		);
+
+		if (!user) {
+			return handleNotFound(res, "User not found");
+		}
+
+		handleSuccess(res, user.friend_requests);
+	} catch (err) {
+		handleServerError(res, err);
+	}
+};
+
+export const updateUserFriendRequests = async (req, res) => {
+	console.log("UPDATE");
+	const { userId } = req.params;
+	const { friendId, action } = req.body;
+
+	try {
+		if (userId == friendId) {
+			return handleBadRequest("You can't friend yourself!");
+		}
+
+		const user = await User.findById(userId);
+		const friend = await User.findById(friendId);
+
+		if (!user) {
+			return handleNotFound(res, "User not found");
+		} else if (!friend) {
+			return handleNotFound(res, "Friend not found");
+		}
+
+		if (action === "add") {
+			if (friend.friend_requests.includes(userId)) {
+				return handleBadRequest(res, "Friend request already sent!");
+			} else if (user.friends.includes(friendId)) {
+				return handleBadRequest(
+					res,
+					"Friend is already in user's friend list"
+				);
+			}
+			// user.friend_requests.push(friendId);
+			friend.friend_requests.push(userId);
+			//Remember to only have it one sided
+		} else if (action === "remove") {
+			// user.friend_requests.remove(friendId);
+			user.friend_requests.remove(friendId);
+		} else {
+			return handleNotFound(res, "Invalid action");
+		}
+
+		await friend.save();
+		await user.save();
+
+		handleSuccess(res, friend.friend_requests);
+	} catch (err) {
+		handleServerError(res, err);
+	}
+};

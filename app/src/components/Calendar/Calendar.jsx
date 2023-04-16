@@ -27,6 +27,7 @@ const Calendar = () => {
 	const [user, setUser] = useState(null);
 	const [events, setEvents] = useState([]);
 	const [friends, setFriends] = useState([]);
+	const [friendRequests, setFriendRequests] = useState([]);
 	const [classes, setClasses] = useState([]);
 	const calendarRef = useRef(null);
 
@@ -45,6 +46,7 @@ const Calendar = () => {
 			fetchEvents();
 			fetchClasses();
 			fetchFriends();
+			fetchFriendRequests();
 		}
 	}, [user]);
 
@@ -80,6 +82,18 @@ const Calendar = () => {
 		setClasses(allClass);
 	}
 
+	async function fetchFriendRequests() {
+		console.log("Fetching fr");
+		try {
+			const response = await axios.get(
+				`http://localhost:3002/users/${user._id}/friendrequests`
+			);
+			setFriendRequests(response.data);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
 	async function fetchFriends() {
 		try {
 			const response = await axios.get(
@@ -90,6 +104,29 @@ const Calendar = () => {
 			console.error(error);
 		}
 	}
+
+	const handleAddFriend = async (friendId, friendEmail) => {
+		try {
+			const response = await axios.get(
+				`http://localhost:3002/users/${friendEmail}/email`
+			);
+			try {
+				const response_2 = await axios.put(
+					`http://localhost:3002/users/${user._id}/friends`,
+					{
+						friendId: response.data._id,
+						action: "add",
+					}
+				);
+				setFriends(response_2.data);
+				handleRemoveFriendRequest(friendId);
+			} catch (error) {
+				alert("Person is already in your friend's list!");
+			}
+		} catch (error) {
+			alert("Can't find friend", error);
+		}
+	};
 
 	const handleRemoveFriend = async (friendId) => {
 		try {
@@ -106,6 +143,21 @@ const Calendar = () => {
 		}
 	};
 
+	const handleRemoveFriendRequest = async (friendId) => {
+		try {
+			const response = await axios.put(
+				`http://localhost:3002/users/${user._id}/friendrequests`,
+				{
+					friendId: friendId,
+					action: "remove",
+				}
+			);
+			setFriendRequests(response.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const handleEventClick = (info) => {
 		handleSelectedEvent(info.event);
 		handleModalShow();
@@ -116,8 +168,11 @@ const Calendar = () => {
 			<h1> YCal </h1>
 			<div class="container">
 				<div class="item friends-item">
-					<h2>Friends:</h2>
-					<AddFriendDialog user={user} setFriends={setFriends} />
+					<h2>Friend Requests:</h2>
+					<AddFriendDialog
+						user={user}
+						setFriends={setFriendRequests}
+					/>
 					<table style={{ marginTop: "10px" }}>
 						<thead>
 							<tr>
@@ -127,6 +182,43 @@ const Calendar = () => {
 							</tr>
 						</thead>
 						<tbody>
+							{friendRequests.map((friend) => (
+								<tr key={friend._id}>
+									<td>{friend.firstName}</td>
+									<td>{friend.lastName}</td>
+									<td>{friend.email}</td>
+									<td>
+										<button
+											style={{
+												marginRight: "15px",
+												marginLeft: "15px",
+											}}
+											onClick={() =>
+												handleRemoveFriendRequest(
+													friend._id
+												)
+											}
+										>
+											Delete Request
+										</button>
+										<button
+											style={{
+												marginRight: "15px",
+												marginLeft: "15px",
+											}}
+											onClick={() =>
+												handleAddFriend(
+													friend._id,
+													friend.email
+												)
+											}
+										>
+											Add Friend
+										</button>
+									</td>
+								</tr>
+							))}
+							<h2>Friends:</h2>
 							{friends.map((friend) => (
 								<tr key={friend._id}>
 									<td>{friend.firstName}</td>

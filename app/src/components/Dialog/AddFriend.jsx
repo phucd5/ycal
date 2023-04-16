@@ -17,7 +17,8 @@ const AddFriendDialog = (props) => {
 		setEmail(event.target.value);
 	};
 
-	const handleAddFriend = async (event) => {
+
+	const handleAddFriendRequest = async (event) => {
 		event.preventDefault();
 		try {
 			const response = await axios.get(
@@ -25,20 +26,23 @@ const AddFriendDialog = (props) => {
 			);
 			try {
 				const response_2 = await axios.put(
-					`http://localhost:3002/users/${user._id}/friends`,
+					`http://localhost:3002/users/${user._id}/friendrequests`,
 					{
 						friendId: response.data._id,
 						action: "add",
 					}
+
 				);
-				setFriends(response_2.data);
+				alert("Friend request sent!");
 			} catch (error) {
-				alert("Person is already in your friend's list!");
+				alert("Person is already in your friend's list or request already sent!");
 			}
 		} catch (error) {
-			alert("Can't find friend", error);
+			alert("Can't find user", error);
 		}
+		handleClose();
 	};
+
 
 	return (
 		<>
@@ -57,7 +61,7 @@ const AddFriendDialog = (props) => {
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form onSubmit={handleAddFriend}>
+					<Form onSubmit={handleAddFriendRequest}>
 						<Form.Group className="mb-3" controlId="formAddFriend">
 							<Form.Label htmlFor="email">
 								Email address:{" "}
