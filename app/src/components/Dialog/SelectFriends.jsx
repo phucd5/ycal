@@ -8,18 +8,14 @@ import AISchedule from "../Calendar/AISchedule"
 
 const SelectFriend = (props) => {
 	const { user, friends } = props;
-	const [title, setTitle] = useState("");
-	const [description, setDescription] = useState("");
-	const [startDate, setStartDate] = useState("");
-	const [endDate, setEndDate] = useState("");
-	const [startTime, setStartTime] = useState("");
-	const [endTime, setEndTime] = useState("");
-	const [location, setLocation] = useState("");
-	const [locationMarker, setLocationMarker] = useState("None");
 	const [attendees, setAttendees] = useState([]);
-	const [email, setEmail] = useState("");
+	const [meetingTime, setMeetingTime] = useState("30 minutes");
 	const [show, setShow] = useState(false);
 	const [disabledCheck, setDisabled] = useState(false);
+
+	const handleMeetingTimeChange = (event) => {
+		setMeetingTime(event.target.value);
+	};
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -71,18 +67,22 @@ const SelectFriend = (props) => {
                                 id={friend._id}
                                 label={`${friend.firstName} ${friend.lastName}`}
                                 checked={attendees.includes(friend._id)}
-                                // on change,
-                                // if checked, include previous attendees and current attended checked
-                                // if unchecked, filter out the checked friend id
                                 onChange={(e) => {
                                     handleCheck(e.target.checked, friend._id);
                                 }}
                                 />
                             ))}
-							{disabledCheck ? <AISchedule user={user} friends={attendees}/> : <div></div>}
+							<Form.Control
+								className="input-box"
+								type="email"
+								id="email"
+								value={meetingTime}
+								onChange={handleMeetingTimeChange}
+							/>
                             <Button disabled={disabledCheck} onClick={handleSubmitForm}>Schedule Meeting</Button>
                         </Form.Group>
 					</Form>
+					{disabledCheck ? <AISchedule user={user} friends={attendees} meetingTime={meetingTime}/> : <div></div>}
 				</Modal.Body>
 			</Modal>
 		</>

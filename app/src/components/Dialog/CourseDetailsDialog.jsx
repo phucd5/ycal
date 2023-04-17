@@ -25,14 +25,6 @@ const CourseDetailsDialog = (props) => {
 		handleClose();
 	};
 
-	// const fetchCourseDetails = async () => {
-	// 	// const classResponse = await axios.get(`http://localhost:3002/yclasses/${event.extendedProps.class}`);
-	// 	console.log("class", event);
-	//   }
-
-
-	  
-
 	return (
 		<div>
 			<Modal size="lg" show={show} onHide={handleClose}>
