@@ -8,9 +8,25 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+const { Configuration, OpenAIApi } = require("openai");
 
 const AISchedule = ({ user, friends }) => {
+	const openAi = new OpenAIApi(
+		new Configuration({
+			apiKey: "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",
+		})
+	);
+
+	const askGpt = async (prompt) => {
+		const completion = await openAi.createChatCompletion({
+			model: "gpt-3.5-turbo",
+			messages: [{ role: "user", content: prompt }],
+		});
+		setGPTResponse(completion.data.choices[0].message.content);
+	};
+
 	const [allEvents, setallEvents] = useState([]);
+	const [GPTResponse, setGPTResponse] = useState("");
 
 	const fetchFriendsEvents = async () => {
 		const today = new Date(); // current time
@@ -75,6 +91,8 @@ const AISchedule = ({ user, friends }) => {
 		let gpt_string =
 			"Given these events, find the most optimal time for these users to have a meeting:";
 		setallEvents((prev) => [gpt_string, ...prev]);
+		const concatPrompt = allEvents.join(", ");
+		askGpt(concatPrompt);
 	};
 
 	useEffect(() => {
@@ -84,10 +102,8 @@ const AISchedule = ({ user, friends }) => {
 
 	return (
 		<div>
-			<h1>AI Schedule</h1>
-			{allEvents.map((eventString, index) => (
-				<p key={index}>{eventString}</p>
-			))}
+			<h1>AI Schedule Suggestion</h1>
+			<div>{GPTResponse}</div>
 		</div>
 	);
 };

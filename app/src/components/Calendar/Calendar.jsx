@@ -263,7 +263,7 @@ const Calendar = () => {
 					<h2>Courses:</h2>
 					<AddCourseDialog
 						user={user}
-						fetchClasses={fetchClasses}
+						fetchClasses={fetchCourses}
 					/>
 				</div>
 				<h2>My Calendar</h2>
@@ -305,6 +305,7 @@ const Calendar = () => {
 						show={courseModalShow}
 						handleClose={handleCourseModalClose}
 					/>
+					<SelectFriend user={user} friends={friends} />
 				</div>
 			</div>
 		</div>

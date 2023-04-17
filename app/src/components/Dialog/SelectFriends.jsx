@@ -3,6 +3,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import AISchedule from "../Calendar/AISchedule"
 
 
 const SelectFriend = (props) => {
@@ -18,6 +19,7 @@ const SelectFriend = (props) => {
 	const [attendees, setAttendees] = useState([]);
 	const [email, setEmail] = useState("");
 	const [show, setShow] = useState(false);
+	const [disabledCheck, setDisabled] = useState(false);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -36,6 +38,8 @@ const SelectFriend = (props) => {
         }
       };
       const handleSubmitForm = async (e) => {
+		setDisabled(true);
+		handleShow();
       }
 
 	return (
@@ -55,12 +59,13 @@ const SelectFriend = (props) => {
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form onSubmit={handleSubmitForm}>
+					<Form>
                     <Form.Group>
                             <Form.Label>Friends to Select:</Form.Label>
                             {/* maps a checkbox to every friend*/}
                             {friends.map((friend) => (
                                 <Form.Check
+								disabled={disabledCheck}
                                 key={friend._id}
                                 type="checkbox"
                                 id={friend._id}
@@ -74,7 +79,8 @@ const SelectFriend = (props) => {
                                 }}
                                 />
                             ))}
-                            <Button type="submit">Schedule Meeting</Button>
+							{disabledCheck ? <AISchedule user={user} friends={attendees}/> : <div></div>}
+                            <Button disabled={disabledCheck} onClick={handleSubmitForm}>Schedule Meeting</Button>
                         </Form.Group>
 					</Form>
 				</Modal.Body>
