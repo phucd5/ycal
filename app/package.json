@@ -34,9 +34,12 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
+    "sass": "^1.62.0",
+    "sass-loader": "^13.2.2",
     "styled-components": "^5.3.9",
     "up": "^1.0.2",
     "web-vitals": "^2.1.4",
+    "webpack": "^5.79.0",
     "yup": "^1.0.2"
   },
   "scripts": {

@@ -6,30 +6,36 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-
-import "./Calendar.css";
 import FriendsCalandar from "./FriendsCalandar";
-
 import CreateEventForm from "../Dialog/CreateEventForm";
 import AddFriendDialog from "../Dialog/AddFriend";
 import EventDetailsDialog from "../Dialog/EventDetailsDialog";
 import AddCourseDialog from "../Dialog/AddCourseDialog";
 import AISchedule from "./AISchedule"
+import "./Calendar.css";
+import styled from "./styles.scss";
+import SelectFriend from "../Dialog/SelectFriends";
+import CourseDetailsDialog from "../Dialog/CourseDetailsDialog";
 
 const Calendar = () => {
-	const [modalShow, setModalShow] = useState(false);
+	const [eventModalShow, setEventModalShow] = useState(false);
+	const [courseModalShow, setCourseModalShow] = useState(false);
 	const [selectedEvent, setSelectedEvent] = useState(null);
+	const [selectedCourse, setSelectedCourse] = useState(null);
 
-	const handleModalShow = () => setModalShow(true);
-	const handleModalClose = () => setModalShow(false);
+	const handleEventModalShow = () => setEventModalShow(true);
+	const handleEventModalClose = () => setEventModalShow(false);
+	const handleCourseModalShow = () => setCourseModalShow(true);
+	const handleCourseModalClose = () => setCourseModalShow(false);
 	const handleSelectedEvent = (event) => setSelectedEvent(event);
+	const handleSelectedCourse = (course) => setSelectedCourse(course);
 
 	const navigate = useNavigate();
 	const [user, setUser] = useState(null);
 	const [events, setEvents] = useState([]);
 	const [friends, setFriends] = useState([]);
 	const [friendRequests, setFriendRequests] = useState([]);
-	const [classes, setClasses] = useState([]);
+	const [courses, setCourses] = useState([]);
 	const calendarRef = useRef(null);
 
 	useEffect(() => {
@@ -45,7 +51,7 @@ const Calendar = () => {
 	useEffect(() => {
 		if (user && user._id) {
 			fetchEvents();
-			fetchClasses();
+			fetchCourses();
 			fetchFriends();
 			fetchFriendRequests();
 		}
@@ -62,7 +68,7 @@ const Calendar = () => {
 		}
 	}
 
-	async function fetchClasses() {
+	async function fetchCourses() {
 		const allClass = [];
 		const classesResponse = await axios.get(
 			`http://localhost:3002/users/${user._id}/classes`
@@ -80,7 +86,7 @@ const Calendar = () => {
 			}
 		}
 
-		setClasses(allClass);
+		setCourses(allClass);
 	}
 
 	async function fetchFriendRequests() {
@@ -158,21 +164,28 @@ const Calendar = () => {
 		}
 	};
 
-	const handleEventClick = (info) => {
-		handleSelectedEvent(info.event);
-		handleModalShow();
+	const handleEventClick = (info) => {						
+		if (info.event.extendedProps.isClass === true) {
+			handleSelectedCourse(info.event); // causing issues
+			handleCourseModalShow();
+		}
+		else {			
+			handleSelectedEvent(info.event);
+			handleEventModalShow();
+		}
 	};
 
 	return (
 		<div>
-			<h1> YCal </h1>
+			<h1><strong>YCal</strong></h1>
+			<div className={styled.bootstrap}>
 			<div class="container">
 				<div class="item friends-item">
 					<h2>Friend Requests:</h2>
-					<AddFriendDialog
-						user={user}
-						setFriends={setFriendRequests}
-					/>
+						<AddFriendDialog
+							user={user}
+							setFriends={setFriendRequests}
+						/>
 					<table style={{ marginTop: "10px" }}>
 						<thead>
 							<tr>
@@ -272,7 +285,7 @@ const Calendar = () => {
 								interactionPlugin,
 							]}
 							initialView="timeGridWeek"
-							events={[...events, ...classes]}
+							events={[...events, ...courses]}
 							eventClick={(info) => handleEventClick(info)}
 						/>
 					</div>
@@ -281,13 +294,20 @@ const Calendar = () => {
 						event={selectedEvent}
 						fetchEvents={fetchEvents}
 						setEvents={setEvents}
-						show={modalShow}
-						handleClose={handleModalClose}
-					/> {user ? (friends.length === 0 ? <div>Hello</div> : <AISchedule friends={friends} user={user} />) : <div></div>}
-
-					
+						show={eventModalShow}
+						handleClose={handleEventModalClose}
+					/>
+					<CourseDetailsDialog
+						user={user}
+						event={selectedCourse}
+						fetchCourses={fetchCourses}
+						setCourses={setCourses}
+						show={courseModalShow}
+						handleClose={handleCourseModalClose}
+					/>
 				</div>
 			</div>
+		</div>
 		</div>
 	);
 };

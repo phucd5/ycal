@@ -5,14 +5,14 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/button";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-
 const CreateEventForm = (props) => {
 	const { user, friends, fetchEvents } = props;
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [startDate, setStartDate] = useState("");
 	const [endDate, setEndDate] = useState("");
+	const [startTime, setStartTime] = useState("");
+	const [endTime, setEndTime] = useState("");
 	const [location, setLocation] = useState("");
 	const [locationMarker, setLocationMarker] = useState("None");
 	const [attendees, setAttendees] = useState([]);
@@ -20,6 +20,21 @@ const CreateEventForm = (props) => {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
+	const handleCheck = (targetCheck, friendId) => {
+		const isChecked = targetCheck;
+		if (isChecked) {
+		  setAttendees((prevAttendees) => [
+			...prevAttendees,
+			friendId,
+		  ]);
+		}
+		else {
+		  setAttendees((prevAttendees) =>
+			prevAttendees.filter((id) => id !== friendId)
+		  );
+		}
+	  };
+	  
 	const handleSubmit = async (e) => {
 		handleClose();
 		e.preventDefault();
@@ -30,8 +45,8 @@ const CreateEventForm = (props) => {
 					organizer: user,
 					title,
 					description,
-					start: startDate,
-					end: endDate,
+					start: new Date(startDate.concat("T").concat(startTime).concat("Z")),
+					end: new Date(endDate.concat("T").concat(endTime).concat("Z")),
 					location,
 					userId: user._id,
 					location_marker: locationMarker,
@@ -51,6 +66,8 @@ const CreateEventForm = (props) => {
 				setDescription("");
 				setStartDate("");
 				setEndDate("");
+				setStartTime("");
+				setEndTime("");
 				setLocation("");
 				setAttendees([]);
 			} catch (error) {
@@ -112,12 +129,34 @@ const CreateEventForm = (props) => {
 						</Form.Group>
 						<br />
 						<Form.Group>
-							<Form.Label>End date:</Form.Label>
+							<Form.Label>Start Time:</Form.Label>
+							<Form.Control
+								type="time"
+								value={startTime}
+								className="input-box"
+								onChange={(e) => setStartTime(e.target.value)}
+								required
+							/>
+						</Form.Group>
+						<br />
+						<Form.Group>
+							<Form.Label>End Date:</Form.Label>
 							<Form.Control
 								type="date"
 								value={endDate}
 								className="input-box"
 								onChange={(e) => setEndDate(e.target.value)}
+								required
+							/>
+						</Form.Group>
+						<br />
+						<Form.Group>
+							<Form.Label>End Time:</Form.Label>
+							<Form.Control
+								type="time"
+								value={endTime}
+								className="input-box"
+								onChange={(e) => setEndTime(e.target.value)}
 								required
 							/>
 						</Form.Group>
@@ -152,6 +191,25 @@ const CreateEventForm = (props) => {
 						</Form.Group>
 						<Form.Group>
 							<Form.Label>Attendees:</Form.Label>
+							{/* maps a checkbox to every friend*/}
+							{friends.map((friend) => (
+								<Form.Check
+								key={friend._id}
+								type="checkbox"
+								id={friend._id}
+								label={`${friend.firstName} ${friend.lastName}`}
+								checked={attendees.includes(friend._id)}
+								// on change,
+								// if checked, include previous attendees and current attended checked
+								// if unchecked, filter out the checked friend id
+								onChange={(e) => {
+									handleCheck(e.target.checked, friend._id);
+								}}
+								/>
+							))}
+						</Form.Group>
+						{/* <Form.Group>
+							<Form.Label>Attendees:</Form.Label>
 							<Form.Select
 								multiple
 								value={attendees}
@@ -170,7 +228,7 @@ const CreateEventForm = (props) => {
 									</option>
 								))}
 							</Form.Select>
-						</Form.Group>
+						</Form.Group> */}
 						<Button variant="primary" type="submit">
 							Submit
 						</Button>
