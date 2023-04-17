@@ -14,21 +14,27 @@ import AddCourseDialog from "../Dialog/AddCourseDialog";
 import "./Calendar.css";
 import styled from "./styles.scss";
 import SelectFriend from "../Dialog/SelectFriends";
+import CourseDetailsDialog from "../Dialog/CourseDetailsDialog";
 
 const Calendar = () => {
-	const [modalShow, setModalShow] = useState(false);
+	const [eventModalShow, setEventModalShow] = useState(false);
+	const [courseModalShow, setCourseModalShow] = useState(false);
 	const [selectedEvent, setSelectedEvent] = useState(null);
+	const [selectedCourse, setSelectedCourse] = useState(null);
 
-	const handleModalShow = () => setModalShow(true);
-	const handleModalClose = () => setModalShow(false);
+	const handleEventModalShow = () => setEventModalShow(true);
+	const handleEventModalClose = () => setEventModalShow(false);
+	const handleCourseModalShow = () => setCourseModalShow(true);
+	const handleCourseModalClose = () => setCourseModalShow(false);
 	const handleSelectedEvent = (event) => setSelectedEvent(event);
+	const handleSelectedCourse = (course) => setSelectedCourse(course);
 
 	const navigate = useNavigate();
 	const [user, setUser] = useState(null);
 	const [events, setEvents] = useState([]);
 	const [friends, setFriends] = useState([]);
 	const [friendRequests, setFriendRequests] = useState([]);
-	const [classes, setClasses] = useState([]);
+	const [courses, setCourses] = useState([]);
 	const calendarRef = useRef(null);
 
 	useEffect(() => {
@@ -44,7 +50,7 @@ const Calendar = () => {
 	useEffect(() => {
 		if (user && user._id) {
 			fetchEvents();
-			fetchClasses();
+			fetchCourses();
 			fetchFriends();
 			fetchFriendRequests();
 		}
@@ -61,7 +67,7 @@ const Calendar = () => {
 		}
 	}
 
-	async function fetchClasses() {
+	async function fetchCourses() {
 		const allClass = [];
 		const classesResponse = await axios.get(
 			`http://localhost:3002/users/${user._id}/classes`
@@ -79,7 +85,7 @@ const Calendar = () => {
 			}
 		}
 
-		setClasses(allClass);
+		setCourses(allClass);
 	}
 
 	async function fetchFriendRequests() {
@@ -158,9 +164,15 @@ const Calendar = () => {
 		}
 	};
 
-	const handleEventClick = (info) => {
-		handleSelectedEvent(info.event);
-		handleModalShow();
+	const handleEventClick = (info) => {						
+		if (info.event.extendedProps.isClass === true) {
+			handleSelectedCourse(info.event); // causing issues
+			handleCourseModalShow();
+		}
+		else {			
+			handleSelectedEvent(info.event);
+			handleEventModalShow();
+		}
 	};
 
 	return (
@@ -274,7 +286,7 @@ const Calendar = () => {
 								interactionPlugin,
 							]}
 							initialView="timeGridWeek"
-							events={[...events, ...classes]}
+							events={[...events, ...courses]}
 							eventClick={(info) => handleEventClick(info)}
 						/>
 					</div>
@@ -283,16 +295,18 @@ const Calendar = () => {
 						event={selectedEvent}
 						fetchEvents={fetchEvents}
 						setEvents={setEvents}
-						show={modalShow}
-						handleClose={handleModalClose}
+						show={eventModalShow}
+						handleClose={handleEventModalClose}
 					/>
-					<SelectFriend
+					<CourseDetailsDialog
 						user={user}
-						friends={friends}
+						event={selectedCourse}
+						fetchCourses={fetchCourses}
+						setCourses={setCourses}
+						show={courseModalShow}
+						handleClose={handleCourseModalClose}
 					/>
 				</div>
-			
-			</div>
 			</div>
 		</div>
 	);
