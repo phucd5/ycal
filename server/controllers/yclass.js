@@ -30,36 +30,36 @@ export const getYClassById = async (req, res) => {
 	}
 };
 
-// export const getYClassByName = async (req, res) => {
-// 	const searchTerm = req.params.className;
-// 	try {
-// 		const YClassResponse = await YClass.find({
-// 			$text: { $search: searchTerm },
-// 		});
-
-// 		if (!YClassResponse.length) {
-// 			return handleNotFound(res, "No classes found matching search term");
-// 		}
-
-// 		handleSuccess(res, YClassResponse);
-// 	} catch (err) {
-// 		handleServerError(res, err);
-// 	}
-// };
-
 export const getYClassByName = async (req, res) => {
+	const searchTerm = req.params.className;
+	console.log(searchTerm);
 	try {
-		const YClassResponse = await YClass.findOne({
-			displayName: req.params.className,
+		const YClassResponse = await YClass.find({
+			$text: { $search: searchTerm, $caseSensitive: false },
 		});
-		if (!YClassResponse) {
-			return handleNotFound(res, "Class not found");
+		if (!YClassResponse.length) {
+			return handleNotFound(res, "No classes found matching class name");
 		}
+
 		handleSuccess(res, YClassResponse);
 	} catch (err) {
-		res.status(500).json({ message: err.message });
+		handleServerError(res, err);
 	}
 };
+
+// export const getYClassByName = async (req, res) => {
+// 	try {
+// 		const YClassResponse = await YClass.findOne({
+// 			displayName: req.params.className,
+// 		});
+// 		if (!YClassResponse) {
+// 			return handleNotFound(res, "Class not found");
+// 		}
+// 		handleSuccess(res, YClassResponse);
+// 	} catch (err) {
+// 		res.status(500).json({ message: err.message });
+// 	}
+// };
 
 export const getYClassSchedule = async (req, res) => {
 	try {

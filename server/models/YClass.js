@@ -34,5 +34,6 @@ const YClassSchema = new mongoose.Schema({
 	],
 });
 
+YClassSchema.index({ displayName: "text" });
 const YClass = mongoose.model("YClass", YClassSchema);
 export default YClass;

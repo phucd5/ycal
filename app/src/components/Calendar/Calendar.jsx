@@ -14,6 +14,7 @@ import CreateEventForm from "../Dialog/CreateEventForm";
 import AddFriendDialog from "../Dialog/AddFriend";
 import EventDetailsDialog from "../Dialog/EventDetailsDialog";
 import AddCourseDialog from "../Dialog/AddCourseDialog";
+import AISchedule from "./AISchedule"
 
 const Calendar = () => {
 	const [modalShow, setModalShow] = useState(false);
@@ -83,7 +84,6 @@ const Calendar = () => {
 	}
 
 	async function fetchFriendRequests() {
-		console.log("Fetching fr");
 		try {
 			const response = await axios.get(
 				`http://localhost:3002/users/${user._id}/friendrequests`
@@ -250,8 +250,7 @@ const Calendar = () => {
 					<h2>Courses:</h2>
 					<AddCourseDialog
 						user={user}
-						setEvents={setEvents}
-						events={events}
+						fetchClasses={fetchClasses}
 					/>
 				</div>
 				<h2>My Calendar</h2>
@@ -284,7 +283,9 @@ const Calendar = () => {
 						setEvents={setEvents}
 						show={modalShow}
 						handleClose={handleModalClose}
-					/>
+					/> {user ? (friends.length === 0 ? <div>Hello</div> : <AISchedule friends={friends} user={user} />) : <div></div>}
+
+					
 				</div>
 			</div>
 		</div>

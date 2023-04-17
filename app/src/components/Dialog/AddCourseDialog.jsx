@@ -1,63 +1,82 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import debounce from "lodash/debounce";
 
 const AddCourseDialog = (props) => {
-	const { user, setEvents, events } = props
+	const { user, fetchClasses } = props;
 	const [show, setShow] = useState(false);
-	const [courseCode, setcourseCode] = useState(false);
+	const [courseCode, setcourseCode] = useState("");
 
-	const handleClose = () => setShow(false);
+	const [searchedCourses, setsearchedCourses] = useState([]);
+
+	const handleClose = () => {
+		setShow(false);
+		setsearchedCourses([]);
+	};
 	const handleShow = () => setShow(true);
 
-	const handleCourseChange = (course) => {
-		setcourseCode(course.target.value);
+	const handleAddSelectedCourse = async (classId) => {
+		try {
+			const response = await axios.put(
+				`http://localhost:3002/users/${user._id}/classes`,
+				{
+					classId: classId,
+					action: "add",
+				}
+			);
+		} catch (err) {
+			console.log("Error:", err);
+		}
+		fetchClasses();
+		handleClose();
 	};
 
-	const handleAddCourse = async (event) => {
-		event.preventDefault();
-
+	const handleCourseSearch = debounce(async () => {
 		try {
-			//course
-			console.log("COURSE CODDE");
-			console.log("COURSE CODE", courseCode);
 			const response = await axios.get(
 				`http://localhost:3002/yclasses/${courseCode}/name`
 			);
-			console.log("Response pass 1", response.data);
-			try {
-				const response_2 = await axios.put(
-					`http://localhost:3002/users/${user._id}/classes`,
-					{
-						classId: response.data._id,
-						action: "add",
-					}
-				);
-				// console.log("Response 2 pass", response_2.data);
-				// try {
-				//   //getting schedule
-				//   const response_3 = await axios.put(
-				//     `http://localhost:3002/yclasses/${response._id}/schedule`
-				//   );
+			setsearchedCourses(response.data);
+		} catch (error) {}
+	}, 100);
 
-				//   const mergedEvents =  events.concat(response_3.data);
-				//   setEvents(mergedEvents)
-				//   console.log(mergedEvents)
-
-				// } catch (err) {
-				//   console.log(err)
-				// }
-				window.location.reload(true);
-			} catch (error) {
-				alert("Course is already in your list");
-			}
-		} catch (error) {
-			alert("Can't find course", error);
+	useEffect(() => {
+		if (courseCode) {
+			handleCourseSearch();
+		} else {
+			setsearchedCourses([]);
 		}
-	};
+	}, [courseCode]);
 
+	// const handleAddCourse = async (event) => {
+	// 	event.preventDefault();
+
+	// 	try {
+	// 		//course
+	// 		const response = await axios.get(
+	// 			`http://localhost:3002/yclasses/${courseCode}/name`
+	// 		);
+	// 		setsearchedCourses(response.data);
+	// 	} catch (error) {
+	// 		alert("Can't find course", error);
+	// 	}
+	// };
+
+	function getTermString(termCode) {
+		const term =
+			termCode.slice(-2) === "01"
+				? "Spring"
+				: termCode.slice(-2) === "02"
+				? "Summer"
+				: termCode.slice(-2) === "03"
+				? "Fall"
+				: "Invalid Term Code";
+		const year = termCode.slice(0, 4);
+		return `${term} ${year}`;
+	}
 	return (
 		<>
 			<Button variant="primary" onClick={handleShow}>
@@ -76,38 +95,57 @@ const AddCourseDialog = (props) => {
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form onSubmit={handleAddCourse}>
-						<Form.Group className="mb-3" controlId="formAddCourse">
-							<Form.Label htmlFor="courseCode">
-								Course Code:{" "}
-							</Form.Label>
-							<Form.Control
-								className="input-box"
-								type="courseCode"
-								id="courseCode"
-								placeholder="CPSC419"
-								value={courseCode}
-								onChange={handleCourseChange}
-							/>
-							<Button type="submit">Add Course</Button>
-						</Form.Group>
-					</Form>
-
-					{/* <form onSubmit={handleAddFriend}>
-              <div>
-                <h1>Add Friend</h1>
-                <label htmlFor="email">Email:</label>
-                <input
-                  className="input-box"
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={handleEmailChange}
-                />
-              </div>
-              <br></br>
-              <button type="submit">Add Friend</button>
-            </form> */}
+					<input
+						type="text"
+						value={courseCode}
+						onChange={(event) => setcourseCode(event.target.value)}
+						style={{
+							border: "1px solid #ccc",
+							borderRadius: "4px",
+							padding: "8px",
+						}}
+					/>
+					{searchedCourses.length === 0 ? (
+						<div></div>
+					) : (
+						<div>
+							<table style={{ marginTop: "10px" }}>
+								<thead>
+									<tr>
+										<th>Course</th>
+										<th>Course Title</th>
+										<th>Period</th>
+									</tr>
+								</thead>
+								<tbody>
+									{searchedCourses.map((course) => (
+										<tr key={course._id}>
+											<td>{course.displayName}</td>
+											<td>{course.classTitle}</td>
+											<td>
+												{getTermString(course.period)}
+											</td>
+											<td>
+												<button
+													style={{
+														marginRight: "15px",
+														marginLeft: "15px",
+													}}
+													onClick={() =>
+														handleAddSelectedCourse(
+															course._id
+														)
+													}
+												>
+													Add Courses
+												</button>
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
+					)}
 				</Modal.Body>
 			</Modal>
 		</>

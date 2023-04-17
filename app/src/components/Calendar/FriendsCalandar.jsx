@@ -14,10 +14,10 @@ const FriendsCalandar = ({ friendId }) => {
 	const [friend, setFriend] = useState([]);
 	const [show, setShow] = useState(false);
 	const calendarRef = useRef(null);
+	const [classes, setClasses] = useState([]);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-
 	const fetchFriend = async () => {
 		try {
 			const response = await axios.get(
@@ -40,9 +40,31 @@ const FriendsCalandar = ({ friendId }) => {
 		}
 	};
 
+	async function fetchClasses() {
+		const allClass = [];
+		const classesResponse = await axios.get(
+			`http://localhost:3002/users/${friendId}/classes`
+		);
+		const classesData = classesResponse.data;
+
+		for (const classObj of classesData) {
+			const scheduleResponse = await axios.get(
+				`http://localhost:3002/yclasses/${classObj._id}/schedule`
+			);
+			const scheduleData = scheduleResponse.data;
+
+			for (const scheduleStuff of scheduleData) {
+				allClass.push(scheduleStuff);
+			}
+		}
+
+		setClasses(allClass);
+	}
+
 	useEffect(() => {
-		fetchEvents();
 		fetchFriend();
+		fetchEvents();
+		fetchClasses();
 	}, [friendId]);
 
 	return (
@@ -72,7 +94,7 @@ const FriendsCalandar = ({ friendId }) => {
 							interactionPlugin,
 						]}
 						initialView="timeGridWeek"
-						events={events}
+						events={[...events, ...classes]}
 					/>
 				</Modal.Body>
 			</Modal>
