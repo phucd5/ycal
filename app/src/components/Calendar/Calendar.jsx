@@ -6,14 +6,14 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-
-import "./Calendar.css";
 import FriendsCalandar from "./FriendsCalandar";
-
 import CreateEventForm from "../Dialog/CreateEventForm";
 import AddFriendDialog from "../Dialog/AddFriend";
 import EventDetailsDialog from "../Dialog/EventDetailsDialog";
 import AddCourseDialog from "../Dialog/AddCourseDialog";
+import "./Calendar.css";
+import styled from "./styles.scss";
+import SelectFriend from "../Dialog/SelectFriends";
 
 const Calendar = () => {
 	const [modalShow, setModalShow] = useState(false);
@@ -165,14 +165,15 @@ const Calendar = () => {
 
 	return (
 		<div>
-			<h1> YCal </h1>
+			<h1><strong>YCal</strong></h1>
+			<div className={styled.bootstrap}>
 			<div class="container">
 				<div class="item friends-item">
 					<h2>Friend Requests:</h2>
-					<AddFriendDialog
-						user={user}
-						setFriends={setFriendRequests}
-					/>
+						<AddFriendDialog
+							user={user}
+							setFriends={setFriendRequests}
+						/>
 					<table style={{ marginTop: "10px" }}>
 						<thead>
 							<tr>
@@ -285,7 +286,13 @@ const Calendar = () => {
 						show={modalShow}
 						handleClose={handleModalClose}
 					/>
+					<SelectFriend
+						user={user}
+						friends={friends}
+					/>
 				</div>
+			
+			</div>
 			</div>
 		</div>
 	);
