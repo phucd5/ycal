@@ -2,6 +2,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
+import React, { useState, useEffect, useRef } from "react";
 
 const CourseDetailsDialog = (props) => {
 	const { user, event, fetchCourses, setCourses, show, handleClose } = props;
@@ -24,12 +25,20 @@ const CourseDetailsDialog = (props) => {
 		handleClose();
 	};
 
+	// const fetchCourseDetails = async () => {
+	// 	// const classResponse = await axios.get(`http://localhost:3002/yclasses/${event.extendedProps.class}`);
+	// 	console.log("class", event);
+	//   }
+
+
+	  
+
 	return (
 		<div>
 			<Modal size="lg" show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
 					<Modal.Title id="event-details-title">
-						{event ? <p>{event.title}</p> : <p>Test</p>}
+						{event ? <p>{event.className}</p> : <p>Test</p>}
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
@@ -46,11 +55,11 @@ const CourseDetailsDialog = (props) => {
 						<tbody>
 							{event ? (
 								<tr>
-									<td>{event.title}</td>
-									<td>Algorithms</td>
-									<td>MW 9:00AM-10:30AM</td>
-									<td>Dunham Laboratory</td>
-									<td>Spring 2023</td>
+									<td>{event.displayName}</td>
+									<td>{event.classTitle}</td>
+									<td>MW 9:00AM-11:00AM</td>
+									<td>Yale</td>
+									<td>{event.period}</td>
 									<td>
 										<Button
 											onClick={() =>

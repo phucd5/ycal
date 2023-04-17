@@ -38,6 +38,12 @@ const Calendar = () => {
 	const [courses, setCourses] = useState([]);
 	const calendarRef = useRef(null);
 
+	const fetchCourseDetails = async (event) => {
+		const classResponse = await axios.get(`http://localhost:3002/yclasses/${event.extendedProps.class}`);
+		setSelectedCourse(classResponse.data)
+	}
+	  
+
 	useEffect(() => {
 		const loggedInUser = localStorage.getItem("token");
 		setUser(JSON.parse(localStorage.getItem("user")));
@@ -164,10 +170,11 @@ const Calendar = () => {
 		}
 	};
 
-	const handleEventClick = (info) => {						
+	const handleEventClick = async (info) => {						
 		if (info.event.extendedProps.isClass === true) {
-			handleSelectedCourse(info.event); // causing issues
+			const classResponse = await fetchCourseDetails(info.event);
 			handleCourseModalShow();
+			// console.log(setSelectedCourse);	
 		}
 		else {			
 			handleSelectedEvent(info.event);
@@ -305,7 +312,7 @@ const Calendar = () => {
 						show={courseModalShow}
 						handleClose={handleCourseModalClose}
 					/>
-					<SelectFriend user={user} friends={friends} />
+					{friends ? <SelectFriend user={user} friends={friends}/> : <div></div>}
 				</div>
 			</div>
 		</div>

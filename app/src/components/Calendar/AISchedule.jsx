@@ -27,6 +27,7 @@ const AISchedule = ({ user, friends }) => {
 
 	const [allEvents, setallEvents] = useState([]);
 	const [GPTResponse, setGPTResponse] = useState("");
+	const [prompt, setPrompt] = useState("");
 
 	const fetchFriendsEvents = async () => {
 		const today = new Date(); // current time
@@ -92,13 +93,19 @@ const AISchedule = ({ user, friends }) => {
 			"Given these events, find the most optimal time for these users to have a meeting:";
 		setallEvents((prev) => [gpt_string, ...prev]);
 		const concatPrompt = allEvents.join(", ");
-		askGpt(concatPrompt);
+		setGPTResponse(concatPrompt);
+		console.log(concatPrompt)
 	};
 
 	useEffect(() => {
-		friends.push(user);
-		fetchFriendsEvents();
-	}, []);
+		if (friends) {
+			console.log("FRIENDS", friends)
+			friends = [user]
+			console.log("FRIENDS", friends)
+			fetchFriendsEvents()
+		}
+		
+	}, [friends]);
 
 	return (
 		<div>
