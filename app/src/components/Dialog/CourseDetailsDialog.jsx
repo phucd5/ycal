@@ -3,6 +3,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
 
+import { getTermString } from "../../utils/helpers";
+
 const CourseDetailsDialog = (props) => {
 	const { user, course, fetchCourses, show, handleClose } = props;
 
@@ -26,6 +28,7 @@ const CourseDetailsDialog = (props) => {
 		handleClose();
 	};
 
+
 	return (
 		<div>
 			<Modal size="lg" show={show} onHide={handleClose}>
@@ -40,7 +43,7 @@ const CourseDetailsDialog = (props) => {
 							<tr>
 								<th>Course Code</th>
 								<th>Title</th>
-								<th>Time</th>
+								<th>Meeting Time</th>
 								<th>Location</th>
 								<th>Period</th>								
 							</tr>
@@ -50,9 +53,9 @@ const CourseDetailsDialog = (props) => {
 								<tr>
 									<td>{course.displayName}</td>
 									<td>{course.classTitle}</td>
-									<td>MW 9:00AM-11:00AM</td>
-									<td>Yale</td>
-									<td>{course.period}</td>
+									<td>{course.meetingTime}</td>
+									<td>{course.location}</td>
+									<td>{getTermString(course.period)}</td>
 									<td>
 										<Button
 											onClick={() =>
@@ -61,7 +64,7 @@ const CourseDetailsDialog = (props) => {
 												)
 											}
 										>
-											Delete
+											Delete Course
 										</Button>
 									</td>
 								</tr>

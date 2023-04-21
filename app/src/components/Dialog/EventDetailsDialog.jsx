@@ -10,13 +10,10 @@ const EventDetailsDialog = (props) => {
 
 	const handleDelete = async (eventId) => {
 		try {
-			 await axios.put(
-				`http://localhost:3002/users/${user._id}/events`,
-				{
-					eventId: eventId,
-					action: "remove",
-				}
-			);
+			await axios.put(`http://localhost:3002/users/${user._id}/events`, {
+				eventId: eventId,
+				action: "remove",
+			});
 			setEvents((prevEvents) =>
 				prevEvents.filter((event) => event._id !== eventId)
 			);
@@ -74,26 +71,31 @@ const EventDetailsDialog = (props) => {
 										{event.extendedProps.location_marker}
 									</td>
 									<td>
-										{event.extendedProps.attendees.map(
-											(attendee) => (
-												<div
-													key={attendee._id}
-													style={{
-														textDecoration:
-															"underline",
-														cursor: "pointer",
-													}}
-													onClick={() =>
-														handleAttendDelete(
-															event.extendedProps,
-															attendee._id
-														)
-													}
-												>
-													{attendee.firstName}{" "}
-													{attendee.lastName}
-												</div>
+										{event.extendedProps.attendees.length >
+										0 ? (
+											event.extendedProps.attendees.map(
+												(attendee) => (
+													<div
+														key={attendee._id}
+														style={{
+															textDecoration:
+																"underline",
+															cursor: "pointer",
+														}}
+														onClick={() =>
+															handleAttendDelete(
+																event.extendedProps,
+																attendee._id
+															)
+														}
+													>
+														{attendee.firstName}{" "}
+														{attendee.lastName}
+													</div>
+												)
 											)
+										) : (
+											<div>None</div>
 										)}
 									</td>
 									<td>

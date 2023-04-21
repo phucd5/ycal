@@ -4,34 +4,30 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import debounce from "lodash/debounce";
 
+import { getTermString } from "../../utils/helpers";
+
 const AddCourseDialog = (props) => {
 	const { user, fetchClasses } = props;
+
 	const [show, setShow] = useState(false);
 	const [courseCode, setcourseCode] = useState("");
-
 	const [searchedCourses, setsearchedCourses] = useState([]);
 
+	const handleShow = () => setShow(true);
 	const handleClose = () => {
 		setShow(false);
 		setsearchedCourses([]);
 	};
-	const handleShow = () => setShow(true);
 
-	const handleAddSelectedCourse = async (classId) => {
-		try {
-			const response = await axios.put(
-				`http://localhost:3002/users/${user._id}/classes`,
-				{
-					classId: classId,
-					action: "add",
-				}
-			);
-		} catch (err) {
-			console.log("Error:", err);
+	useEffect(() => {
+		if (courseCode) {
+			handleCourseSearch();
+		} else {
+			setsearchedCourses([]);
 		}
-		fetchClasses();
-		handleClose();
-	};
+	}, [courseCode]);
+
+	/* Callback Functions */
 
 	const handleCourseSearch = debounce(async () => {
 		try {
@@ -42,40 +38,21 @@ const AddCourseDialog = (props) => {
 		} catch (error) {}
 	}, 100);
 
-	useEffect(() => {
-		if (courseCode) {
-			handleCourseSearch();
-		} else {
-			setsearchedCourses([]);
+	const handleAddSelectedCourse = async (courseId) => {
+		try {
+			await axios.put(`http://localhost:3002/users/${user._id}/classes`, {
+				courseId: courseId,
+				action: "add",
+			});
+		} catch (err) {
+			console.log("Error:", err);
 		}
-	}, [courseCode]);
+		fetchClasses();
+		handleClose();
+	};
 
-	// const handleAddCourse = async (event) => {
-	// 	event.preventDefault();
+	/* Helper Functions */
 
-	// 	try {
-	// 		//course
-	// 		const response = await axios.get(
-	// 			`http://localhost:3002/yclasses/${courseCode}/name`
-	// 		);
-	// 		setsearchedCourses(response.data);
-	// 	} catch (error) {
-	// 		alert("Can't find course", error);
-	// 	}
-	// };
-
-	function getTermString(termCode) {
-		const term =
-			termCode.slice(-2) === "01"
-				? "Spring"
-				: termCode.slice(-2) === "02"
-				? "Summer"
-				: termCode.slice(-2) === "03"
-				? "Fall"
-				: "Invalid Term Code";
-		const year = termCode.slice(0, 4);
-		return `${term} ${year}`;
-	}
 	return (
 		<>
 			<Button variant="primary" onClick={handleShow}>
