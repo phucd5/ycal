@@ -10,7 +10,6 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
 const FriendsCalandar = ({ friendId }) => {
-
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
@@ -21,7 +20,7 @@ const FriendsCalandar = ({ friendId }) => {
 	const calendarRef = useRef(null);
 
 	/* API Requests */
-	
+
 	const fetchFriend = async () => {
 		try {
 			const response = await axios.get(

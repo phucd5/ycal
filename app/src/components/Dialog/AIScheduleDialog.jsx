@@ -4,14 +4,10 @@ import axios from "axios";
 const { Configuration, OpenAIApi } = require("openai");
 
 const AISchedule = (props) => {
+	const { user, friends, meetingDate, meetingLength } = props;
 
-	const { user, friends, meetingDate, meetingLength} = props;
-
-
-	
 	const [loading, setLoading] = useState(false);
 	const [GPTResponse, setGPTResponse] = useState("");
-	
 
 	const openAi = new OpenAIApi(
 		new Configuration({
@@ -34,7 +30,6 @@ const AISchedule = (props) => {
 		console.log(prompt);
 	};
 
-	
 	const fetchFriendsEvents = async () => {
 		const today = new Date();
 		const oneWeekFromNow = new Date(
@@ -60,7 +55,7 @@ const AISchedule = (props) => {
 				const classesResponse = await axios.get(
 					`http://localhost:3002/users/${friendId}/classes`
 				);
-	
+
 				for (const classObj of classesResponse.data) {
 					const scheduleResponse = await axios.get(
 						`http://localhost:3002/yclasses/${classObj._id}/schedule`
@@ -102,8 +97,8 @@ const AISchedule = (props) => {
 
 		let gpt_string = `Given these events, find the most optimal time for these users to have a meeting on ${meetingDate} for 
 		${meetingLength} so there is no conflicts with any of the events. 
-		Think of these as one set of events. Convert time into PM or AM. 
-		Explain why this is the best choice!`;
+		Think of these as one set of events. Convert any 24 hour time into PM or AM. 
+		Explain why this is the best choice, but don't repeat the given events!`;
 		let concatArray = [gpt_string, ...formattedEvents];
 		const concatPrompt = concatArray.join(", ");
 		askGPT(concatPrompt);

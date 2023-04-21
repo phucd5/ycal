@@ -8,12 +8,10 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FriendsCalandar from "./FriendsCalandar";
 
-
 import CreateEventForm from "../Dialog/CreateEventForm";
 import AddFriendDialog from "../Dialog/AddFriend";
 import EventDetailsDialog from "../Dialog/EventDetailsDialog";
 import AddCourseDialog from "../Dialog/AddCourseDialog";
-
 
 import MeetingDialog from "../Dialog/MeetingDialog";
 import CourseDetailsDialog from "../Dialog/CourseDetailsDialog";
@@ -35,7 +33,6 @@ const Calendar = () => {
 	const handleCourseModalClose = () => setCourseModalShow(false);
 	const handleSelectedEvent = (event) => setSelectedEvent(event);
 
-	
 	const [user, setUser] = useState(null);
 	const [events, setEvents] = useState([]);
 	const [friendRequests, setFriendRequests] = useState([]);
@@ -61,7 +58,6 @@ const Calendar = () => {
 			fetchFriends();
 		}
 	}, [user]);
-
 
 	/* API Requests */
 
@@ -125,7 +121,6 @@ const Calendar = () => {
 		}
 	}
 
-
 	/* Callback Functions Requests */
 
 	const handleAddFriend = async (friendId, friendEmail) => {
@@ -180,7 +175,6 @@ const Calendar = () => {
 			console.log(error);
 		}
 	};
-
 
 	const handleEventClick = async (info) => {
 		if (info.event.extendedProps.isClass) {

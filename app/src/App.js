@@ -8,18 +8,21 @@ import LoginPage from "./components/LoginPage/LoginPage";
 
 Modal.setAppElement("#root");
 function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/registration" element={<RegistrationPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/calendar" element={<Calendar />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+	return (
+		<div className="App">
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<LoginPage />} />
+					<Route
+						path="/registration"
+						element={<RegistrationPage />}
+					/>
+					<Route path="/login" element={<LoginPage />} />
+					<Route path="/calendar" element={<Calendar />} />
+				</Routes>
+			</BrowserRouter>
+		</div>
+	);
 }
 
 export default App;

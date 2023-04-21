@@ -9,16 +9,13 @@ const CourseDetailsDialog = (props) => {
 	const { user, course, fetchCourses, show, handleClose } = props;
 
 	/* Callback Functions */
-	
+
 	const handleDelete = async (courseId) => {
 		try {
-			await axios.put(
-				`http://localhost:3002/users/${user._id}/classes`,
-				{
-					courseId: courseId,
-					action: "remove",
-				}
-			);
+			await axios.put(`http://localhost:3002/users/${user._id}/classes`, {
+				courseId: courseId,
+				action: "remove",
+			});
 			fetchCourses();
 		} catch (error) {
 			console.log(error);
@@ -27,7 +24,6 @@ const CourseDetailsDialog = (props) => {
 		}
 		handleClose();
 	};
-
 
 	return (
 		<div>
@@ -45,7 +41,7 @@ const CourseDetailsDialog = (props) => {
 								<th>Title</th>
 								<th>Meeting Time</th>
 								<th>Location</th>
-								<th>Period</th>								
+								<th>Period</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -59,9 +55,7 @@ const CourseDetailsDialog = (props) => {
 									<td>
 										<Button
 											onClick={() =>
-												handleDelete(
-													course._id
-												)
+												handleDelete(course._id)
 											}
 										>
 											Delete Course

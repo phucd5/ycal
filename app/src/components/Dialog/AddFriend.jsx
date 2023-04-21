@@ -31,11 +31,12 @@ const AddFriendDialog = (props) => {
 						friendId: friendResponse.data._id,
 						action: "add",
 					}
-
 				);
 				alert("Friend request sent!");
 			} catch (error) {
-				alert("Person is already in your friend's list or request already sent!");
+				alert(
+					"Person is already in your friend's list or request already sent!"
+				);
 			}
 		} catch (error) {
 			alert("Can't find user", error);

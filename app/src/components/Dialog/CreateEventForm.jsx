@@ -15,7 +15,6 @@ const CreateEventForm = (props) => {
 	};
 	const handleShow = () => setShow(true);
 
-
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [startDate, setStartDate] = useState("");
@@ -25,24 +24,20 @@ const CreateEventForm = (props) => {
 	const [location, setLocation] = useState("");
 	const [locationMarker, setLocationMarker] = useState("None");
 	const [attendees, setAttendees] = useState([]);
-	
+
 	/* Callback Functions */
 
 	const handleCheck = (targetCheck, friendId) => {
 		const isChecked = targetCheck;
 		if (isChecked) {
-		  setAttendees((prevAttendees) => [
-			...prevAttendees,
-			friendId,
-		  ]);
+			setAttendees((prevAttendees) => [...prevAttendees, friendId]);
+		} else {
+			setAttendees((prevAttendees) =>
+				prevAttendees.filter((id) => id !== friendId)
+			);
 		}
-		else {
-		  setAttendees((prevAttendees) =>
-			prevAttendees.filter((id) => id !== friendId)
-		  );
-		}
-	  };
-	  
+	};
+
 	const handleSubmit = async (e) => {
 		handleClose();
 		e.preventDefault();
@@ -53,8 +48,12 @@ const CreateEventForm = (props) => {
 					organizer: user,
 					title,
 					description,
-					start: new Date(startDate.concat("T").concat(startTime).concat("Z")),
-					end: new Date(endDate.concat("T").concat(endTime).concat("Z")),
+					start: new Date(
+						startDate.concat("T").concat(startTime).concat("Z")
+					),
+					end: new Date(
+						endDate.concat("T").concat(endTime).concat("Z")
+					),
 					location,
 					userId: user._id,
 					location_marker: locationMarker,
@@ -201,14 +200,17 @@ const CreateEventForm = (props) => {
 							<Form.Label>Attendees:</Form.Label>
 							{friends.map((friend) => (
 								<Form.Check
-								key={friend._id}
-								type="checkbox"
-								id={friend._id}
-								label={`${friend.firstName} ${friend.lastName}`}
-								checked={attendees.includes(friend._id)}
-								onChange={(e) => {
-									handleCheck(e.target.checked, friend._id);
-								}}
+									key={friend._id}
+									type="checkbox"
+									id={friend._id}
+									label={`${friend.firstName} ${friend.lastName}`}
+									checked={attendees.includes(friend._id)}
+									onChange={(e) => {
+										handleCheck(
+											e.target.checked,
+											friend._id
+										);
+									}}
 								/>
 							))}
 						</Form.Group>
