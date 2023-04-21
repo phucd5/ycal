@@ -10,7 +10,6 @@ const CreateEventForm = (props) => {
 
 	const [show, setShow] = useState(false);
 	const handleClose = (event) => {
-		console.log("SHOW FALSE");
 		setShow(false);
 	};
 	const handleShow = () => setShow(true);
