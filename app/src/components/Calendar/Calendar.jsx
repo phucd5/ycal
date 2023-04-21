@@ -183,8 +183,8 @@ const Calendar = () => {
 
 
 	const handleEventClick = async (info) => {
-		if (info.event.extendedProps.isClass === true) {
-			const classResponse = await fetchCourseDetails(info.event);
+		if (info.event.extendedProps.isClass) {
+			await fetchCourseDetails(info.event);
 			handleCourseModalShow();
 		} else {
 			handleSelectedEvent(info.event);
@@ -302,8 +302,8 @@ const Calendar = () => {
 				/>
 				<CourseDetailsDialog
 					user={user}
-					event={selectedCourse}
-					setCourses={setCourses}
+					course={selectedCourse}
+					fetchCourses={fetchCourses}
 					show={courseModalShow}
 					handleClose={handleCourseModalClose}
 				/>

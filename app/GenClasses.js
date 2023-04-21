@@ -2,6 +2,12 @@ const axios = require("axios");
 
 let yaleCourses = {};
 
+//Parse the pattern to remove HBTA, and change the real time/location nto a string or 'HBTA'
+const parsePattern = (pattern) => {
+	const res = pattern.filter((time) => !time.includes("HTBA"));
+	return res[0] ? res[0].toString() : "HBTA";
+};
+
 // Parse the class schedule to exclude HBTA and change to a {days, start, end} format
 function parseClassSchedule(classSchedule) {
 	return classSchedule
@@ -134,6 +140,8 @@ async function addCoursesToDatabase() {
 						classTitle: course.courseTitle,
 						sectionNumber: course.sectionNumber,
 						period: "202301",
+						location: parsePattern(course.meetingPatternLocation),
+						meetingTime: parsePattern(course.meetingPattern),
 					}
 				);
 
@@ -161,10 +169,6 @@ async function addCoursesToDatabase() {
 							action: "add",
 						}
 					);
-
-					// console.log(
-					// 	`Added event ${eventResponse.data._id} to course ${courseResponse.data._id}.`
-					// );
 				}
 
 				console.log(

@@ -4,22 +4,22 @@ import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
 
 const CourseDetailsDialog = (props) => {
-	const { user, event, setCourses, show, handleClose } = props;
+	const { user, course, fetchCourses, show, handleClose } = props;
 
 	/* Callback Functions */
-	const handleDelete = async (eventId) => {
+	
+	const handleDelete = async (courseId) => {
 		try {
 			await axios.put(
-				`http://localhost:3002/users/${user._id}/events`,
+				`http://localhost:3002/users/${user._id}/classes`,
 				{
-					eventId: eventId,
+					courseId: courseId,
 					action: "remove",
 				}
 			);
-			setCourses((prevEvents) =>
-				prevEvents.filter((event) => event._id !== eventId)
-			);
+			fetchCourses();
 		} catch (error) {
+			console.log(error);
 			handleClose();
 			return;
 		}
@@ -31,7 +31,7 @@ const CourseDetailsDialog = (props) => {
 			<Modal size="lg" show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
 					<Modal.Title id="event-details-title">
-						{event ? <p>{event.className}</p> : <p>Test</p>}
+						{course ? <p>{course.className}</p> : <p>N/A</p>}
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
@@ -46,18 +46,18 @@ const CourseDetailsDialog = (props) => {
 							</tr>
 						</thead>
 						<tbody>
-							{event ? (
+							{course ? (
 								<tr>
-									<td>{event.displayName}</td>
-									<td>{event.classTitle}</td>
+									<td>{course.displayName}</td>
+									<td>{course.classTitle}</td>
 									<td>MW 9:00AM-11:00AM</td>
 									<td>Yale</td>
-									<td>{event.period}</td>
+									<td>{course.period}</td>
 									<td>
 										<Button
 											onClick={() =>
 												handleDelete(
-													event.extendedProps._id
+													course._id
 												)
 											}
 										>

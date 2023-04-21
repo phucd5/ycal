@@ -170,10 +170,10 @@ export const getUserClasses = async (req, res) => {
 
 export const updateUserClasses = async (req, res) => {
 	const { userId } = req.params;
-	const { classId, action } = req.body;
+	const { courseId, action } = req.body;
 	try {
 		const user = await User.findById(userId);
-		const yclass = await YClass.findById(classId);
+		const yclass = await YClass.findById(courseId);
 
 		if (!user) {
 			return handleNotFound(res, "User not found");
@@ -181,15 +181,15 @@ export const updateUserClasses = async (req, res) => {
 			return handleNotFound(res, "Class not found");
 		}
 		if (action === "add") {
-			if (user.classes.includes(classId)) {
+			if (user.classes.includes(courseId)) {
 				return handleBadRequest(
 					res,
 					"Event is already in user's events list"
 				);
 			}
-			user.classes.push(classId);
+			user.classes.push(courseId);
 		} else if (action === "remove") {
-			user.classes.remove(classId);
+			user.classes.remove(courseId);
 		}
 		await user.save();
 		handleSuccess(res, user.classes);
@@ -199,7 +199,6 @@ export const updateUserClasses = async (req, res) => {
 };
 
 export const getUserFriendRequests = async (req, res) => {
-	console.log("FRiend request");
 	try {
 		const user = await User.findById(req.params.userId).populate(
 			"friend_requests"
@@ -216,7 +215,6 @@ export const getUserFriendRequests = async (req, res) => {
 };
 
 export const updateUserFriendRequests = async (req, res) => {
-	console.log("UPDATE");
 	const { userId } = req.params;
 	const { friendId, action } = req.body;
 

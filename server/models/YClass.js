@@ -19,9 +19,13 @@ const YClassSchema = new mongoose.Schema({
 	},
 	location: {
 		type: String,
-		required: false,
+		required: true,
 	},
 	period: {
+		type: String,
+		required: true,
+	},
+	meetingTime: {
 		type: String,
 		required: true,
 	},
