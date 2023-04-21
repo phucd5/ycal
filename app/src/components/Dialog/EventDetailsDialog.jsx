@@ -6,9 +6,11 @@ import Table from "react-bootstrap/Table";
 const EventDetailsDialog = (props) => {
 	const { user, event, fetchEvents, setEvents, show, handleClose } = props;
 
+	/* Callback Functions */
+
 	const handleDelete = async (eventId) => {
 		try {
-			const response = await axios.put(
+			 await axios.put(
 				`http://localhost:3002/users/${user._id}/events`,
 				{
 					eventId: eventId,
@@ -46,7 +48,7 @@ const EventDetailsDialog = (props) => {
 			<Modal size="lg" show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
 					<Modal.Title id="event-details-title">
-						{event ? <p>{event.title}</p> : <p>Test</p>}
+						{event ? <p>{event.title}</p> : <p>N/A</p>}
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>

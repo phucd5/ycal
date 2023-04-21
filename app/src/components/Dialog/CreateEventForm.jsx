@@ -7,6 +7,15 @@ import Button from "react-bootstrap/button";
 
 const CreateEventForm = (props) => {
 	const { user, friends, fetchEvents } = props;
+
+	const [show, setShow] = useState(false);
+	const handleClose = (event) => {
+		event.preventDefault();
+		setShow(false);
+	};
+	const handleShow = () => setShow(true);
+
+
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [startDate, setStartDate] = useState("");
@@ -16,9 +25,8 @@ const CreateEventForm = (props) => {
 	const [location, setLocation] = useState("");
 	const [locationMarker, setLocationMarker] = useState("None");
 	const [attendees, setAttendees] = useState([]);
-	const [show, setShow] = useState(false);
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+	
+	/* Callback Functions */
 
 	const handleCheck = (targetCheck, friendId) => {
 		const isChecked = targetCheck;
@@ -54,7 +62,7 @@ const CreateEventForm = (props) => {
 				}
 			);
 			try {
-				const response_2 = await axios.put(
+				await axios.put(
 					`http://localhost:3002/users/${user._id}/events`,
 					{
 						eventId: response.data._id,
@@ -191,7 +199,6 @@ const CreateEventForm = (props) => {
 						</Form.Group>
 						<Form.Group>
 							<Form.Label>Attendees:</Form.Label>
-							{/* maps a checkbox to every friend*/}
 							{friends.map((friend) => (
 								<Form.Check
 								key={friend._id}
@@ -199,36 +206,12 @@ const CreateEventForm = (props) => {
 								id={friend._id}
 								label={`${friend.firstName} ${friend.lastName}`}
 								checked={attendees.includes(friend._id)}
-								// on change,
-								// if checked, include previous attendees and current attended checked
-								// if unchecked, filter out the checked friend id
 								onChange={(e) => {
 									handleCheck(e.target.checked, friend._id);
 								}}
 								/>
 							))}
 						</Form.Group>
-						{/* <Form.Group>
-							<Form.Label>Attendees:</Form.Label>
-							<Form.Select
-								multiple
-								value={attendees}
-								onChange={(e) =>
-									setAttendees(
-										Array.from(
-											e.target.selectedOptions,
-											(option) => option.value
-										)
-									)
-								}
-							>
-								{friends.map((friend) => (
-									<option key={friend._id} value={friend._id}>
-										{friend.firstName} {friend.lastName}
-									</option>
-								))}
-							</Form.Select>
-						</Form.Group> */}
 						<Button variant="primary" type="submit">
 							Submit
 						</Button>

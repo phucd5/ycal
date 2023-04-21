@@ -7,17 +7,23 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FriendsCalandar from "./FriendsCalandar";
+
+
 import CreateEventForm from "../Dialog/CreateEventForm";
 import AddFriendDialog from "../Dialog/AddFriend";
 import EventDetailsDialog from "../Dialog/EventDetailsDialog";
 import AddCourseDialog from "../Dialog/AddCourseDialog";
-import "./Calendar.css";
-import styled from "./styles.scss";
+
+
 import MeetingDialog from "../Dialog/MeetingDialog";
 import CourseDetailsDialog from "../Dialog/CourseDetailsDialog";
-import { render } from "@fullcalendar/core/preact";
+
+import "./Calendar.css";
+import styled from "./styles.scss";
 
 const Calendar = () => {
+	const navigate = useNavigate();
+
 	const [eventModalShow, setEventModalShow] = useState(false);
 	const [courseModalShow, setCourseModalShow] = useState(false);
 	const [selectedEvent, setSelectedEvent] = useState(null);
@@ -28,22 +34,14 @@ const Calendar = () => {
 	const handleCourseModalShow = () => setCourseModalShow(true);
 	const handleCourseModalClose = () => setCourseModalShow(false);
 	const handleSelectedEvent = (event) => setSelectedEvent(event);
-	const handleSelectedCourse = (course) => setSelectedCourse(course);
 
-	const navigate = useNavigate();
+	
 	const [user, setUser] = useState(null);
 	const [events, setEvents] = useState([]);
-	const [friends, setFriends] = useState([]);
 	const [friendRequests, setFriendRequests] = useState([]);
+	const [friends, setFriends] = useState([]);
 	const [courses, setCourses] = useState([]);
 	const calendarRef = useRef(null);
-
-	const fetchCourseDetails = async (event) => {
-		const classResponse = await axios.get(
-			`http://localhost:3002/yclasses/${event.extendedProps.class}`
-		);
-		setSelectedCourse(classResponse.data);
-	};
 
 	useEffect(() => {
 		const loggedInUser = localStorage.getItem("token");
@@ -59,10 +57,13 @@ const Calendar = () => {
 		if (user && user._id) {
 			fetchEvents();
 			fetchCourses();
-			fetchFriends();
 			fetchFriendRequests();
+			fetchFriends();
 		}
 	}, [user]);
+
+
+	/* API Requests */
 
 	async function fetchEvents() {
 		try {
@@ -80,9 +81,8 @@ const Calendar = () => {
 		const classesResponse = await axios.get(
 			`http://localhost:3002/users/${user._id}/classes`
 		);
-		const classesData = classesResponse.data;
 
-		for (const classObj of classesData) {
+		for (const classObj of classesResponse.data) {
 			const scheduleResponse = await axios.get(
 				`http://localhost:3002/yclasses/${classObj._id}/schedule`
 			);
@@ -96,16 +96,12 @@ const Calendar = () => {
 		setCourses(allClass);
 	}
 
-	async function fetchFriendRequests() {
-		try {
-			const response = await axios.get(
-				`http://localhost:3002/users/${user._id}/friendrequests`
-			);
-			setFriendRequests(response.data);
-		} catch (error) {
-			console.error(error);
-		}
-	}
+	const fetchCourseDetails = async (event) => {
+		const classResponse = await axios.get(
+			`http://localhost:3002/yclasses/${event.extendedProps.class}`
+		);
+		setSelectedCourse(classResponse.data);
+	};
 
 	async function fetchFriends() {
 		try {
@@ -117,6 +113,20 @@ const Calendar = () => {
 			console.error(error);
 		}
 	}
+
+	async function fetchFriendRequests() {
+		try {
+			const response = await axios.get(
+				`http://localhost:3002/users/${user._id}/friendrequests`
+			);
+			setFriendRequests(response.data);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+
+	/* Callback Functions Requests */
 
 	const handleAddFriend = async (friendId, friendEmail) => {
 		try {
@@ -141,21 +151,6 @@ const Calendar = () => {
 		}
 	};
 
-	const handleRemoveFriend = async (friendId) => {
-		try {
-			const response = await axios.put(
-				`http://localhost:3002/users/${user._id}/friends`,
-				{
-					friendId: friendId,
-					action: "remove",
-				}
-			);
-			setFriends(response.data);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	const handleRemoveFriendRequest = async (friendId) => {
 		try {
 			const response = await axios.put(
@@ -171,16 +166,33 @@ const Calendar = () => {
 		}
 	};
 
+	const handleRemoveFriend = async (friendId) => {
+		try {
+			const response = await axios.put(
+				`http://localhost:3002/users/${user._id}/friends`,
+				{
+					friendId: friendId,
+					action: "remove",
+				}
+			);
+			setFriends(response.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+
 	const handleEventClick = async (info) => {
 		if (info.event.extendedProps.isClass === true) {
 			const classResponse = await fetchCourseDetails(info.event);
 			handleCourseModalShow();
-			// console.log(setSelectedCourse);
 		} else {
 			handleSelectedEvent(info.event);
 			handleEventModalShow();
 		}
 	};
+
+	/* Render component functions */
 
 	const renderFriendRequests = () => {
 		return (
@@ -291,7 +303,6 @@ const Calendar = () => {
 				<CourseDetailsDialog
 					user={user}
 					event={selectedCourse}
-					fetchCourses={fetchCourses}
 					setCourses={setCourses}
 					show={courseModalShow}
 					handleClose={handleCourseModalClose}
@@ -306,6 +317,7 @@ const Calendar = () => {
 				<strong>YCal</strong>
 			</h1>
 			<div className={styled.bootstrap}>
+				<AddFriendDialog user={user} />
 				<div class="container">
 					<div class="item-friends-item">
 						{renderFriendRequests()}

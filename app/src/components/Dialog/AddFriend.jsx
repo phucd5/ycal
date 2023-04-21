@@ -5,30 +5,30 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 const AddFriendDialog = (props) => {
-	const { user, setFriends } = props;
-
-	const [email, setEmail] = useState("");
-	const [show, setShow] = useState(false);
+	const { user } = props;
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
+	const [email, setEmail] = useState("");
+	const [show, setShow] = useState(false);
+
+	/* Callback functions */
 	const handleEmailChange = (event) => {
 		setEmail(event.target.value);
 	};
 
-
 	const handleAddFriendRequest = async (event) => {
 		event.preventDefault();
 		try {
-			const response = await axios.get(
+			const friendResponse = await axios.get(
 				`http://localhost:3002/users/${email}/email`
 			);
 			try {
-				const response_2 = await axios.put(
+				await axios.put(
 					`http://localhost:3002/users/${user._id}/friendrequests`,
 					{
-						friendId: response.data._id,
+						friendId: friendResponse.data._id,
 						action: "add",
 					}
 
@@ -42,7 +42,6 @@ const AddFriendDialog = (props) => {
 		}
 		handleClose();
 	};
-
 
 	return (
 		<>

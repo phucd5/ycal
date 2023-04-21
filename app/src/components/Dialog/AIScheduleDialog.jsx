@@ -1,23 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
 const { Configuration, OpenAIApi } = require("openai");
 
-const AISchedule = ({ user, friends, meetingTime }) => {
+const AISchedule = (props) => {
+
+	const { user, friends, meetingDate, meetingLength} = props;
+
+
+	
+	const [loading, setLoading] = useState(false);
+	const [GPTResponse, setGPTResponse] = useState("");
+	
+
 	const openAi = new OpenAIApi(
 		new Configuration({
 			apiKey: "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",
 		})
 	);
 
-	const askGpt = async (prompt) => {
+	const askGPT = async (prompt) => {
 		setLoading(true);
 		if (prompt !== "") {
 			const completion = await openAi.createChatCompletion({
@@ -29,13 +31,10 @@ const AISchedule = ({ user, friends, meetingTime }) => {
 		} else {
 			setLoading(false);
 		}
+		console.log(prompt);
 	};
 
-	const [allEvents, setallEvents] = useState([]);
-	const [GPTResponse, setGPTResponse] = useState("");
-	const [prompt, setPrompt] = useState("");
-	const [loading, setLoading] = useState(false);
-
+	
 	const fetchFriendsEvents = async () => {
 		const today = new Date();
 		const oneWeekFromNow = new Date(
@@ -61,9 +60,8 @@ const AISchedule = ({ user, friends, meetingTime }) => {
 				const classesResponse = await axios.get(
 					`http://localhost:3002/users/${friendId}/classes`
 				);
-				const classesData = classesResponse.data;
-
-				for (const classObj of classesData) {
+	
+				for (const classObj of classesResponse.data) {
 					const scheduleResponse = await axios.get(
 						`http://localhost:3002/yclasses/${classObj._id}/schedule`
 					);
@@ -102,10 +100,13 @@ const AISchedule = ({ user, friends, meetingTime }) => {
 			return `${friend}:\n${eventsString}`;
 		});
 
-		let gpt_string = `Given these events, find the most optimal time for these users to have a meeting for ${meetingTime} so there is no conflicts with any of the events. Think of these as one set of events. Convert time into PM or AM. Explain why this is the best choice!`;
+		let gpt_string = `Given these events, find the most optimal time for these users to have a meeting on ${meetingDate} for 
+		${meetingLength} so there is no conflicts with any of the events. 
+		Think of these as one set of events. Convert time into PM or AM. 
+		Explain why this is the best choice!`;
 		let concatArray = [gpt_string, ...formattedEvents];
 		const concatPrompt = concatArray.join(", ");
-		askGpt(concatPrompt);
+		askGPT(concatPrompt);
 	};
 
 	useEffect(() => {

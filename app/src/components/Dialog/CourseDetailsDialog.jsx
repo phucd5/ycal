@@ -2,14 +2,14 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
-import React, { useState, useEffect, useRef } from "react";
 
 const CourseDetailsDialog = (props) => {
-	const { user, event, fetchCourses, setCourses, show, handleClose } = props;
+	const { user, event, setCourses, show, handleClose } = props;
 
+	/* Callback Functions */
 	const handleDelete = async (eventId) => {
 		try {
-			const response = await axios.put(
+			await axios.put(
 				`http://localhost:3002/users/${user._id}/events`,
 				{
 					eventId: eventId,

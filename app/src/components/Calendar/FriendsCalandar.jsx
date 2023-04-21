@@ -10,14 +10,18 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
 const FriendsCalandar = ({ friendId }) => {
-	const [events, setEvents] = useState([]);
-	const [friend, setFriend] = useState([]);
-	const [show, setShow] = useState(false);
-	const calendarRef = useRef(null);
-	const [classes, setClasses] = useState([]);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+
+	const [events, setEvents] = useState([]);
+	const [friend, setFriend] = useState([]);
+	const [show, setShow] = useState(false);
+	const [classes, setClasses] = useState([]);
+	const calendarRef = useRef(null);
+
+	/* API Requests */
+	
 	const fetchFriend = async () => {
 		try {
 			const response = await axios.get(

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
@@ -8,17 +7,23 @@ import AIScheduleDialog from "./AIScheduleDialog"
 
 const SelectFriend = (props) => {
 	const { user, friends } = props;
-	const [attendees, setAttendees] = useState([]);
-	const [meetingTime, setMeetingTime] = useState("30 minutes");
+	
+	const handleShow = () => setShow(true);
+	const handleClose = () => {
+		setDisabled(false);
+		setShow(false);
+	  }
+
+	
 	const [show, setShow] = useState(false);
 	const [disabledCheck, setDisabled] = useState(false);
 
-	const handleMeetingTimeChange = (event) => {
-		setMeetingTime(event.target.value);
-	};
+	const [attendees, setAttendees] = useState([]);
+	const [meetingDate, setMeetingDate] = useState("");
+	const [meetingLength, setMeetingLength] = useState("");
+	
+	/* Callback Functions */
 
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
     const handleCheck = (targetCheck, friendId) => {
         const isChecked = targetCheck;
         if (isChecked) {
@@ -58,7 +63,6 @@ const SelectFriend = (props) => {
 					<Form>
                     <Form.Group>
                             <Form.Label>Friends to Select:</Form.Label>
-                            {/* maps a checkbox to every friend*/}
                             {friends.map((friend) => (
                                 <Form.Check
 								disabled={disabledCheck}
@@ -72,17 +76,45 @@ const SelectFriend = (props) => {
                                 }}
                                 />
                             ))}
+							<Form.Group>
+							<Form.Label>Meeting Time:</Form.Label>
+							<br />
 							<Form.Control
+							disabled={disabledCheck}
+								type="date"
+								value={meetingDate}
 								className="input-box"
-								type="email"
-								id="email"
-								value={meetingTime}
-								onChange={handleMeetingTimeChange}
+								onChange={(e) => setMeetingDate(e.target.value)}
+								required
 							/>
+						</Form.Group>
+						<Form.Group>
+							<Form.Label>Meeting Length:</Form.Label>
+							<br />
+							<Form.Select
+							disabled={disabledCheck}
+								value={meetingLength}
+								onChange={(e) =>
+									setMeetingLength(e.target.value)
+								}
+							>
+								<option value="30 minutes">30 minutes</option>
+								<option value="45 minutes">
+									45 minutes
+								</option>
+								<option value="1 hour">
+									1 Hour
+								</option>
+								<option value="2+ hours">
+									2+ hours
+								</option>
+							</Form.Select>
+							<br/>
+						</Form.Group>
                             <Button disabled={disabledCheck} onClick={handleSubmitForm}>Schedule Meeting</Button>
                         </Form.Group>
 					</Form>
-					{disabledCheck ? <AIScheduleDialog user={user} friends={attendees} meetingTime={meetingTime}/> : <div></div>}
+					{disabledCheck ? <AIScheduleDialog user={user} friends={attendees} meetingDate={meetingDate} meetingLength={meetingLength}/> : <div></div>}
 				</Modal.Body>
 			</Modal>
 		</>
