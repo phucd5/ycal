@@ -3,7 +3,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import AISchedule from "../Calendar/AISchedule"
+import AIScheduleDialog from "./AIScheduleDialog"
 
 
 const SelectFriend = (props) => {
@@ -82,7 +82,7 @@ const SelectFriend = (props) => {
                             <Button disabled={disabledCheck} onClick={handleSubmitForm}>Schedule Meeting</Button>
                         </Form.Group>
 					</Form>
-					{disabledCheck ? <AISchedule user={user} friends={attendees} meetingTime={meetingTime}/> : <div></div>}
+					{disabledCheck ? <AIScheduleDialog user={user} friends={attendees} meetingTime={meetingTime}/> : <div></div>}
 				</Modal.Body>
 			</Modal>
 		</>

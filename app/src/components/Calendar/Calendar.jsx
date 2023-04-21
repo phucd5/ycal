@@ -11,11 +11,11 @@ import CreateEventForm from "../Dialog/CreateEventForm";
 import AddFriendDialog from "../Dialog/AddFriend";
 import EventDetailsDialog from "../Dialog/EventDetailsDialog";
 import AddCourseDialog from "../Dialog/AddCourseDialog";
-import AISchedule from "./AISchedule"
 import "./Calendar.css";
 import styled from "./styles.scss";
-import SelectFriend from "../Dialog/SelectFriends";
+import MeetingDialog from "../Dialog/MeetingDialog";
 import CourseDetailsDialog from "../Dialog/CourseDetailsDialog";
+import { render } from "@fullcalendar/core/preact";
 
 const Calendar = () => {
 	const [eventModalShow, setEventModalShow] = useState(false);
@@ -39,10 +39,11 @@ const Calendar = () => {
 	const calendarRef = useRef(null);
 
 	const fetchCourseDetails = async (event) => {
-		const classResponse = await axios.get(`http://localhost:3002/yclasses/${event.extendedProps.class}`);
-		setSelectedCourse(classResponse.data)
-	}
-	  
+		const classResponse = await axios.get(
+			`http://localhost:3002/yclasses/${event.extendedProps.class}`
+		);
+		setSelectedCourse(classResponse.data);
+	};
 
 	useEffect(() => {
 		const loggedInUser = localStorage.getItem("token");
@@ -170,152 +171,180 @@ const Calendar = () => {
 		}
 	};
 
-	const handleEventClick = async (info) => {						
+	const handleEventClick = async (info) => {
 		if (info.event.extendedProps.isClass === true) {
 			const classResponse = await fetchCourseDetails(info.event);
 			handleCourseModalShow();
-			// console.log(setSelectedCourse);	
-		}
-		else {			
+			// console.log(setSelectedCourse);
+		} else {
 			handleSelectedEvent(info.event);
 			handleEventModalShow();
 		}
 	};
 
+	const renderFriendRequests = () => {
+		return (
+			<>
+				<table style={{ marginTop: "10px" }}>
+					<thead>
+						<tr>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Email</th>
+						</tr>
+					</thead>
+					<tbody>
+						{friendRequests.map((friend) => (
+							<tr key={friend._id}>
+								<td>{friend.firstName}</td>
+								<td>{friend.lastName}</td>
+								<td>{friend.email}</td>
+								<td>
+									<button
+										style={{
+											marginRight: "15px",
+											marginLeft: "15px",
+										}}
+										onClick={() =>
+											handleRemoveFriendRequest(
+												friend._id
+											)
+										}
+									>
+										Delete Request
+									</button>
+									<button
+										style={{
+											marginRight: "15px",
+											marginLeft: "15px",
+										}}
+										onClick={() =>
+											handleAddFriend(
+												friend._id,
+												friend.email
+											)
+										}
+									>
+										Add Friend
+									</button>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</>
+		);
+	};
+
+	const renderFriendsLists = () => {
+		return (
+			<>
+				<table style={{ marginTop: "10px" }}>
+					<thead>
+						<tr>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Email</th>
+						</tr>
+					</thead>
+					<tbody>
+						{friends.map((friend) => (
+							<tr key={friend._id}>
+								<td>{friend.firstName}</td>
+								<td>{friend.lastName}</td>
+								<td>{friend.email}</td>
+								<td>
+									<button
+										style={{
+											marginRight: "15px",
+											marginLeft: "15px",
+										}}
+										onClick={() =>
+											handleRemoveFriend(friend._id)
+										}
+									>
+										Delete Friend
+									</button>
+									<FriendsCalandar
+										friendId={friend._id}
+									></FriendsCalandar>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</>
+		);
+	};
+
+	const renderDialogs = () => {
+		return (
+			<>
+				<EventDetailsDialog
+					user={user}
+					event={selectedEvent}
+					fetchEvents={fetchEvents}
+					setEvents={setEvents}
+					show={eventModalShow}
+					handleClose={handleEventModalClose}
+				/>
+				<CourseDetailsDialog
+					user={user}
+					event={selectedCourse}
+					fetchCourses={fetchCourses}
+					setCourses={setCourses}
+					show={courseModalShow}
+					handleClose={handleCourseModalClose}
+				/>
+				<MeetingDialog user={user} friends={friends} />
+			</>
+		);
+	};
 	return (
 		<div>
-			<h1><strong>YCal</strong></h1>
+			<h1>
+				<strong>YCal</strong>
+			</h1>
 			<div className={styled.bootstrap}>
-			<div class="container">
-				<div class="item friends-item">
-					<h2>Friend Requests:</h2>
-						<AddFriendDialog
+				<div class="container">
+					<div class="item-friends-item">
+						{renderFriendRequests()}
+						{renderFriendsLists()}
+					</div>
+					<div class="item-courses-item">
+						<h2>Courses:</h2>
+						<AddCourseDialog
 							user={user}
-							setFriends={setFriendRequests}
-						/>
-					<table style={{ marginTop: "10px" }}>
-						<thead>
-							<tr>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>Email</th>
-							</tr>
-						</thead>
-						<tbody>
-							{friendRequests.map((friend) => (
-								<tr key={friend._id}>
-									<td>{friend.firstName}</td>
-									<td>{friend.lastName}</td>
-									<td>{friend.email}</td>
-									<td>
-										<button
-											style={{
-												marginRight: "15px",
-												marginLeft: "15px",
-											}}
-											onClick={() =>
-												handleRemoveFriendRequest(
-													friend._id
-												)
-											}
-										>
-											Delete Request
-										</button>
-										<button
-											style={{
-												marginRight: "15px",
-												marginLeft: "15px",
-											}}
-											onClick={() =>
-												handleAddFriend(
-													friend._id,
-													friend.email
-												)
-											}
-										>
-											Add Friend
-										</button>
-									</td>
-								</tr>
-							))}
-							<h2>Friends:</h2>
-							{friends.map((friend) => (
-								<tr key={friend._id}>
-									<td>{friend.firstName}</td>
-									<td>{friend.lastName}</td>
-									<td>{friend.email}</td>
-									<td>
-										<button
-											style={{
-												marginRight: "15px",
-												marginLeft: "15px",
-											}}
-											onClick={() =>
-												handleRemoveFriend(friend._id)
-											}
-										>
-											Delete Friend
-										</button>
-										<FriendsCalandar
-											friendId={friend._id}
-										></FriendsCalandar>
-									</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>
-
-				<div class="item courses-item">
-					<h2>Courses:</h2>
-					<AddCourseDialog
-						user={user}
-						fetchClasses={fetchCourses}
-					/>
-				</div>
-				<h2>My Calendar</h2>
-				<div class="item events-item">
-					<CreateEventForm
-						user={user}
-						friends={friends}
-						fetchEvents={fetchEvents}
-					/>
-				</div>
-				<div class="item calendar-item">
-					<div>
-						<FullCalendar
-							timeZone="UTC"
-							ref={calendarRef}
-							plugins={[
-								dayGridPlugin,
-								timeGridPlugin,
-								interactionPlugin,
-							]}
-							initialView="timeGridWeek"
-							events={[...events, ...courses]}
-							eventClick={(info) => handleEventClick(info)}
+							fetchClasses={fetchCourses}
 						/>
 					</div>
-					<EventDetailsDialog
-						user={user}
-						event={selectedEvent}
-						fetchEvents={fetchEvents}
-						setEvents={setEvents}
-						show={eventModalShow}
-						handleClose={handleEventModalClose}
-					/>
-					<CourseDetailsDialog
-						user={user}
-						event={selectedCourse}
-						fetchCourses={fetchCourses}
-						setCourses={setCourses}
-						show={courseModalShow}
-						handleClose={handleCourseModalClose}
-					/>
-					{friends ? <SelectFriend user={user} friends={friends}/> : <div></div>}
+					<h2>My Calendar</h2>
+					<div class="item-events-item">
+						<CreateEventForm
+							user={user}
+							friends={friends}
+							fetchEvents={fetchEvents}
+						/>
+					</div>
+					<div class="item-calendar-item">
+						<div>
+							<FullCalendar
+								timeZone="UTC"
+								ref={calendarRef}
+								plugins={[
+									dayGridPlugin,
+									timeGridPlugin,
+									interactionPlugin,
+								]}
+								initialView="timeGridWeek"
+								events={[...events, ...courses]}
+								eventClick={(info) => handleEventClick(info)}
+							/>
+						</div>
+						{renderDialogs()}
+					</div>
 				</div>
 			</div>
-		</div>
 		</div>
 	);
 };
