@@ -20,7 +20,8 @@ const CourseDetailsDialog = (props) => {
 				prevEvents.filter((event) => event._id !== eventId)
 			);
 		} catch (error) {
-			console.log(error);
+			handleClose();
+			return;
 		}
 		handleClose();
 	};
