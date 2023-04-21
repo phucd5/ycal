@@ -10,7 +10,7 @@ const CreateEventForm = (props) => {
 
 	const [show, setShow] = useState(false);
 	const handleClose = (event) => {
-		event.preventDefault();
+		console.log("SHOW FALSE");
 		setShow(false);
 	};
 	const handleShow = () => setShow(true);
@@ -77,13 +77,15 @@ const CreateEventForm = (props) => {
 				setEndTime("");
 				setLocation("");
 				setAttendees([]);
+				handleClose();
 			} catch (error) {
 				console.log(error);
+				handleClose();
 			}
 		} catch (error) {
 			console.log(error);
+			handleClose();
 		}
-		handleClose();
 	};
 
 	return (
