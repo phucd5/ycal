@@ -112,7 +112,7 @@ const AISchedule = (props) => {
 		<div>
 			<h1>AI Schedule Suggestion</h1>
 			{loading ? (
-				<div>Loading AI Response...</div>
+				<div>Loading AI Suggestion...</div>
 			) : (
 				<div>{GPTResponse}</div>
 			)}

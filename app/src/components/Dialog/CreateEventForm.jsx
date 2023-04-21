@@ -39,7 +39,6 @@ const CreateEventForm = (props) => {
 	};
 
 	const handleSubmit = async (e) => {
-		handleClose();
 		e.preventDefault();
 		try {
 			const response = await axios.post(
@@ -61,13 +60,14 @@ const CreateEventForm = (props) => {
 				}
 			);
 			try {
-				await axios.put(
+				const response_2 = await axios.put(
 					`http://localhost:3002/users/${user._id}/events`,
 					{
 						eventId: response.data._id,
 						action: "add",
 					}
 				);
+
 				fetchEvents();
 				setTitle("");
 				setDescription("");
@@ -83,6 +83,7 @@ const CreateEventForm = (props) => {
 		} catch (error) {
 			console.log(error);
 		}
+		handleClose();
 	};
 
 	return (
