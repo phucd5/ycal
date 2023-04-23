@@ -1,89 +1,90 @@
 * {
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .login_page {
-  text-align: center;
-  display: flex;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: center;
+	text-align: center;
+	display: flex;
+	min-height: 100vh;
+	align-items: center;
+	justify-content: center;
 }
 
 .auth-form-container,
 .login-form,
 .reg-form {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .main-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  text-align: center;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	text-align: center;
 }
 
 .entry-container {
-  text-align: center;
+	text-align: center;
 
-  width: 200px;
-  background-color: #0194ff;
-  padding: 1.2em;
-  border-radius: 15px;
+	width: 200px;
+	background-color: #0194ff;
+	padding: 1.2em;
+	border-radius: 15px;
 }
 
 ::placeholder {
-  text-align: center;
-  font-style: italic;
+	text-align: center;
+	font-style: italic;
 }
 
 label {
-  text-align: center;
+	text-align: center;
 }
 
 input {
-  margin: 0 auto;
-  display: block;
-  box-sizing: border-box;
-  position: center;
-  padding: 5px;
-  margin-bottom: 10px;
-  border-radius: 7px;
-  border: 0;
-  width: 100%;
+	margin: 0 auto;
+	display: block;
+	box-sizing: border-box;
+	position: center;
+	padding: 5px;
+	margin-bottom: 10px;
+	border-radius: 7px;
+	border: 0;
+	width: 100%;
 }
 
 .ycal-title {
-  font-size: 50px;
-  font-weight: bold;
-  margin: 15px;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 15px;
 }
 
 /* 250px */
 
 .submit-button {
-  border: 0;
-  background-color: #004a80;
-  border-radius: 7px;
-  color: white;
-  padding: 6px;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-weight: bold;
-  margin-top: 5px;
-  width: 100px;
+	border: 0;
+	background-color: #004a80;
+	border-radius: 7px;
+	color: white;
+	padding: 6px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-weight: bold;
+	margin-top: 5px;
+	width: 100px;
+	cursor: pointer;
 }
 
 .link-button {
-  background: none;
-  text-decoration: underline;
+	background: none;
+	text-decoration: underline;
 }
 
 .login-page,
 .reg-page {
-  height: 100vh;
-  background-color: #bde3ff;
+	height: 100vh;
+	background-color: #bde3ff;
 }

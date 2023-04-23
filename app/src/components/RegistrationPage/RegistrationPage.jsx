@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./RegistrationPage.css";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { validateYaleEmail, validateRegInput } from "../../utils/valdiation";
 
 const RegistrationPage = () => {
 	const [firstName, setFirstName] = useState("");
@@ -13,6 +14,17 @@ const RegistrationPage = () => {
 	const navigate = useNavigate();
 
 	const handleRegister = () => {
+		if (!validateYaleEmail(email)) {
+			alert("Please enter a Yale email");
+			return;
+		}
+
+		const validate = validateRegInput(firstName, lastName, password);
+		if (!validate.valid) {
+			alert(validate.err);
+			return;
+		}
+
 		axios
 			.post("http://localhost:3002/auth/register", {
 				firstName: firstName,
@@ -39,6 +51,7 @@ const RegistrationPage = () => {
 						value={firstName}
 						onChange={(e) => setFirstName(e.target.value)}
 						placeholder="first name"
+						required
 					/>
 
 					<input
@@ -46,6 +59,7 @@ const RegistrationPage = () => {
 						value={lastName}
 						onChange={(e) => setLastName(e.target.value)}
 						placeholder="last name"
+						required
 					/>
 
 					<input
@@ -53,6 +67,7 @@ const RegistrationPage = () => {
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						placeholder="email"
+						required
 					/>
 
 					<input
@@ -60,8 +75,13 @@ const RegistrationPage = () => {
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						placeholder="password"
+						required
 					/>
-					<button className="submit-button" onClick={handleRegister}>
+					<button
+						className="submit-button"
+						type="submit"
+						onClick={handleRegister}
+					>
 						register
 					</button>
 				</div>

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { validateYaleEmail } from "../../utils/valdiation";
 
 function LoginPage() {
 	const [email, setEmail] = useState("");
@@ -11,6 +12,11 @@ function LoginPage() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+
+		if (!validateYaleEmail(email)) {
+			alert("Please enter a Yale email");
+			return;
+		}
 
 		try {
 			const response = await axios.post(
@@ -26,8 +32,7 @@ function LoginPage() {
 			localStorage.setItem("user", JSON.stringify(response.data.user));
 			navigate("/calendar");
 		} catch (error) {
-			alert("Wrong information!");
-			console.error(error);
+			alert("Password/Email is incorrect");
 		}
 	};
 
@@ -42,6 +47,7 @@ function LoginPage() {
 							value={email}
 							onChange={(event) => setEmail(event.target.value)}
 							placeholder="email"
+							required
 						/>
 						<input
 							type="password"
@@ -50,6 +56,7 @@ function LoginPage() {
 								setPassword(event.target.value)
 							}
 							placeholder="password"
+							required
 						/>
 						<button className="submit-button" type="submit">
 							log in

@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import AIScheduleDialog from "./AIScheduleDialog";
+import { validateWithinOneWeek } from "../../utils/valdiation";
 
 const SelectFriend = (props) => {
 	const { user, friends } = props;
@@ -32,7 +33,13 @@ const SelectFriend = (props) => {
 			);
 		}
 	};
+
 	const handleSubmitForm = async (e) => {
+		const validateDateInput = validateWithinOneWeek(new Date(meetingDate));
+		if (!validateDateInput.valid) {
+			alert(validateDateInput.err);
+			return;
+		}
 		setDisabled(true);
 		handleShow();
 	};
@@ -75,7 +82,7 @@ const SelectFriend = (props) => {
 							))}
 							<Form.Group>
 								<Form.Label>
-									Meeting Time (Only One Week in Advanced):
+									Meeting Date (Only One Week in Advanced):
 								</Form.Label>
 								<br />
 								<Form.Control
@@ -98,6 +105,7 @@ const SelectFriend = (props) => {
 									onChange={(e) =>
 										setMeetingLength(e.target.value)
 									}
+									required
 								>
 									<option value="30 minutes">
 										30 minutes

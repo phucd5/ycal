@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/button";
+import { validateDate } from "../../utils/valdiation";
 
 const CreateEventForm = (props) => {
 	const { user, friends, fetchEvents } = props;
@@ -39,6 +40,19 @@ const CreateEventForm = (props) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const newStart = new Date(
+			startDate.concat("T").concat(startTime).concat("Z")
+		);
+		const newEnd = new Date(
+			endDate.concat("T").concat(endTime).concat("Z")
+		);
+
+		const validateCalInput = validateDate(newStart, newEnd);
+
+		if (!validateCalInput.valid) {
+			alert(validateCalInput.err);
+			return;
+		}
 		try {
 			const response = await axios.post(
 				"http://localhost:3002/events/create",
