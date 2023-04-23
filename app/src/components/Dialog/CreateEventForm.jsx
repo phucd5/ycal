@@ -6,13 +6,11 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/button";
 
 const CreateEventForm = (props) => {
-	const { user, friends, fetchEvents } = props;
+	const { user, friends, fetchEvents, show, setShow, handleShow } = props;
 
-	const [show, setShow] = useState(false);
 	const handleClose = (event) => {
 		setShow(false);
 	};
-	const handleShow = () => setShow(true);
 
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
@@ -89,10 +87,6 @@ const CreateEventForm = (props) => {
 
 	return (
 		<>
-			<Button variant="primary" onClick={handleShow}>
-				New Event
-			</Button>
-
 			<Modal
 				show={show}
 				onHide={handleClose}
