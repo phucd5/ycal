@@ -4,11 +4,29 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const AddFriendDialog = (props) => {
 	const { user } = props;
 
-	const handleClose = () => setShow(false);
+	const handleClose = (event) => {
+		setEmail("");
+		setShow(false);
+	};
 	const handleShow = () => setShow(true);
+
+	const handleCloseSuccess = (msg) => {
+		toast.success(msg);
+		setShow(false);
+		setEmail("");
+	};
+
+	const handleCloseError = (msg) => {
+		toast.error(msg);
+		setShow(false);
+		setEmail("");
+	};
 
 	const [email, setEmail] = useState("");
 	const [show, setShow] = useState(false);
@@ -32,20 +50,28 @@ const AddFriendDialog = (props) => {
 						action: "add",
 					}
 				);
-				alert("Friend request sent!");
+				handleCloseSuccess("Sucessfully added friend");
 			} catch (error) {
-				alert(
+				handleCloseError(
 					"Person is already in your friend's list or request already sent!"
 				);
 			}
 		} catch (error) {
-			alert("Can't find user", error);
+			handleCloseError("Can't find user");
 		}
-		handleClose();
 	};
 
 	return (
 		<>
+			<ToastContainer
+				position="top-center"
+				newestOnTop={true}
+				autoClose={2000}
+				closeOnClick
+				rtl={false}
+				pauseOnHover={false}
+				theme="colored"
+			/>
 			<Button variant="primary" onClick={handleShow}>
 				Add Friend
 			</Button>
