@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
-
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/button";
+import Fab from "@material-ui/core/Fab";
+import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 
 const CreateEventForm = (props) => {
 	const { user, friends, fetchEvents } = props;
@@ -89,10 +90,13 @@ const CreateEventForm = (props) => {
 
 	return (
 		<>
-			<Button variant="primary" onClick={handleShow}>
-				New Event
-			</Button>
-
+			<Fab
+				color="primary"
+				variant="primary"
+				onClick={handleShow}
+				>
+				<EditCalendarIcon />
+			</Fab>
 			<Modal
 				show={show}
 				onHide={handleClose}

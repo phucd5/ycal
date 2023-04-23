@@ -10,27 +10,6 @@
 	font-weight: bold;
 }
 
-.container {
-	display: grid;
-	grid-template-rows: auto; /* two rows with equal height */
-	grid-template-columns: auto; /* three columns with equal width */
-	grid-row-gap: 40px; /* spacing between grid cells */
-}
-
-.friends-item {
-	grid-row: 1 / span 1; /* occupies the first row */
-	grid-column: 1 / span 1; /* occupies the first column */
-}
-
-.courses-item {
-	grid-row: 1 / span 1; /* occupies the first row */
-	grid-column: 2 / span 1; /* occupies the second column */
-}
-
-.events-item {
-	justify-self: end;
-}
-
 .calendar-item {
 	grid-row: 3 / span 1; /* occupies the second row */
 	grid-column: 1 / span 2; /* occupies all three columns in the first row */
@@ -46,10 +25,6 @@
 	margin: 0 5px;
 	font-weight: bold;
 	display: inline-block;
-}
-
-.options-container {
-	float: right;
 }
 
 nav {
