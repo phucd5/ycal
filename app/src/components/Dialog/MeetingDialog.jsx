@@ -6,15 +6,13 @@ import AIScheduleDialog from "./AIScheduleDialog";
 import { validateWithinOneWeek } from "../../utils/valdiation";
 
 const SelectFriend = (props) => {
-	const { user, friends } = props;
+	const { user, friends, show, setShow, handleShow } = props;
 
-	const handleShow = () => setShow(true);
 	const handleClose = () => {
 		setDisabled(false);
 		setShow(false);
 	};
 
-	const [show, setShow] = useState(false);
 	const [disabledCheck, setDisabled] = useState(false);
 
 	const [attendees, setAttendees] = useState([]);
@@ -46,9 +44,6 @@ const SelectFriend = (props) => {
 
 	return (
 		<>
-			<Button variant="primary" onClick={handleShow}>
-				Schedule Meeting
-			</Button>
 			<Modal
 				show={show}
 				onHide={handleClose}
@@ -57,7 +52,7 @@ const SelectFriend = (props) => {
 			>
 				<Modal.Header closeButton>
 					<Modal.Title id="add-friend-modal-title">
-						Add Friend
+						Schedule Meeting
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
