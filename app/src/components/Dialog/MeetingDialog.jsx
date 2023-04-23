@@ -77,7 +77,7 @@ const SelectFriend = (props) => {
 							))}
 							<Form.Group>
 								<Form.Label>
-									Meeting Date (Only One Week in Advanced):
+									Meeting Date (One Week in Advanced):
 								</Form.Label>
 								<br />
 								<Form.Control
