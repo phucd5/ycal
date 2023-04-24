@@ -79,7 +79,6 @@ const EventDetailsDialog = (props) => {
 								<th>Start Date</th>
 								<th>End Date</th>
 								<th>Location</th>
-								<th>Yale Location</th>
 								<th>Attendees</th>
 							</tr>
 						</thead>
@@ -90,9 +89,6 @@ const EventDetailsDialog = (props) => {
 									<td>{event.startStr}</td>
 									<td>{event.endStr}</td>
 									<td>{event.extendedProps.location}</td>
-									<td>
-										{event.extendedProps.location_marker}
-									</td>
 									<td>
 										{event.extendedProps.attendees.length >
 										0 ? (
