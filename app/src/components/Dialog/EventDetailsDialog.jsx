@@ -117,7 +117,6 @@ const EventDetailsDialog = (props) => {
 								>
 									Delete Event
 								</Button>
-
 					</Modal.Body>
 				):(<Modal.Body></Modal.Body>)}
 			</Modal>

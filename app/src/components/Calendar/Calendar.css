@@ -10,7 +10,7 @@ body {
 }
 
 body {
-	background-color: white;
+	background-color: #006bcf;
 }
 
 .logo {
@@ -78,6 +78,7 @@ body {
 .YCal-logo {
 	display: flex;
 	padding-left: 25px;
+	color: white;
 }
 
 .logout-button {
@@ -87,6 +88,7 @@ body {
 	font-weight: bold;
 	font-size: medium;
 	cursor: pointer;
+	color: white;
 }
 
 .item-calendar-item {
@@ -98,6 +100,7 @@ body {
 :root{
 	--fc-button-bg-color: #2074d4;	
 	--fc-page-bg-color: #fff;
+	--fc-button-border-color: none;
 }
 
 nav {
@@ -112,4 +115,17 @@ body {
 
 section {
 	margin: 20px;
+}
+
+.fc {
+	background-color: white;	
+}
+
+#calendar {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.Fab {
+	background-color: #0582f0;
 }
