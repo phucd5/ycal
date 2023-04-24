@@ -2,7 +2,12 @@
 	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-html, body {margin: 0; height: 100%; overflow: hidden}
+html,
+body {
+	margin: 0;
+	height: 100%;
+	overflow: hidden;
+}
 
 .logo {
 	color: rgb(255, 255, 255);
@@ -12,10 +17,10 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 	font-weight: bold;
 }
 
-.overlay { 
-	position: fixed; 
+.overlay {
+	position: fixed;
 	overflow-y: scroll;
-	inset: 0; 
+	inset: 0;
 }
 
 .container {
@@ -62,8 +67,8 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .topBarContainer {
 	display: flex;
-	flex-direction: row;	
-  	justify-content: space-between;	
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 .YCal-logo {
@@ -75,8 +80,9 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 	background-color: transparent;
 	border: none;
 	padding-right: 25px;
-	font-weight:bold;
+	font-weight: bold;
 	font-size: medium;
+	cursor: pointer;
 }
 
 .item-calendar-item {

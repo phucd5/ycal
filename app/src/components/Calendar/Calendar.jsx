@@ -21,7 +21,7 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import BookIcon from "@mui/icons-material/Book";
 import GroupsIcon from "@mui/icons-material/Groups";
-import ScheduleIcon from '@mui/icons-material/Schedule';
+import ScheduleIcon from "@mui/icons-material/Schedule";
 
 import "./Calendar.css";
 import styled from "./styles.scss";
@@ -152,9 +152,11 @@ const Calendar = () => {
 		}
 	};
 
-    const handleLogout = async() => {
-
-    }
+	const handleLogout = () => {
+		localStorage.removeItem("token");
+		localStorage.removeItem("user");
+		navigate("/login");
+	};
 
 	const renderDialogs = () => {
 		return (
@@ -197,27 +199,27 @@ const Calendar = () => {
 					setShow={setAddEventModalShow}
 					handleShow={handleAddEventModalShow}
 				/>
-                <FriendsDialog
-                    user={user}
-                    friends={friends}
-                    friendRequests={friendRequests}
-                    setFriends={setFriends}
-                    setFriendRequests={setFriendRequests}
-                    show={friendsModalShow}
-                    handleShow={handleFriendsModalShow}
-                    handleClose={handleFriendsModalClose}
-                />
+				<FriendsDialog
+					user={user}
+					friends={friends}
+					friendRequests={friendRequests}
+					setFriends={setFriends}
+					setFriendRequests={setFriendRequests}
+					show={friendsModalShow}
+					handleShow={handleFriendsModalShow}
+					handleClose={handleFriendsModalClose}
+				/>
 			</>
 		);
 	};
 	return (
 		<div>
 			<div class="topBarContainer">
-                <h1 class="YCal-logo">
-                    YCal
-                </h1>                
-                <button class="logout-button" onClick={handleLogout}>Log out</button>
-            </div>
+				<h1 class="YCal-logo">YCal</h1>
+				<button class="logout-button" onClick={handleLogout}>
+					Log out
+				</button>
+			</div>
 			<div className={styled.bootstrap}>
 				<div class="container">
 					<div class="item-calendar-item">
@@ -233,49 +235,54 @@ const Calendar = () => {
 								initialView="timeGridWeek"
 								events={[...events, ...courses]}
 								eventClick={(info) => handleEventClick(info)}
-                                aspectRatio="2.5"                            
+								aspectRatio="2.5"
 							/>
 						</div>
 						{renderDialogs()}
 					</div>
-					<Box sx={{ "& > :not(style)": { m: 1 } }} position="fixed" bottom="0" right="0">                        
-                        <Tooltip title="Add Event">                        
-                            <Fab
-                                color="primary"
-                                aria-label="addEvent"
-                                onClick={handleAddEventModalShow}
-                                position="fixed"
-                            >
-                                <AddIcon />
-                            </Fab>
-                        </Tooltip>
-                        <Tooltip title="Add Course">
-                            <Fab
-                                color="primary"
-                                aria-label="addCourse"
-                                onClick={handleAddCourseModalShow}
-                            >
-                                <BookIcon />
-                            </Fab>
-                        </Tooltip>
-                        <Tooltip title="Schedule Meeting">
-                            <Fab
-                                color="primary"
-                                aria-label="scheduleMeeting"
-                                onClick={handleMeetingModalShow}
-                            >
-                                <ScheduleIcon />
-                            </Fab>
-                        </Tooltip>
-                        <Tooltip title="My Friends">
-                            <Fab
-                                color="primary"
-                                aria-label="friends"
-                                onClick={handleFriendsModalShow}
-                            >
-                                <GroupsIcon />
-                            </Fab>
-                        </Tooltip>
+					<Box
+						sx={{ "& > :not(style)": { m: 1 } }}
+						position="fixed"
+						bottom="0"
+						right="0"
+					>
+						<Tooltip title="Add Event">
+							<Fab
+								color="primary"
+								aria-label="addEvent"
+								onClick={handleAddEventModalShow}
+								position="fixed"
+							>
+								<AddIcon />
+							</Fab>
+						</Tooltip>
+						<Tooltip title="Add Course">
+							<Fab
+								color="primary"
+								aria-label="addCourse"
+								onClick={handleAddCourseModalShow}
+							>
+								<BookIcon />
+							</Fab>
+						</Tooltip>
+						<Tooltip title="Schedule Meeting">
+							<Fab
+								color="primary"
+								aria-label="scheduleMeeting"
+								onClick={handleMeetingModalShow}
+							>
+								<ScheduleIcon />
+							</Fab>
+						</Tooltip>
+						<Tooltip title="My Friends">
+							<Fab
+								color="primary"
+								aria-label="friends"
+								onClick={handleFriendsModalShow}
+							>
+								<GroupsIcon />
+							</Fab>
+						</Tooltip>
 					</Box>
 				</div>
 			</div>
