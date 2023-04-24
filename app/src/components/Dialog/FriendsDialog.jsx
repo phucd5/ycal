@@ -142,9 +142,13 @@ const FriendsDialog = (props) => {
 												Delete Request
 											</button>
 											<button
+												class="btn btn-tertiary rounded-pill"
 												style={{
+													size: "sm",
 													marginRight: "15px",
 													marginLeft: "15px",
+													backgroundColor: "#007bff",
+													color: "white"
 												}}
 												onClick={() =>
 													handleAddFriend(
