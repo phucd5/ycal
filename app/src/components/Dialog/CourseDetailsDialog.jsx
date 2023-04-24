@@ -60,49 +60,35 @@ const CourseDetailsDialog = (props) => {
 						{course ? <p>{course.className}</p> : <p>N/A</p>}
 					</Modal.Title>
 				</Modal.Header>
+				{course ? (
 				<Modal.Body>
-					<Table>
-						<thead>
-							<tr>
-								<th>Course Code</th>
-								<th>Title</th>
-								<th>Meeting Time</th>
-								<th>Location</th>
-								<th>Period</th>
-							</tr>
-						</thead>
-						<tbody>
-							{course ? (
-								<tr>
-									<td>{course.displayName}</td>
-									<td>{course.classTitle}</td>
-									<td>{course.meetingTime}</td>
-									<td>{course.location}</td>
-									<td>{getTermString(course.period)}</td>
-									<td>
-										<Button
-											class="btn btn-tertiary rounded-pill"
-											style={{
-												size: "sm",
-												marginRight: "15px",
-												marginLeft: "15px",
-												backgroundColor: "#007bff",
-												color: "white",
-											}}
-											onClick={() =>
-												handleDelete(course._id)
-											}
-										>
-											Delete
-										</Button>
-									</td>
-								</tr>
-							) : (
-								<tr></tr>
-							)}
-						</tbody>
-					</Table>
-				</Modal.Body>
+					<h2>Course Code</h2>
+					<p>{course.displayName}</p>
+					<h2>Title</h2>
+					<td>{course.classTitle}</td>								
+					<h2>Meeting Time</h2>
+					<td>{course.meetingTime}</td>									
+					<h2>Location</h2>
+					<td>{course.location}</td>
+					<h2>Period</h2>
+					<td>{getTermString(course.period)}</td>		
+					<p/>
+					<Button
+						class="btn btn-tertiary rounded-pill"
+						style={{
+							size: "sm",
+							marginRight: "15px",
+							marginLeft: "15px",
+							backgroundColor: "#007bff",
+							color: "white",
+						}}
+						onClick={() =>
+							handleDelete(course._id)
+						}
+					>
+						Delete Course
+					</Button>								
+				</Modal.Body>) : (<Modal.Body></Modal.Body>)}					
 			</Modal>
 		</div>
 	);
