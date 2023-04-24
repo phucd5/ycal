@@ -98,7 +98,8 @@ body {
 }
 
 :root {
-	--fc-button-bg-color: #2074d4;
+	--fc-button-bg-color: #023663;
+	--fc-button-text-color: white;
 	--fc-page-bg-color: #fff;
 	--fc-button-border-color: none;
 }
