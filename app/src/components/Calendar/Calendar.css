@@ -2,6 +2,12 @@
 	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+html, body {margin: 0; height: 100%; overflow: hidden}
+
+/* body {
+	background-color: #0194ff;	
+} */
+
 .logo {
 	color: rgb(255, 255, 255);
 	font-size: 35px;
@@ -65,3 +71,40 @@ body {
 section {
 	margin: 20px;
 }
+
+.noscroll { 
+	overflow: hidden;
+}
+
+.overlay { 
+	position: fixed; 
+	overflow-y: scroll;
+	inset: 0; 
+}
+
+.topBarContainer {
+	display: flex;
+	flex-direction: row;	
+  	justify-content: space-between;	
+}
+
+.YCal-logo {
+	display: flex;
+	padding-left: 25px;
+}
+
+.logout-button {
+	background-color: transparent;
+	border: none;
+	padding-right: 25px;
+	font-weight:bold;
+	font-size: medium;
+}
+
+.item-calendar-item {
+	float: top;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+

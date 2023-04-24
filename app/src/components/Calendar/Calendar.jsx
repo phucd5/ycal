@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import Navbar from 'react-bootstrap/Navbar';
+
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -20,9 +22,11 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import BookIcon from '@mui/icons-material/Book';
 import GroupsIcon from '@mui/icons-material/Groups';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 
 import "./Calendar.css";
 import styled from "./styles.scss";
+import Schedule from "@mui/icons-material/Schedule";
 
 const Calendar = () => {
     const navigate = useNavigate();
@@ -150,6 +154,10 @@ const Calendar = () => {
         }
     };
 
+    const handleLogout = async() => {
+
+    }
+
     const renderDialogs = () => {
         return (
             <>
@@ -194,14 +202,12 @@ const Calendar = () => {
         );
     };
     return (
-        <div>
-            <h1>
-                <strong>YCal</strong>
-            </h1>
-            <div className={styled.bootstrap}>                
-                <div class="container">					
-                    <div class="friends-item">
-						<FriendsDialog 
+        <div>            
+            <div class="topBarContainer">
+                <h1 class="YCal-logo">
+                    YCal
+                </h1>
+                <FriendsDialog 
 							user={user}
 							friends={friends}
 							friendRequests={friendRequests}
@@ -210,8 +216,12 @@ const Calendar = () => {
 							show={friendsModalShow}
 							handleShow={handleFriendsModalShow}
 							handleClose={handleFriendsModalClose}
-						/>
-                    </div>                    
+                />
+                <button class="logout-button" onClick={handleLogout}>Log out</button>
+            </div>
+            
+            <div className={styled.bootstrap}>                
+                <div class="container">					                
                     <div class="item-calendar-item">
                         <div>
                             <FullCalendar
@@ -225,11 +235,12 @@ const Calendar = () => {
                                 initialView="timeGridWeek"
                                 events={[...events, ...courses]}
                                 eventClick={(info) => handleEventClick(info)}
+                                aspectRatio="2.5"
                             />
                         </div>
                         {renderDialogs()}
                     </div>
-                    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                    <Box sx={{ '& > :not(style)': { m: 1 } }} position="fixed" bottom="0" right="0">
                         <Fab color="primary" aria-label="addEvent" onClick={handleAddEventModalShow}>
                             <AddIcon/>
                         </Fab>
@@ -237,6 +248,9 @@ const Calendar = () => {
                             <BookIcon/>
                         </Fab>
 						<Fab color="primary" aria-label="scheduleMeeting" onClick={handleMeetingModalShow}>
+                            <ScheduleIcon/>
+                        </Fab>
+                        <Fab color="primary" aria-label="scheduleMeeting">
                             <GroupsIcon/>
                         </Fab>
                     </Box>

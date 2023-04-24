@@ -64,7 +64,7 @@ const FriendsDialog = (props) => {
 
     return (
         <>            
-			<Button variant="primary" onClick={handleShow}>
+			<Button class="friends-button" variant="primary" onClick={handleShow} background-color="Transparent">
                 Friends
 			</Button>
             <Modal size="lg" show={show} onHide={handleClose}>
