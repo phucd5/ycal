@@ -74,15 +74,15 @@ const EventDetailsDialog = (props) => {
 				</Modal.Header>
 				{event ? (
 					<Modal.Body>
-						<h3>Description</h3>
+						<h3 className = "modal-label">Description</h3>
 						<p>{event.extendedProps.description}</p>
-						<h3>Start Date</h3>
+						<h3 className = "modal-label">Start Date</h3>
 						<p>{event.startStr.slice(0, 10)}</p>
-						<h3>End Date</h3>
+						<h3 className = "modal-label">End Date</h3>
 						<p>{event.endStr.slice(0, 10)}</p>
-						<h3>Location</h3>
+						<h3 className = "modal-label">Location</h3>
 						<p>{event.extendedProps.location}</p>
-						<h3>Attendees</h3>
+						<h3 className = "modal-label">Attendees</h3>
 						<p>
 							{event.extendedProps.attendees.length > 0 ? (
 								event.extendedProps.attendees.map(

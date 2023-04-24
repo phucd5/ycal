@@ -156,7 +156,7 @@ const CreateEventForm = (props) => {
 							<Form.Label
 								column
 								sm={2}
-								style={{ fontWeight: "bold", fontSize: "15px" }}
+								className ="modal-label"
 							>
 								Start
 							</Form.Label>
@@ -190,7 +190,7 @@ const CreateEventForm = (props) => {
 							<Form.Label
 								column
 								sm={2}
-								style={{ fontWeight: "bold", fontSize: "15px" }}
+								className ="modal-label"
 							>
 								End
 							</Form.Label>
@@ -218,7 +218,7 @@ const CreateEventForm = (props) => {
 						<br />
 						<Form.Group>
 							<Form.Label
-								style={{ fontWeight: "bold", fontSize: "15px" }}
+								className ="modal-label"
 							>
 								Location
 							</Form.Label>
@@ -234,7 +234,7 @@ const CreateEventForm = (props) => {
 						<br />
 						<Form.Group>
 							<Form.Label
-								style={{ fontWeight: "bold", fontSize: "15px" }}
+								className ="modal-label"
 							>
 								Attendees
 							</Form.Label>
@@ -258,7 +258,7 @@ const CreateEventForm = (props) => {
 						<br />
 						<Form.Group>
 							<Form.Label
-								style={{ fontWeight: "bold", fontSize: "15px" }}
+								style={{ fontWeight: "bold", fontSize: "17px" }}
 							>
 								Description
 							</Form.Label>

@@ -7,14 +7,23 @@
   min-height: 500px;
   min-width: 700px;
 }
+.modal-label {
+  font-weight: bold;
+  font-size: 19px;
+}
 .modal-backdrop.show {
   opacity: 0;
 }
 .modal-title {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 25px;
 }
 input.input-box::placeholder {
   font-style: normal;
   text-align: left;
+}
+
+th,
+td {
+  padding: 10px; /* increase or decrease the value as needed */
 }

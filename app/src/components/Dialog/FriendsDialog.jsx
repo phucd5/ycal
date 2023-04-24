@@ -106,13 +106,13 @@ const FriendsDialog = (props) => {
 				</Modal.Header>
 				<Modal.Body>
 					<AddFriendDialog user={user} />
-					<h2>Friend Requests</h2>
+					<h2 className = "modal-label">Friend Requests</h2>
 					{friendRequests.length > 0 ? (
 						<Table style={{ marginTop: "10px" }}>
 							<thead>
 								<tr>
-									<th>First Name</th>
-									<th>Last Name</th>
+									<th>First</th>
+									<th>Last</th>
 									<th>Email</th>
 								</tr>
 							</thead>
@@ -168,7 +168,7 @@ const FriendsDialog = (props) => {
 						<p>No friends requests!</p>
 					)}
 
-					<h2>My Friends</h2>
+					<h2 className = "modal-label">My Friends</h2>
 					{friends.length > 0 ? (
 						<Table style={{ marginTop: "10px" }}>
 							<thead>

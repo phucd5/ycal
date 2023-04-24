@@ -62,17 +62,18 @@ const CourseDetailsDialog = (props) => {
 				</Modal.Header>
 				{course ? (
 				<Modal.Body>
-					<h3>Course Code</h3>
+					<h3 className = "modal-label">Course Code</h3>
 					<p>{course.displayName}</p>
-					<h3>Title</h3>
+					<h3 className = "modal-label">Title</h3>
 					<p>{course.classTitle}</p>								
-					<h3>Meeting Time</h3>
+					<h3 className = "modal-label">Meeting Time</h3>
 					<p>{course.meetingTime}</p>									
-					<h3>Location</h3>
+					<h3 className = "modal-label">Location</h3>
 					<p>{course.location}</p>
-					<h3>Period</h3>
+					<h3 className = "modal-label">Period</h3>
 					<p>{getTermString(course.period)}</p>		
 					<p/>
+					<br/>
 					<Button
 						class="btn btn-tertiary rounded-pill"
 						style={{
@@ -86,7 +87,7 @@ const CourseDetailsDialog = (props) => {
 							handleDelete(course._id)
 						}
 					>
-						Delete Course
+					Delete Course
 					</Button>								
 				</Modal.Body>) : (<Modal.Body></Modal.Body>)}					
 			</Modal>
