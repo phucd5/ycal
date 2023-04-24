@@ -103,97 +103,108 @@ const FriendsDialog = (props) => {
 				<Modal.Body>
 					<AddFriendDialog user={user} />
 					<h2>Friend Requests</h2>
-					<Table style={{ marginTop: "10px" }}>
-						<thead>
-							<tr>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>Email</th>
-							</tr>
-						</thead>
-						<tbody>
-							{friendRequests.map((friend) => (
-								<tr key={friend._id}>
-									<td>{friend.firstName}</td>
-									<td>{friend.lastName}</td>
-									<td>{friend.email}</td>
-									<td>
-										<button class="btn btn-tertiary rounded-pill"
-													style={{
-														size: "sm",
-														marginRight: "15px",
-														marginLeft: "15px",
-														backgroundColor: "#007bff",
-														color: "white"
-													}}
-											onClick={() =>
-												handleRemoveFriendRequest(
-													friend._id,
-													"Deleted friend request"
-												)
-											}
-										>
-											Delete Request
-										</button>
-										<button
-											style={{
-												marginRight: "15px",
-												marginLeft: "15px",
-											}}
-											onClick={() =>
-												handleAddFriend(
-													friend._id,
-													friend.email
-												)
-											}
-										>
-											Add Friend
-										</button>
-									</td>
+					{friendRequests.length > 0 ? (
+						<Table style={{ marginTop: "10px" }}>
+							<thead>
+								<tr>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Email</th>
 								</tr>
-							))}
-						</tbody>
-					</Table>
+							</thead>
+							<tbody>
+								{friendRequests.map((friend) => (
+									<tr key={friend._id}>
+										<td>{friend.firstName}</td>
+										<td>{friend.lastName}</td>
+										<td>{friend.email}</td>
+										<td>
+											<button
+												class="btn btn-tertiary rounded-pill"
+												style={{
+													size: "sm",
+													marginRight: "15px",
+													marginLeft: "15px",
+													backgroundColor: "#007bff",
+													color: "white",
+												}}
+												onClick={() =>
+													handleRemoveFriendRequest(
+														friend._id,
+														"Deleted friend request"
+													)
+												}
+											>
+												Delete Request
+											</button>
+											<button
+												style={{
+													marginRight: "15px",
+													marginLeft: "15px",
+												}}
+												onClick={() =>
+													handleAddFriend(
+														friend._id,
+														friend.email
+													)
+												}
+											>
+												Add Friend
+											</button>
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</Table>
+					) : (
+						<p>No friends requests!</p>
+					)}
 
 					<h2>My Friends</h2>
-					<Table style={{ marginTop: "10px" }}>
-						<thead>
-							<tr>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>Email</th>
-							</tr>
-						</thead>
-						<tbody>
-							{friends.map((friend) => (
-								<tr key={friend._id}>
-									<td>{friend.firstName}</td>
-									<td>{friend.lastName}</td>
-									<td>{friend.email}</td>
-									<td>
-										<button
-											class="btn btn-tertiary rounded-pill"
-											style={{
-												size: "sm",
-												marginRight: "15px",
-												marginLeft: "15px",
-												backgroundColor: "#007bff",
-												color: "white"
-											}}
-											onClick={() =>
-												handleRemoveFriend(friend._id)
-											}
-										>
-											Delete Friend
-										</button>
-										<FriendsCalandar
-											friendId={friend._id}
-										></FriendsCalandar>
-									</td>
+					{friends > 0 ? (
+						<Table style={{ marginTop: "10px" }}>
+							<thead>
+								<tr>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Email</th>
 								</tr>
-							))}
-						</tbody>
-					</Table>
+							</thead>
+							<tbody>
+								{friends.map((friend) => (
+									<tr key={friend._id}>
+										<td>{friend.firstName}</td>
+										<td>{friend.lastName}</td>
+										<td>{friend.email}</td>
+										<td>
+											<button
+												class="btn btn-tertiary rounded-pill"
+												style={{
+													size: "sm",
+													marginRight: "15px",
+													marginLeft: "15px",
+													backgroundColor: "#007bff",
+													color: "white",
+												}}
+												onClick={() =>
+													handleRemoveFriend(
+														friend._id
+													)
+												}
+											>
+												Delete Friend
+											</button>
+											<FriendsCalandar
+												friendId={friend._id}
+											></FriendsCalandar>
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</Table>
+					) : (
+						<p>No friends!</p>
+					)}
 				</Modal.Body>
 			</Modal>
 		</>
