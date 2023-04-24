@@ -11,18 +11,18 @@ import "react-toastify/dist/ReactToastify.css";
 const CreateEventForm = (props) => {
 	const { user, friends, fetchEvents, show, setShow, handleShow } = props;
 
-	const handleClose = (event) => {
+	const handleClose = () => {
 		clearEventFields();
 		setShow(false);
 	};
 
-	const handleCloseSuccess = (event) => {
+	const handleCloseSuccess = () => {
 		toast.success("Sucessfully added event");
 		setShow(false);
 		clearEventFields();
 	};
 
-	const handleCloseError = (event) => {
+	const handleCloseError = () => {
 		toast.error("Failed to add event");
 		setShow(false);
 		clearEventFields();
