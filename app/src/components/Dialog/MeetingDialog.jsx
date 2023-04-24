@@ -6,7 +6,7 @@ import AIScheduleDialog from "./AIScheduleDialog";
 import { validateWithinOneWeek } from "../../utils/valdiation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./Modal.css"
+import "./Modal.css";
 
 const SelectFriend = (props) => {
 	const { user, friends, show, setShow, handleShow } = props;
@@ -53,6 +53,15 @@ const SelectFriend = (props) => {
 
 	return (
 		<>
+			<ToastContainer
+				position="top-center"
+				newestOnTop={true}
+				autoClose={2000}
+				closeOnClick
+				rtl={false}
+				pauseOnHover={false}
+				theme="colored"
+			/>
 			<Modal
 				show={show}
 				onHide={handleClose}
@@ -68,7 +77,11 @@ const SelectFriend = (props) => {
 				<Modal.Body>
 					<Form>
 						<Form.Group>
-							<Form.Label style={{ fontWeight: "bold", fontSize: "15px" }}>Friends to Select</Form.Label>
+							<Form.Label
+								style={{ fontWeight: "bold", fontSize: "15px" }}
+							>
+								Friends to Select
+							</Form.Label>
 							{friends.map((friend) => (
 								<Form.Check
 									disabled={disabledCheck}
@@ -87,7 +100,12 @@ const SelectFriend = (props) => {
 							))}
 							<Form.Group>
 								<br />
-								<Form.Label style={{ fontWeight: "bold", fontSize: "15px" }}>
+								<Form.Label
+									style={{
+										fontWeight: "bold",
+										fontSize: "15px",
+									}}
+								>
 									Meeting Date (One Week in Advance):
 								</Form.Label>
 								<br />
@@ -103,7 +121,14 @@ const SelectFriend = (props) => {
 								/>
 							</Form.Group>
 							<Form.Group>
-								<Form.Label style={{ fontWeight: "bold", fontSize: "15px" }}>Meeting Length</Form.Label>
+								<Form.Label
+									style={{
+										fontWeight: "bold",
+										fontSize: "15px",
+									}}
+								>
+									Meeting Length
+								</Form.Label>
 								<br />
 								<Form.Select
 									disabled={disabledCheck}

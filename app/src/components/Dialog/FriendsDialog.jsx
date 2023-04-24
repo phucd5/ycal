@@ -3,11 +3,10 @@ import FriendsCalandar from "../Calendar/FriendsCalandar";
 import AddFriendDialog from "./AddFriend";
 
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/button";
 import Table from "react-bootstrap/Table";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./Modal.css"
+import "./Modal.css";
 
 const FriendsDialog = (props) => {
 	const {
@@ -17,7 +16,6 @@ const FriendsDialog = (props) => {
 		setFriends,
 		setFriendRequests,
 		show,
-		handleShow,
 		handleClose,
 	} = props;
 
@@ -94,7 +92,13 @@ const FriendsDialog = (props) => {
 			{/* <Button variant="primary" onClick={handleShow}>
 				Friends
 			</Button> */}
-			<Modal size="lg" show={show} onHide={handleClose} keyboard={true} className="custom-modal">
+			<Modal
+				size="lg"
+				show={show}
+				onHide={handleClose}
+				keyboard={true}
+				className="custom-modal"
+			>
 				<Modal.Header closeButton>
 					<Modal.Title className="modal-title">
 						{friends ? <p>My Friends</p> : <p>N/A</p>}

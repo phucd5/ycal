@@ -8,10 +8,10 @@ import Row from "react-bootstrap/Row";
 import { validateDate } from "../../utils/valdiation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./Modal.css"
+import "./Modal.css";
 
 const CreateEventForm = (props) => {
-	const { user, friends, fetchEvents, show, setShow, handleShow } = props;
+	const { user, friends, fetchEvents, show, setShow } = props;
 
 	const handleClose = () => {
 		clearEventFields();
@@ -82,7 +82,7 @@ const CreateEventForm = (props) => {
 				}
 			);
 			try {
-				const response_2 = await axios.put(
+				await axios.put(
 					`http://localhost:3002/users/${user._id}/events`,
 					{
 						eventId: response.data._id,
@@ -217,7 +217,11 @@ const CreateEventForm = (props) => {
 						</Form.Group>
 						<br />
 						<Form.Group>
-							<Form.Label style={{ fontWeight: "bold", fontSize: "15px" }}>Location</Form.Label>
+							<Form.Label
+								style={{ fontWeight: "bold", fontSize: "15px" }}
+							>
+								Location
+							</Form.Label>
 							<Form.Control
 								type="text"
 								value={location}
@@ -229,7 +233,11 @@ const CreateEventForm = (props) => {
 						</Form.Group>
 						<br />
 						<Form.Group>
-							<Form.Label style={{ fontWeight: "bold", fontSize: "15px" }}>Attendees</Form.Label>
+							<Form.Label
+								style={{ fontWeight: "bold", fontSize: "15px" }}
+							>
+								Attendees
+							</Form.Label>
 							{friends.map((friend) => (
 								<Form.Check
 									size="sm"
