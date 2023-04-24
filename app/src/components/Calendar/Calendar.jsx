@@ -26,6 +26,10 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 import "./Calendar.css";
 import styled from "./styles.scss";
 
+const fabStyles = {
+    backgroundColor: "#0582f0", // Replace with your desired color
+};
+
 const Calendar = () => {
 	const navigate = useNavigate();
 
@@ -230,6 +234,7 @@ const Calendar = () => {
 							aria-label="addEvent"
 							onClick={handleAddEventModalShow}
 							position="fixed"
+                            style={fabStyles}
 						>
 							<AddIcon />
 						</Fab>
