@@ -165,7 +165,7 @@ const FriendsDialog = (props) => {
 					)}
 
 					<h2>My Friends</h2>
-					{friends > 0 ? (
+					{friends.length > 0 ? (
 						<Table style={{ marginTop: "10px" }}>
 							<thead>
 								<tr>
