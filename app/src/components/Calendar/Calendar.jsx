@@ -158,6 +158,8 @@ const Calendar = () => {
 		navigate("/login");
 	};
 
+	/* Reunder Functions */
+
 	const renderDialogs = () => {
 		return (
 			<>
@@ -212,6 +214,58 @@ const Calendar = () => {
 			</>
 		);
 	};
+
+	const renderFAB = () => {
+		return (
+			<>
+				<Box
+					sx={{ "& > :not(style)": { m: 1 } }}
+					position="fixed"
+					bottom="0"
+					right="0"
+				>
+					<Tooltip title="Add Event">
+						<Fab
+							color="primary"
+							aria-label="addEvent"
+							onClick={handleAddEventModalShow}
+							position="fixed"
+						>
+							<AddIcon />
+						</Fab>
+					</Tooltip>
+					<Tooltip title="Add Course">
+						<Fab
+							color="primary"
+							aria-label="addCourse"
+							onClick={handleAddCourseModalShow}
+						>
+							<BookIcon />
+						</Fab>
+					</Tooltip>
+					<Tooltip title="Schedule Meeting">
+						<Fab
+							color="primary"
+							aria-label="scheduleMeeting"
+							onClick={handleMeetingModalShow}
+						>
+							<ScheduleIcon />
+						</Fab>
+					</Tooltip>
+					<Tooltip title="My Friends">
+						<Fab
+							color="primary"
+							aria-label="friends"
+							onClick={handleFriendsModalShow}
+						>
+							<GroupsIcon />
+						</Fab>
+					</Tooltip>
+				</Box>
+			</>
+		);
+	};
+
 	return (
 		<div>
 			<div class="topBarContainer">
@@ -240,50 +294,7 @@ const Calendar = () => {
 						</div>
 						{renderDialogs()}
 					</div>
-					<Box
-						sx={{ "& > :not(style)": { m: 1 } }}
-						position="fixed"
-						bottom="0"
-						right="0"
-					>
-						<Tooltip title="Add Event">
-							<Fab
-								color="primary"
-								aria-label="addEvent"
-								onClick={handleAddEventModalShow}
-								position="fixed"
-							>
-								<AddIcon />
-							</Fab>
-						</Tooltip>
-						<Tooltip title="Add Course">
-							<Fab
-								color="primary"
-								aria-label="addCourse"
-								onClick={handleAddCourseModalShow}
-							>
-								<BookIcon />
-							</Fab>
-						</Tooltip>
-						<Tooltip title="Schedule Meeting">
-							<Fab
-								color="primary"
-								aria-label="scheduleMeeting"
-								onClick={handleMeetingModalShow}
-							>
-								<ScheduleIcon />
-							</Fab>
-						</Tooltip>
-						<Tooltip title="My Friends">
-							<Fab
-								color="primary"
-								aria-label="friends"
-								onClick={handleFriendsModalShow}
-							>
-								<GroupsIcon />
-							</Fab>
-						</Tooltip>
-					</Box>
+					{renderFAB()}
 				</div>
 			</div>
 		</div>
