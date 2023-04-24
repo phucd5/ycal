@@ -110,7 +110,7 @@ function mapScheduletoEvent(schedule) {
 }
 
 async function fetchCourses() {
-	const subjectCodes = ["CPSC"];
+	const subjectCodes = ["CHEM"];
 	const termCode = "202301";
 	const apiKey = "l757ed321eec474c04827ac3fc0f128df8";
 
@@ -186,7 +186,7 @@ async function addCoursesToDatabase() {
 
 async function runScript() {
 	await fetchCourses();
-	console.log("Finsihed fetching courses");
+	console.log("Finished fetching courses");
 
 	await addCoursesToDatabase();
 	console.log("Courses and schedule added to database.");
