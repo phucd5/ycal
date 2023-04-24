@@ -1,7 +1,6 @@
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Table from "react-bootstrap/Table";
 import { getTermString } from "../../utils/helpers";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -61,34 +60,35 @@ const CourseDetailsDialog = (props) => {
 					</Modal.Title>
 				</Modal.Header>
 				{course ? (
-				<Modal.Body>
-					<h2>Course Code</h2>
-					<p>{course.displayName}</p>
-					<h2>Title</h2>
-					<td>{course.classTitle}</td>								
-					<h2>Meeting Time</h2>
-					<td>{course.meetingTime}</td>									
-					<h2>Location</h2>
-					<td>{course.location}</td>
-					<h2>Period</h2>
-					<td>{getTermString(course.period)}</td>		
-					<p/>
-					<Button
-						class="btn btn-tertiary rounded-pill"
-						style={{
-							size: "sm",
-							marginRight: "15px",
-							marginLeft: "15px",
-							backgroundColor: "#007bff",
-							color: "white",
-						}}
-						onClick={() =>
-							handleDelete(course._id)
-						}
-					>
-						Delete Course
-					</Button>								
-				</Modal.Body>) : (<Modal.Body></Modal.Body>)}					
+					<Modal.Body>
+						<h2>Course Code</h2>
+						<p>{course.displayName}</p>
+						<h2>Title</h2>
+						<td>{course.classTitle}</td>
+						<h2>Meeting Time</h2>
+						<td>{course.meetingTime}</td>
+						<h2>Location</h2>
+						<td>{course.location}</td>
+						<h2>Period</h2>
+						<td>{getTermString(course.period)}</td>
+						<p />
+						<Button
+							class="btn btn-tertiary rounded-pill"
+							style={{
+								size: "sm",
+								marginRight: "15px",
+								marginLeft: "15px",
+								backgroundColor: "#007bff",
+								color: "white",
+							}}
+							onClick={() => handleDelete(course._id)}
+						>
+							Delete Course
+						</Button>
+					</Modal.Body>
+				) : (
+					<Modal.Body></Modal.Body>
+				)}
 			</Modal>
 		</div>
 	);
