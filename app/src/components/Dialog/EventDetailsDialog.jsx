@@ -76,31 +76,13 @@ const EventDetailsDialog = (props) => {
 							<h2>Description</h2>
 							<p>{event.extendedProps.description}</p>
 							<h2>Start Date</h2>
+							<p>{event.startStr.slice(0, 10)}</p>
 							<h2>End Date</h2>
+							<p>{event.endStr.slice(0, 10)}</p>
 							<h2>Location</h2>
+							<p>{event.extendedProps.location}</p>
 							<h2>Attendees</h2>
-					</Modal.Body>
-				):(<Modal.Body></Modal.Body>)}
-			
-					<Table>						
-						<thead>
-							<tr>
-								<th>Description</th>
-								<th>Start Date</th>
-								<th>End Date</th>
-								<th>Location</th>
-								<th>Attendees</th>
-							</tr>
-						</thead>
-						<tbody>
-							{event ? (														
-								<tr>
-									<td>{event.extendedProps.description}</td>
-									<td>{event.startStr}</td>
-									<td>{event.endStr}</td>
-									<td>{event.extendedProps.location}</td>
-									<td>
-										{event.extendedProps.attendees.length >
+							<p>{event.extendedProps.attendees.length >
 										0 ? (
 											event.extendedProps.attendees.map(
 												(attendee) => (
@@ -125,25 +107,19 @@ const EventDetailsDialog = (props) => {
 											)
 										) : (
 											<div>None</div>
-										)}
-									</td>
-									<td>
-										<Button
-											onClick={() =>
-												handleDelete(
-													event.extendedProps._id
-												)
-											}
-										>
-											Delete
-										</Button>
-									</td>
-								</tr>
-							) : (
-								<tr></tr>
-							)}
-						</tbody>
-					</Table>				
+										)}</p>
+								<Button
+									onClick={() =>
+										handleDelete(
+											event.extendedProps._id
+										)
+									}
+								>
+									Delete Event
+								</Button>
+
+					</Modal.Body>
+				):(<Modal.Body></Modal.Body>)}
 			</Modal>
 		</div>
 	);
