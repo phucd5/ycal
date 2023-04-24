@@ -304,6 +304,9 @@ const Calendar = () => {
 								events={[...events, ...courses]}
 								eventClick={(info) => handleEventClick(info)}
 								aspectRatio="2.5"
+								style={{
+									borderRadius: "5px",
+								}}
 							/>
 						</div>
 						{renderDialogs()}
