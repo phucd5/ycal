@@ -129,7 +129,7 @@ const CreateEventForm = (props) => {
 				show={show}
 				onHide={handleClose}
 				backdrop="static"
-				keyboard={false}
+				keyboard={true}
 				dialogClassName="custom-modal"
 				centered
 			>
