@@ -1,5 +1,3 @@
-import moment from "moment";
-
 export const validateYaleEmail = (email) => {
 	const regex = /^[^\s@]+@yale\.edu$/i;
 	return regex.test(email);
@@ -46,7 +44,7 @@ export const validateWithinOneWeek = (dateTime) => {
 		return { valid: false, err: "Meeting Date is in the past" };
 	}
 
-	if (dateTime.getTime() > oneWeekFromNow) {
+	if (dateTime.getTime() >= oneWeekFromNow) {
 		return { valid: false, err: "Meeting Date is not within one week" };
 	}
 

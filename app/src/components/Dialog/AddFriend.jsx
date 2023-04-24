@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { ToastContainer, toast } from "react-toastify";
-import "./Modal.css"
+import "./Modal.css";
 import "react-toastify/dist/ReactToastify.css";
 
 const AddFriendDialog = (props) => {

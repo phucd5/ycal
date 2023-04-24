@@ -97,8 +97,8 @@ body {
 	padding-right: 10px;
 }
 
-:root{
-	--fc-button-bg-color: #2074d4;	
+:root {
+	--fc-button-bg-color: #2074d4;
 	--fc-page-bg-color: #fff;
 	--fc-button-border-color: none;
 }
@@ -118,7 +118,7 @@ section {
 }
 
 .fc {
-	background-color: white;	
+	background-color: white;
 }
 
 #calendar {
