@@ -91,9 +91,9 @@ const FriendsDialog = (props) => {
 				pauseOnHover={false}
 				theme="colored"
 			/>
-			<Button variant="primary" onClick={handleShow}>
+			{/* <Button variant="primary" onClick={handleShow}>
 				Friends
-			</Button>
+			</Button> */}
 			<Modal size="lg" show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
 					<Modal.Title id="friends-title">
