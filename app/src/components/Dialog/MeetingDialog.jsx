@@ -4,9 +4,9 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import AIScheduleDialog from "./AIScheduleDialog";
 import { validateWithinOneWeek } from "../../utils/valdiation";
-import "./CreateEventForm.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./Modal.css"
 
 const SelectFriend = (props) => {
 	const { user, friends, show, setShow, handleShow } = props;
@@ -58,6 +58,7 @@ const SelectFriend = (props) => {
 				onHide={handleClose}
 				backdrop="static"
 				keyboard={true}
+				className="custom-modal"
 			>
 				<Modal.Header closeButton>
 					<Modal.Title id="add-friend-modal-title">

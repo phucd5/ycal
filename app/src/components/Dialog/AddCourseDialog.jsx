@@ -3,7 +3,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import debounce from "lodash/debounce";
-import "./CreateEventForm.css"
+import "./Modal.css"
 
 import { getTermString } from "../../utils/helpers";
 
@@ -86,7 +86,8 @@ const AddCourseDialog = (props) => {
 				onHide={handleClose}
 				backdrop="static"
 				keyboard={true}
-				size="lg"				
+				size="lg"
+				className="custom-modal"			
 			>
 				<Modal.Header closeButton>
 					<Modal.Title className="modal-title" id="add-course-modal-title">

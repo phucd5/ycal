@@ -2,9 +2,9 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./Modal.css"
 
 const EventDetailsDialog = (props) => {
 	const { user, event, fetchEvents, setEvents, show, setShow, handleClose } =
@@ -65,7 +65,7 @@ const EventDetailsDialog = (props) => {
 				pauseOnHover={false}
 				theme="colored"
 			/>
-			<Modal size="lg" show={show} onHide={handleClose} keyboard={true}>
+			<Modal size="lg" show={show} onHide={handleClose} keyboard={true} className="custom-modal">
 				<Modal.Header closeButton>
 					<Modal.Title id="event-details-title">
 						{event ? <p>{event.title}</p> : <p>N/A</p>}
@@ -117,7 +117,6 @@ const EventDetailsDialog = (props) => {
 								>
 									Delete Event
 								</Button>
-
 					</Modal.Body>
 				):(<Modal.Body></Modal.Body>)}
 			</Modal>

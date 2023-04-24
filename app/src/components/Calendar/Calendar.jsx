@@ -26,6 +26,16 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 import "./Calendar.css";
 import styled from "./styles.scss";
 
+const fabStyles = {
+    backgroundColor: "#023663", // Replace with your desired color
+    color: "#57b6fa"
+};
+
+const fabStyles1 = {
+    backgroundColor: "#57b6fa", // Replace with your desired color
+    color: "#023663"
+}
+
 const Calendar = () => {
 	const navigate = useNavigate();
 
@@ -230,6 +240,7 @@ const Calendar = () => {
 							aria-label="addEvent"
 							onClick={handleAddEventModalShow}
 							position="fixed"
+                            style={fabStyles1}
 						>
 							<AddIcon />
 						</Fab>
@@ -239,6 +250,7 @@ const Calendar = () => {
 							color="primary"
 							aria-label="addCourse"
 							onClick={handleAddCourseModalShow}
+                            style={fabStyles}
 						>
 							<BookIcon />
 						</Fab>
@@ -248,6 +260,7 @@ const Calendar = () => {
 							color="primary"
 							aria-label="scheduleMeeting"
 							onClick={handleMeetingModalShow}
+                            style={fabStyles}
 						>
 							<ScheduleIcon />
 						</Fab>
@@ -257,6 +270,7 @@ const Calendar = () => {
 							color="primary"
 							aria-label="friends"
 							onClick={handleFriendsModalShow}
+                            style={fabStyles}
 						>
 							<GroupsIcon />
 						</Fab>
