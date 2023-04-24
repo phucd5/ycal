@@ -65,7 +65,7 @@ const EventDetailsDialog = (props) => {
 				pauseOnHover={false}
 				theme="colored"
 			/>
-			<Modal size="lg" show={show} onHide={handleClose}>
+			<Modal size="lg" show={show} onHide={handleClose} keyboard={true}>
 				<Modal.Header closeButton>
 					<Modal.Title id="event-details-title">
 						{event ? <p>{event.title}</p> : <p>N/A</p>}

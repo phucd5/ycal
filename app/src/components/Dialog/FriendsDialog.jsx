@@ -94,7 +94,7 @@ const FriendsDialog = (props) => {
 			{/* <Button variant="primary" onClick={handleShow}>
 				Friends
 			</Button> */}
-			<Modal size="lg" show={show} onHide={handleClose}>
+			<Modal size="lg" show={show} onHide={handleClose} keyboard={true}>
 				<Modal.Header closeButton>
 					<Modal.Title id="friends-title">
 						{friends ? <p>My Friends</p> : <p>N/A</p>}
