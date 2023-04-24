@@ -218,7 +218,7 @@ const CreateEventForm = (props) => {
 						</Form.Group>
 						<br />
 						<Form.Group>
-							<Form.Label>Location:</Form.Label>
+							<Form.Label style={{ fontWeight: "bold", fontSize: "15px" }}>Location</Form.Label>
 							<Form.Control
 								type="text"
 								value={location}
@@ -230,7 +230,7 @@ const CreateEventForm = (props) => {
 						</Form.Group>
 						<br />
 						<Form.Group>
-							<Form.Label>Attendees:</Form.Label>
+							<Form.Label style={{ fontWeight: "bold", fontSize: "15px" }}>Attendees</Form.Label>
 							{friends.map((friend) => (
 								<Form.Check
 									size="sm"
@@ -261,7 +261,7 @@ const CreateEventForm = (props) => {
 								className="input-box"
 								onChange={(e) => setDescription(e.target.value)}
 								required
-								size="sm"
+								size="lg"
 							/>
 						</Form.Group>
 						<Form.Group className="text-center">

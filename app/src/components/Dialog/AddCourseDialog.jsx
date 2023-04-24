@@ -3,6 +3,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import debounce from "lodash/debounce";
+import "./CreateEventForm.css"
 
 import { getTermString } from "../../utils/helpers";
 
@@ -86,9 +87,10 @@ const AddCourseDialog = (props) => {
 				backdrop="static"
 				keyboard={false}
 				size="lg"
+				dialogClassName="custom-modal"
 			>
 				<Modal.Header closeButton>
-					<Modal.Title id="add-course-modal-title">
+					<Modal.Title className="modal-title" id="add-course-modal-title">
 						Add Course
 					</Modal.Title>
 				</Modal.Header>
@@ -97,10 +99,13 @@ const AddCourseDialog = (props) => {
 						type="text"
 						value={courseCode}
 						onChange={(event) => setcourseCode(event.target.value)}
+						placeholder="Type Course Code or Title"
 						style={{
 							border: "1px solid #ccc",
 							borderRadius: "4px",
 							padding: "8px",
+							fontWeight: "bold",
+							fontStyle: "normal",
 						}}
 					/>
 					{searchedCourses.length === 0 ? (
@@ -124,10 +129,13 @@ const AddCourseDialog = (props) => {
 												{getTermString(course.period)}
 											</td>
 											<td>
-												<button
+												<button class="btn btn-tertiary rounded-pill"
 													style={{
+														size: "sm",
 														marginRight: "15px",
 														marginLeft: "15px",
+														backgroundColor: "#007bff",
+														color: "white"
 													}}
 													onClick={() =>
 														handleAddSelectedCourse(
@@ -135,7 +143,7 @@ const AddCourseDialog = (props) => {
 														)
 													}
 												>
-													Add Courses
+													Add
 												</button>
 											</td>
 										</tr>

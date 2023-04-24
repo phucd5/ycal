@@ -8,6 +8,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import "../Dialog/CreateEventForm.css"
 
 const FriendsCalandar = ({ friendId }) => {
 	const handleClose = () => setShow(false);
@@ -81,6 +82,7 @@ const FriendsCalandar = ({ friendId }) => {
 				onHide={handleClose}
 				backdrop="static"
 				keyboard={false}
+				className="custom-modal"
 			>
 				<Modal.Header closeButton>
 					<Modal.Title id="friends-calendar-title">

@@ -5,7 +5,7 @@ import AddFriendDialog from "./AddFriend";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/button";
 import Table from "react-bootstrap/Table";
-
+import "./CreateEventForm.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -94,9 +94,9 @@ const FriendsDialog = (props) => {
 			{/* <Button variant="primary" onClick={handleShow}>
 				Friends
 			</Button> */}
-			<Modal size="lg" show={show} onHide={handleClose}>
+			<Modal size="lg" show={show} onHide={handleClose} className="custom-modal">
 				<Modal.Header closeButton>
-					<Modal.Title id="friends-title">
+					<Modal.Title className="modal-title">
 						{friends ? <p>My Friends</p> : <p>N/A</p>}
 					</Modal.Title>
 				</Modal.Header>
@@ -118,11 +118,14 @@ const FriendsDialog = (props) => {
 									<td>{friend.lastName}</td>
 									<td>{friend.email}</td>
 									<td>
-										<button
-											style={{
-												marginRight: "15px",
-												marginLeft: "15px",
-											}}
+										<button class="btn btn-tertiary rounded-pill"
+													style={{
+														size: "sm",
+														marginRight: "15px",
+														marginLeft: "15px",
+														backgroundColor: "#007bff",
+														color: "white"
+													}}
 											onClick={() =>
 												handleRemoveFriendRequest(
 													friend._id,
@@ -169,9 +172,13 @@ const FriendsDialog = (props) => {
 									<td>{friend.email}</td>
 									<td>
 										<button
+											class="btn btn-tertiary rounded-pill"
 											style={{
+												size: "sm",
 												marginRight: "15px",
 												marginLeft: "15px",
+												backgroundColor: "#007bff",
+												color: "white"
 											}}
 											onClick={() =>
 												handleRemoveFriend(friend._id)

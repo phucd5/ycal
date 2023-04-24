@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import AIScheduleDialog from "./AIScheduleDialog";
 import { validateWithinOneWeek } from "../../utils/valdiation";
-
+import "./CreateEventForm.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -58,6 +58,7 @@ const SelectFriend = (props) => {
 				onHide={handleClose}
 				backdrop="static"
 				keyboard={false}
+				className="custom-modal"
 			>
 				<Modal.Header closeButton>
 					<Modal.Title id="add-friend-modal-title">
@@ -67,7 +68,7 @@ const SelectFriend = (props) => {
 				<Modal.Body>
 					<Form>
 						<Form.Group>
-							<Form.Label>Friends to Select:</Form.Label>
+							<Form.Label style={{ fontWeight: "bold", fontSize: "15px" }}>Friends to Select</Form.Label>
 							{friends.map((friend) => (
 								<Form.Check
 									disabled={disabledCheck}
@@ -85,8 +86,9 @@ const SelectFriend = (props) => {
 								/>
 							))}
 							<Form.Group>
-								<Form.Label>
-									Meeting Date (One Week in Advanced):
+								<br />
+								<Form.Label style={{ fontWeight: "bold", fontSize: "15px" }}>
+									Meeting Date (One Week in Advance):
 								</Form.Label>
 								<br />
 								<Form.Control
@@ -101,7 +103,7 @@ const SelectFriend = (props) => {
 								/>
 							</Form.Group>
 							<Form.Group>
-								<Form.Label>Meeting Length:</Form.Label>
+								<Form.Label style={{ fontWeight: "bold", fontSize: "15px" }}>Meeting Length</Form.Label>
 								<br />
 								<Form.Select
 									disabled={disabledCheck}

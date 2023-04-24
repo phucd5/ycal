@@ -65,7 +65,7 @@ const EventDetailsDialog = (props) => {
 				pauseOnHover={false}
 				theme="colored"
 			/>
-			<Modal size="lg" show={show} onHide={handleClose}>
+			<Modal size="lg" show={show} onHide={handleClose} className ="custom-modal">
 				<Modal.Header closeButton>
 					<Modal.Title id="event-details-title">
 						{event ? <p>{event.title}</p> : <p>N/A</p>}
@@ -118,7 +118,14 @@ const EventDetailsDialog = (props) => {
 										)}
 									</td>
 									<td>
-										<Button
+										<Button class="btn btn-tertiary rounded-pill"
+													style={{
+														size: "sm",
+														marginRight: "15px",
+														marginLeft: "15px",
+														backgroundColor: "#007bff",
+														color: "white"
+													}}
 											onClick={() =>
 												handleDelete(
 													event.extendedProps._id

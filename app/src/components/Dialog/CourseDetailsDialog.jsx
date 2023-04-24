@@ -2,7 +2,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
-
+import "./CreateEventForm.css";
 import { getTermString } from "../../utils/helpers";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -39,7 +39,7 @@ const CourseDetailsDialog = (props) => {
 
 	return (
 		<div>
-			<Modal size="lg" show={show} onHide={handleClose}>
+			<Modal size="lg" show={show} onHide={handleClose} className ="custom-modal">
 				<Modal.Header closeButton>
 					<Modal.Title id="event-details-title">
 						{course ? <p>{course.className}</p> : <p>N/A</p>}
@@ -65,12 +65,19 @@ const CourseDetailsDialog = (props) => {
 									<td>{course.location}</td>
 									<td>{getTermString(course.period)}</td>
 									<td>
-										<Button
+										<Button class="btn btn-tertiary rounded-pill"
+													style={{
+														size: "sm",
+														marginRight: "15px",
+														marginLeft: "15px",
+														backgroundColor: "#007bff",
+														color: "white"
+													}}
 											onClick={() =>
 												handleDelete(course._id)
 											}
 										>
-											Delete Course
+											Delete
 										</Button>
 									</td>
 								</tr>

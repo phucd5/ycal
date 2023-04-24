@@ -3,7 +3,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-
+import "./CreateEventForm.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -80,6 +80,7 @@ const AddFriendDialog = (props) => {
 				onHide={handleClose}
 				backdrop="static"
 				keyboard={false}
+				className="custom-modal"
 			>
 				<Modal.Header closeButton>
 					<Modal.Title id="add-friend-modal-title">

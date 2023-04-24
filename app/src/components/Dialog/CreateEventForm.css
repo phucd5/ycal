@@ -1,6 +1,6 @@
 .custom-modal .modal-content {
-    background-color: #f6f6f6;
-    margin-top: 0;
+    background-color: #f2f2f2;
+    padding-top: 0;
     padding-bottom: 0;
   }
 .custom-modal {
@@ -9,6 +9,10 @@
 }
 .modal-backdrop.show {
   opacity: 0;
+}
+.modal-title {
+  font-weight: bold;
+  font-size: 20px;
 }
 input.input-box::placeholder {
   font-style: normal;
