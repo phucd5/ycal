@@ -71,8 +71,18 @@ const EventDetailsDialog = (props) => {
 						{event ? <p>{event.title}</p> : <p>N/A</p>}
 					</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>
-					<Table>
+				{event ? (
+					<Modal.Body>						
+							<h2>Description</h2>
+							<p>{event.extendedProps.description}</p>
+							<h2>Start Date</h2>
+							<h2>End Date</h2>
+							<h2>Location</h2>
+							<h2>Attendees</h2>
+					</Modal.Body>
+				):(<Modal.Body></Modal.Body>)}
+			
+					<Table>						
 						<thead>
 							<tr>
 								<th>Description</th>
@@ -83,7 +93,7 @@ const EventDetailsDialog = (props) => {
 							</tr>
 						</thead>
 						<tbody>
-							{event ? (
+							{event ? (														
 								<tr>
 									<td>{event.extendedProps.description}</td>
 									<td>{event.startStr}</td>
@@ -133,8 +143,7 @@ const EventDetailsDialog = (props) => {
 								<tr></tr>
 							)}
 						</tbody>
-					</Table>
-				</Modal.Body>
+					</Table>				
 			</Modal>
 		</div>
 	);

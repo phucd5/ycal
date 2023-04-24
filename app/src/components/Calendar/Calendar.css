@@ -9,6 +9,10 @@ body {
 	overflow: hidden;
 }
 
+body {
+	background-color: white;
+}
+
 .logo {
 	color: rgb(255, 255, 255);
 	font-size: 35px;
@@ -91,8 +95,13 @@ body {
 	padding-right: 10px;
 }
 
+:root{
+	--fc-button-bg-color: #2074d4;	
+	--fc-page-bg-color: #fff;
+}
+
 nav {
-	background: #0099ffec;
+	background: #2074d4;
 	height: 80px;
 	width: 100%;
 }
