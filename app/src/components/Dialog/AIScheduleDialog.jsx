@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 import { ToastContainer, toast } from "react-toastify";
+import "./Modal.css"
 import "react-toastify/dist/ReactToastify.css";
 
 import RingLoader from "react-spinners/RingLoader";
