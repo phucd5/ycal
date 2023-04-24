@@ -1,0 +1,16 @@
+.custom-modal .modal-content {
+    background-color: #f6f6f6;
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+.custom-modal {
+  min-height: 500px;
+  min-width: 700px;
+}
+.modal-backdrop.show {
+  opacity: 0;
+}
+input.input-box::placeholder {
+  font-style: normal;
+  text-align: left;
+}
