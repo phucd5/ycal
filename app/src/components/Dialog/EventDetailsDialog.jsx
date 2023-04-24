@@ -65,32 +65,24 @@ const EventDetailsDialog = (props) => {
 				pauseOnHover={false}
 				theme="colored"
 			/>
-			<Modal size="lg" show={show} onHide={handleClose} className ="custom-modal">
+			<Modal size="lg" show={show} onHide={handleClose} keyboard={true}>
 				<Modal.Header closeButton>
 					<Modal.Title id="event-details-title">
 						{event ? <p>{event.title}</p> : <p>N/A</p>}
 					</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>
-					<Table>
-						<thead>
-							<tr>
-								<th>Description</th>
-								<th>Start Date</th>
-								<th>End Date</th>
-								<th>Location</th>
-								<th>Attendees</th>
-							</tr>
-						</thead>
-						<tbody>
-							{event ? (
-								<tr>
-									<td>{event.extendedProps.description}</td>
-									<td>{event.startStr}</td>
-									<td>{event.endStr}</td>
-									<td>{event.extendedProps.location}</td>
-									<td>
-										{event.extendedProps.attendees.length >
+				{event ? (
+					<Modal.Body>						
+							<h2>Description</h2>
+							<p>{event.extendedProps.description}</p>
+							<h2>Start Date</h2>
+							<p>{event.startStr.slice(0, 10)}</p>
+							<h2>End Date</h2>
+							<p>{event.endStr.slice(0, 10)}</p>
+							<h2>Location</h2>
+							<p>{event.extendedProps.location}</p>
+							<h2>Attendees</h2>
+							<p>{event.extendedProps.attendees.length >
 										0 ? (
 											event.extendedProps.attendees.map(
 												(attendee) => (
@@ -115,33 +107,19 @@ const EventDetailsDialog = (props) => {
 											)
 										) : (
 											<div>None</div>
-										)}
-									</td>
-									<td>
-										<Button class="btn btn-tertiary rounded-pill"
-													style={{
-														size: "sm",
-														marginRight: "15px",
-														marginLeft: "15px",
-														backgroundColor: "#007bff",
-														color: "white"
-													}}
-											onClick={() =>
-												handleDelete(
-													event.extendedProps._id
-												)
-											}
-										>
-											Delete
-										</Button>
-									</td>
-								</tr>
-							) : (
-								<tr></tr>
-							)}
-						</tbody>
-					</Table>
-				</Modal.Body>
+										)}</p>
+								<Button
+									onClick={() =>
+										handleDelete(
+											event.extendedProps._id
+										)
+									}
+								>
+									Delete Event
+								</Button>
+
+					</Modal.Body>
+				):(<Modal.Body></Modal.Body>)}
 			</Modal>
 		</div>
 	);

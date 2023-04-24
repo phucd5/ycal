@@ -85,9 +85,8 @@ const AddCourseDialog = (props) => {
 				show={show}
 				onHide={handleClose}
 				backdrop="static"
-				keyboard={false}
-				size="lg"
-				dialogClassName="custom-modal"
+				keyboard={true}
+				size="lg"				
 			>
 				<Modal.Header closeButton>
 					<Modal.Title className="modal-title" id="add-course-modal-title">

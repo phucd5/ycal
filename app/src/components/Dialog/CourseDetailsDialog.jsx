@@ -39,7 +39,7 @@ const CourseDetailsDialog = (props) => {
 
 	return (
 		<div>
-			<Modal size="lg" show={show} onHide={handleClose} className ="custom-modal">
+			<Modal size="lg" show={show} onHide={handleClose} keyboard={true}>
 				<Modal.Header closeButton>
 					<Modal.Title id="event-details-title">
 						{course ? <p>{course.className}</p> : <p>N/A</p>}
