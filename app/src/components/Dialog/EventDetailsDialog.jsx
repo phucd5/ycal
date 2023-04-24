@@ -3,10 +3,24 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const EventDetailsDialog = (props) => {
-	const { user, event, fetchEvents, setEvents, show, handleClose } = props;
+	const { user, event, fetchEvents, setEvents, show, setShow, handleClose } =
+		props;
 
 	/* Callback Functions */
+
+	const handleCloseSuccess = (msg) => {
+		toast.success(msg);
+		handleClose();
+	};
+
+	const handleCloseError = (msg) => {
+		toast.error(msg);
+		handleClose();
+	};
 
 	const handleDelete = async (eventId) => {
 		try {
@@ -18,9 +32,9 @@ const EventDetailsDialog = (props) => {
 				prevEvents.filter((event) => event._id !== eventId)
 			);
 		} catch (error) {
-			console.log(error);
+			handleCloseError("Failed to delete event");
 		}
-		handleClose();
+		handleCloseSuccess("Sucessfully deleted event");
 	};
 
 	const handleAttendDelete = async (event, attendeeId) => {
@@ -35,13 +49,22 @@ const EventDetailsDialog = (props) => {
 			);
 			fetchEvents();
 		} catch (error) {
-			console.error(error);
+			handleCloseError("Failed to delete attendee");
 		}
-		handleClose();
+		handleCloseSuccess("Sucessfully added event");
 	};
 
 	return (
 		<div>
+			<ToastContainer
+				position="top-center"
+				newestOnTop={true}
+				autoClose={2000}
+				closeOnClick
+				rtl={false}
+				pauseOnHover={false}
+				theme="colored"
+			/>
 			<Modal size="lg" show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
 					<Modal.Title id="event-details-title">
