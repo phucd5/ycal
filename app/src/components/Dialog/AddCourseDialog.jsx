@@ -3,7 +3,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import debounce from "lodash/debounce";
-import "./Modal.css"
+import "./Modal.css";
 
 import { getTermString } from "../../utils/helpers";
 
@@ -84,13 +84,15 @@ const AddCourseDialog = (props) => {
 			<Modal
 				show={show}
 				onHide={handleClose}
-				backdrop="static"
 				keyboard={true}
 				size="lg"
-				className="custom-modal"			
+				className="custom-modal"
 			>
 				<Modal.Header closeButton>
-					<Modal.Title className="modal-title" id="add-course-modal-title">
+					<Modal.Title
+						className="modal-title"
+						id="add-course-modal-title"
+					>
 						Add Course
 					</Modal.Title>
 				</Modal.Header>
@@ -129,13 +131,15 @@ const AddCourseDialog = (props) => {
 												{getTermString(course.period)}
 											</td>
 											<td>
-												<button class="btn btn-tertiary rounded-pill"
+												<button
+													class="btn btn-tertiary rounded-pill"
 													style={{
 														size: "sm",
 														marginRight: "15px",
 														marginLeft: "15px",
-														backgroundColor: "#007bff",
-														color: "white"
+														backgroundColor:
+															"#007bff",
+														color: "white",
 													}}
 													onClick={() =>
 														handleAddSelectedCourse(

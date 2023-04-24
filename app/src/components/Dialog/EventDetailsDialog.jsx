@@ -46,7 +46,7 @@ const EventDetailsDialog = (props) => {
 		} catch (error) {
 			handleCloseError("Failed to delete attendee");
 		}
-		handleCloseSuccess("Sucessfully added event");
+		handleCloseSuccess("Sucessfully deleted attendee");
 	};
 
 	return (

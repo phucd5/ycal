@@ -5,7 +5,7 @@ import Table from "react-bootstrap/Table";
 import { getTermString } from "../../utils/helpers";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./Modal.css"
+import "./Modal.css";
 
 const CourseDetailsDialog = (props) => {
 	const { user, course, fetchCourses, show, handleClose } = props;
@@ -39,7 +39,22 @@ const CourseDetailsDialog = (props) => {
 
 	return (
 		<div>
-			<Modal size="lg" show={show} onHide={handleClose} keyboard={true} className="custom-modal">
+			<ToastContainer
+				position="top-center"
+				newestOnTop={true}
+				autoClose={2000}
+				closeOnClick
+				rtl={false}
+				pauseOnHover={false}
+				theme="colored"
+			/>
+			<Modal
+				size="lg"
+				show={show}
+				onHide={handleClose}
+				keyboard={true}
+				className="custom-modal"
+			>
 				<Modal.Header closeButton>
 					<Modal.Title id="event-details-title">
 						{course ? <p>{course.className}</p> : <p>N/A</p>}
@@ -65,14 +80,15 @@ const CourseDetailsDialog = (props) => {
 									<td>{course.location}</td>
 									<td>{getTermString(course.period)}</td>
 									<td>
-										<Button class="btn btn-tertiary rounded-pill"
-													style={{
-														size: "sm",
-														marginRight: "15px",
-														marginLeft: "15px",
-														backgroundColor: "#007bff",
-														color: "white"
-													}}
+										<Button
+											class="btn btn-tertiary rounded-pill"
+											style={{
+												size: "sm",
+												marginRight: "15px",
+												marginLeft: "15px",
+												backgroundColor: "#007bff",
+												color: "white",
+											}}
 											onClick={() =>
 												handleDelete(course._id)
 											}

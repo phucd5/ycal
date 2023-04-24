@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { ToastContainer, toast } from "react-toastify";
-import "./Modal.css"
-import "react-toastify/dist/ReactToastify.css";
+import "./Modal.css";
 
 import RingLoader from "react-spinners/RingLoader";
 
@@ -115,15 +113,6 @@ const AISchedule = (props) => {
 
 	return (
 		<div>
-			<ToastContainer
-				position="top-center"
-				newestOnTop={true}
-				autoClose={2000}
-				closeOnClick
-				rtl={false}
-				pauseOnHover={false}
-				theme="colored"
-			/>
 			<br />
 			{loading ? (
 				<RingLoader color="#0194ff" />
