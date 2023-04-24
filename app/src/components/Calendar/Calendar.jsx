@@ -15,6 +15,7 @@ import FriendsDialog from "../Dialog/FriendsDialog";
 import MeetingDialog from "../Dialog/MeetingDialog";
 import CourseDetailsDialog from "../Dialog/CourseDetailsDialog";
 
+import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
@@ -238,35 +239,43 @@ const Calendar = () => {
 						{renderDialogs()}
 					</div>
 					<Box sx={{ "& > :not(style)": { m: 1 } }} position="fixed" bottom="0" right="0">                        
-                        <Fab
-                            color="primary"
-                            aria-label="addEvent"
-                            onClick={handleAddEventModalShow}
-                            position="fixed"
-                        >
-                            <AddIcon />
-                        </Fab>
-                        <Fab
-                            color="primary"
-                            aria-label="addCourse"
-                            onClick={handleAddCourseModalShow}
-                        >
-                            <BookIcon />
-                        </Fab>
-						<Fab
-							color="primary"
-							aria-label="scheduleMeeting"
-							onClick={handleMeetingModalShow}
-						>
-							<ScheduleIcon />
-						</Fab>
-                        <Fab
-							color="primary"
-							aria-label="friends"
-							onClick={handleFriendsModalShow}
-						>
-							<GroupsIcon />
-						</Fab>
+                        <Tooltip title="Add Event">                        
+                            <Fab
+                                color="primary"
+                                aria-label="addEvent"
+                                onClick={handleAddEventModalShow}
+                                position="fixed"
+                            >
+                                <AddIcon />
+                            </Fab>
+                        </Tooltip>
+                        <Tooltip title="Add Course">
+                            <Fab
+                                color="primary"
+                                aria-label="addCourse"
+                                onClick={handleAddCourseModalShow}
+                            >
+                                <BookIcon />
+                            </Fab>
+                        </Tooltip>
+                        <Tooltip title="Schedule Meeting">
+                            <Fab
+                                color="primary"
+                                aria-label="scheduleMeeting"
+                                onClick={handleMeetingModalShow}
+                            >
+                                <ScheduleIcon />
+                            </Fab>
+                        </Tooltip>
+                        <Tooltip title="My Friends">
+                            <Fab
+                                color="primary"
+                                aria-label="friends"
+                                onClick={handleFriendsModalShow}
+                            >
+                                <GroupsIcon />
+                            </Fab>
+                        </Tooltip>
 					</Box>
 				</div>
 			</div>
