@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import debounce from "lodash/debounce";
-import "./Modal.css";
 
 import { getTermString } from "../../utils/helpers";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import "./Modal.css";
+
 const AddCourseDialog = (props) => {
-	const { user, fetchClasses, show, setShow, handleShow } = props;
+	const { user, fetchClasses, show, setShow } = props;
 
 	const [courseCode, setcourseCode] = useState("");
 	const [searchedCourses, setsearchedCourses] = useState([]);
