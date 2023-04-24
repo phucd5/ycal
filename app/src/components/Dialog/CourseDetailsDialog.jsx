@@ -62,16 +62,16 @@ const CourseDetailsDialog = (props) => {
 				</Modal.Header>
 				{course ? (
 				<Modal.Body>
-					<h2>Course Code</h2>
+					<h3>Course Code</h3>
 					<p>{course.displayName}</p>
-					<h2>Title</h2>
-					<td>{course.classTitle}</td>								
-					<h2>Meeting Time</h2>
-					<td>{course.meetingTime}</td>									
-					<h2>Location</h2>
-					<td>{course.location}</td>
-					<h2>Period</h2>
-					<td>{getTermString(course.period)}</td>		
+					<h3>Title</h3>
+					<p>{course.classTitle}</p>								
+					<h3>Meeting Time</h3>
+					<p>{course.meetingTime}</p>									
+					<h3>Location</h3>
+					<p>{course.location}</p>
+					<h3>Period</h3>
+					<p>{getTermString(course.period)}</p>		
 					<p/>
 					<Button
 						class="btn btn-tertiary rounded-pill"
