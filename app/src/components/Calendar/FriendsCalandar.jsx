@@ -8,7 +8,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import "../Dialog/CreateEventForm.css"
+import "../Dialog/Modal.css"
 
 const FriendsCalandar = ({ friendId }) => {
 	const handleClose = () => setShow(false);

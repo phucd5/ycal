@@ -1,15 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
-
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { validateDate } from "../../utils/valdiation";
-import "./CreateEventForm.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./Modal.css"
 
 const CreateEventForm = (props) => {
 	const { user, friends, fetchEvents, show, setShow, handleShow } = props;
@@ -130,7 +129,7 @@ const CreateEventForm = (props) => {
 				show={show}
 				onHide={handleClose}
 				backdrop="static"
-				keyboard={true}
+				keyboard={false}
 				dialogClassName="custom-modal"
 				centered
 			>
