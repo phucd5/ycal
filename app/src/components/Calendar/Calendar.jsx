@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import Navbar from 'react-bootstrap/Navbar';
-
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -17,12 +15,6 @@ import FriendsDialog from "../Dialog/FriendsDialog";
 import MeetingDialog from "../Dialog/MeetingDialog";
 import CourseDetailsDialog from "../Dialog/CourseDetailsDialog";
 
-import Box from '@mui/material/Box';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
-import BookIcon from '@mui/icons-material/Book';
-import GroupsIcon from '@mui/icons-material/Groups';
-import ScheduleIcon from '@mui/icons-material/Schedule';
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
@@ -31,7 +23,6 @@ import GroupsIcon from "@mui/icons-material/Groups";
 
 import "./Calendar.css";
 import styled from "./styles.scss";
-import Schedule from "@mui/icons-material/Schedule";
 
 const Calendar = () => {
 	const navigate = useNavigate();
@@ -159,30 +150,6 @@ const Calendar = () => {
 		}
 	};
 
-    const handleLogout = async() => {
-
-    }
-
-    const renderDialogs = () => {
-        return (
-            <>
-                <EventDetailsDialog
-                    user={user}
-                    event={selectedEvent}
-                    fetchEvents={fetchEvents}
-                    setEvents={setEvents}
-                    show={eventModalShow}
-                    handleClose={handleEventModalClose}
-                />
-                <CourseDetailsDialog
-                    user={user}
-                    course={selectedCourse}
-                    fetchCourses={fetchCourses}
-                    show={courseModalShow}
-                    handleClose={handleCourseModalClose}
-                />
-                <MeetingDialog 
-					user={user} 
 	const renderDialogs = () => {
 		return (
 			<>
@@ -222,18 +189,6 @@ const Calendar = () => {
 					fetchEvents={fetchEvents}
 					show={addEventModalShow}
 					setShow={setAddEventModalShow}
-                    handleShow={handleAddEventModalShow}                    
-                />
-            </>
-        );
-    };
-    return (
-        <div>            
-            <div class="topBarContainer">
-                <h1 class="YCal-logo">
-                    YCal
-                </h1>
-                <FriendsDialog 
 					handleShow={handleAddEventModalShow}
 				/>
 			</>
@@ -256,49 +211,6 @@ const Calendar = () => {
 							show={friendsModalShow}
 							handleShow={handleFriendsModalShow}
 							handleClose={handleFriendsModalClose}
-                />
-                <button class="logout-button" onClick={handleLogout}>Log out</button>
-            </div>
-            
-            <div className={styled.bootstrap}>                
-                <div class="container">					                
-                    <div class="item-calendar-item">
-                        <div>
-                            <FullCalendar
-                                timeZone="UTC"
-                                ref={calendarRef}
-                                plugins={[
-                                    dayGridPlugin,
-                                    timeGridPlugin,
-                                    interactionPlugin,
-                                ]}
-                                initialView="timeGridWeek"
-                                events={[...events, ...courses]}
-                                eventClick={(info) => handleEventClick(info)}
-                                aspectRatio="2.5"
-                            />
-                        </div>
-                        {renderDialogs()}
-                    </div>
-                    <Box sx={{ '& > :not(style)': { m: 1 } }} position="fixed" bottom="0" right="0">
-                        <Fab color="primary" aria-label="addEvent" onClick={handleAddEventModalShow}>
-                            <AddIcon/>
-                        </Fab>
-                        <Fab color="primary" aria-label="addCourse" onClick={handleAddCourseModalShow}>
-                            <BookIcon/>
-                        </Fab>
-						<Fab color="primary" aria-label="scheduleMeeting" onClick={handleMeetingModalShow}>
-                            <ScheduleIcon/>
-                        </Fab>
-                        <Fab color="primary" aria-label="scheduleMeeting">
-                            <GroupsIcon/>
-                        </Fab>
-                    </Box>
-
-                </div>
-            </div>
-        </div>
-    );
 						/>
 					</div>
 					<div class="item-calendar-item">

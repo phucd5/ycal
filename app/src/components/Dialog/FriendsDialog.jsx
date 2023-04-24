@@ -80,12 +80,6 @@ const FriendsDialog = (props) => {
 		}
 	};
 
-<<<<<<< HEAD
-    return (
-        <>            
-			<Button class="friends-button" variant="primary" onClick={handleShow} background-color="Transparent">
-                Friends
-=======
 	return (
 		<>
 			<ToastContainer
@@ -99,7 +93,6 @@ const FriendsDialog = (props) => {
 			/>
 			<Button variant="primary" onClick={handleShow}>
 				Friends
->>>>>>> 0dbdb360d9902e1793f44f5bb1b529429541dc1a
 			</Button>
 			<Modal size="lg" show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
