@@ -30,7 +30,7 @@
 	text-align: center;
 
 	width: 200px;
-	background-color: #2074d4;
+	background-color: #006bcf;
 	padding: 1.2em;
 	border-radius: 15px;
 }
@@ -66,7 +66,7 @@ input {
 
 .submit-button {
 	border: 0;
-	background-color: #004a80;
+	background-color: #023663;
 	border-radius: 7px;
 	color: white;
 	padding: 6px;
@@ -86,5 +86,5 @@ input {
 .login-page,
 .reg-page {
 	height: 100vh;
-	background-color: #bde3ff;
+	background-color: #acdafa;
 }

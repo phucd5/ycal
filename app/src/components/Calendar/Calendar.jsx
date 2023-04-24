@@ -28,11 +28,11 @@ import styled from "./styles.scss";
 
 const fabStyles = {
 	backgroundColor: "#023663", // Replace with your desired color
-	color: "#57b6fa",
+	color: "#acdafa",
 };
 
 const fabStyles1 = {
-	backgroundColor: "#57b6fa", // Replace with your desired color
+	backgroundColor: "#acdafa", // Replace with your desired color
 	color: "#023663",
 };
 
@@ -285,7 +285,7 @@ const Calendar = () => {
 			<div className="topBarContainer">
 				<h1 className="YCal-logo">YCal</h1>
 				<button className="logout-button" onClick={handleLogout}>
-					Log out
+					Log Out
 				</button>
 			</div>
 			<div className={styled.bootstrap}>
