@@ -27,14 +27,14 @@ import "./Calendar.css";
 import styled from "./styles.scss";
 
 const fabStyles = {
-    backgroundColor: "#023663", // Replace with your desired color
-    color: "#57b6fa"
+	backgroundColor: "#023663", // Replace with your desired color
+	color: "#57b6fa",
 };
 
 const fabStyles1 = {
-    backgroundColor: "#57b6fa", // Replace with your desired color
-    color: "#023663"
-}
+	backgroundColor: "#57b6fa", // Replace with your desired color
+	color: "#023663",
+};
 
 const Calendar = () => {
 	const navigate = useNavigate();
@@ -240,7 +240,7 @@ const Calendar = () => {
 							aria-label="addEvent"
 							onClick={handleAddEventModalShow}
 							position="fixed"
-                            style={fabStyles1}
+							style={fabStyles1}
 						>
 							<AddIcon />
 						</Fab>
@@ -250,7 +250,7 @@ const Calendar = () => {
 							color="primary"
 							aria-label="addCourse"
 							onClick={handleAddCourseModalShow}
-                            style={fabStyles}
+							style={fabStyles}
 						>
 							<BookIcon />
 						</Fab>
@@ -260,7 +260,7 @@ const Calendar = () => {
 							color="primary"
 							aria-label="scheduleMeeting"
 							onClick={handleMeetingModalShow}
-                            style={fabStyles}
+							style={fabStyles}
 						>
 							<ScheduleIcon />
 						</Fab>
@@ -270,7 +270,7 @@ const Calendar = () => {
 							color="primary"
 							aria-label="friends"
 							onClick={handleFriendsModalShow}
-                            style={fabStyles}
+							style={fabStyles}
 						>
 							<GroupsIcon />
 						</Fab>
@@ -282,15 +282,15 @@ const Calendar = () => {
 
 	return (
 		<div>
-			<div class="topBarContainer">
-				<h1 class="YCal-logo">YCal</h1>
-				<button class="logout-button" onClick={handleLogout}>
+			<div className="topBarContainer">
+				<h1 className="YCal-logo">YCal</h1>
+				<button className="logout-button" onClick={handleLogout}>
 					Log out
 				</button>
 			</div>
 			<div className={styled.bootstrap}>
-				<div class="container">
-					<div class="item-calendar-item">
+				<div className="container">
+					<div className="item-calendar-item">
 						<div>
 							<FullCalendar
 								timeZone="UTC"
