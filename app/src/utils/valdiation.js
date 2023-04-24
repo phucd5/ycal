@@ -42,8 +42,13 @@ export const validateWithinOneWeek = (dateTime) => {
 	const now = new Date();
 	const oneWeekFromNow = now.getTime() + 7 * 24 * 60 * 60 * 1000;
 
+	if (dateTime < now) {
+		return { valid: false, err: "Meeting Date is in the past" };
+	}
+
 	if (dateTime.getTime() > oneWeekFromNow) {
 		return { valid: false, err: "Meeting Date is not within one week" };
 	}
+
 	return { valid: true };
 };

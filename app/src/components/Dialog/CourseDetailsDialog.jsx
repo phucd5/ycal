@@ -34,7 +34,7 @@ const CourseDetailsDialog = (props) => {
 			handleCloseError("Failed to delete course");
 			return;
 		}
-		handleCloseSuccess("Sucessfully added course");
+		handleCloseSuccess("Sucessfully deleted course");
 	};
 
 	return (
