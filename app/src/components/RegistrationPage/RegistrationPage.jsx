@@ -5,6 +5,8 @@ import "./RegistrationPage.css";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { validateYaleEmail, validateRegInput } from "../../utils/valdiation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegistrationPage = () => {
 	const [firstName, setFirstName] = useState("");
@@ -15,7 +17,7 @@ const RegistrationPage = () => {
 
 	const handleRegister = () => {
 		if (!validateYaleEmail(email)) {
-			alert("Please enter a Yale email");
+			toast.error("Error: Please enter a Yale email");
 			return;
 		}
 
@@ -33,7 +35,6 @@ const RegistrationPage = () => {
 				password: password,
 			})
 			.then((response) => {
-				console.log(response.data);
 				navigate("/login");
 			})
 			.catch((error) => {
@@ -43,6 +44,15 @@ const RegistrationPage = () => {
 
 	return (
 		<div className="reg-page">
+			<ToastContainer
+				position="top-center"
+				newestOnTop={true}
+				autoClose={2000}
+				closeOnClick
+				rtl={false}
+				pauseOnHover={false}
+				theme="colored"
+			/>
 			<div className="main-container">
 				<div className="ycal-title">YCal</div>
 				<div className="entry-container">

@@ -5,15 +5,22 @@ import Form from "react-bootstrap/Form";
 import AIScheduleDialog from "./AIScheduleDialog";
 import { validateWithinOneWeek } from "../../utils/valdiation";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const SelectFriend = (props) => {
 	const { user, friends, show, setShow, handleShow } = props;
 
 	const handleClose = () => {
-		setDisabled(false);
 		setShow(false);
+		setDisabled(false);
+		setAttendees([]);
+		setMeetingDate("");
+		setMeetingLength("");
 	};
 
 	const [disabledCheck, setDisabled] = useState(false);
+	const [numChecked, setNumChecked] = useState(0);
 
 	const [attendees, setAttendees] = useState([]);
 	const [meetingDate, setMeetingDate] = useState("");
@@ -25,17 +32,19 @@ const SelectFriend = (props) => {
 		const isChecked = targetCheck;
 		if (isChecked) {
 			setAttendees((prevAttendees) => [...prevAttendees, friendId]);
+			setNumChecked((prevNumChecked) => prevNumChecked + 1);
 		} else {
 			setAttendees((prevAttendees) =>
 				prevAttendees.filter((id) => id !== friendId)
 			);
+			setNumChecked((prevNumChecked) => prevNumChecked - 1);
 		}
 	};
 
 	const handleSubmitForm = async (e) => {
 		const validateDateInput = validateWithinOneWeek(new Date(meetingDate));
 		if (!validateDateInput.valid) {
-			alert(validateDateInput.err);
+			toast.error(validateDateInput.err);
 			return;
 		}
 		setDisabled(true);
@@ -114,7 +123,11 @@ const SelectFriend = (props) => {
 								<br />
 							</Form.Group>
 							<Button
-								disabled={disabledCheck}
+								disabled={
+									disabledCheck ||
+									numChecked === 0 ||
+									meetingDate === ""
+								}
 								onClick={handleSubmitForm}
 							>
 								Schedule Meeting

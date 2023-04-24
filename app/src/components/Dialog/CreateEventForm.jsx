@@ -8,12 +8,27 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { validateDate } from "../../utils/valdiation";
 import "./CreateEventForm.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreateEventForm = (props) => {
 	const { user, friends, fetchEvents, show, setShow, handleShow } = props;
 
-	const handleClose = (event) => {
+	const handleClose = () => {
+		clearEventFields();
 		setShow(false);
+	};
+
+	const handleCloseSuccess = () => {
+		toast.success("Sucessfully added event");
+		setShow(false);
+		clearEventFields();
+	};
+
+	const handleCloseError = () => {
+		toast.error("Failed to add event");
+		setShow(false);
+		clearEventFields();
 	};
 
 	const [title, setTitle] = useState("");
@@ -51,7 +66,7 @@ const CreateEventForm = (props) => {
 		const validateCalInput = validateDate(newStart, newEnd);
 
 		if (!validateCalInput.valid) {
-			alert(validateCalInput.err);
+			toast.error(validateCalInput.err);
 			return;
 		}
 		try {
@@ -61,12 +76,8 @@ const CreateEventForm = (props) => {
 					organizer: user,
 					title,
 					description,
-					start: new Date(
-						startDate.concat("T").concat(startTime).concat("Z")
-					),
-					end: new Date(
-						endDate.concat("T").concat(endTime).concat("Z")
-					),
+					start: newStart,
+					end: newEnd,
 					location,
 					userId: user._id,
 					location_marker: locationMarker,
@@ -82,28 +93,41 @@ const CreateEventForm = (props) => {
 					}
 				);
 
-				fetchEvents();
-				setTitle("");
-				setDescription("");
-				setStartDate("");
-				setEndDate("");
-				setStartTime("");
-				setEndTime("");
-				setLocation("");
-				setAttendees([]);
-				handleClose();
+				clearEventFields();
+				handleCloseSuccess();
 			} catch (error) {
 				console.log(error);
-				handleClose();
+				handleCloseError();
 			}
 		} catch (error) {
 			console.log(error);
-			handleClose();
+			handleCloseError();
 		}
 	};
 
+	function clearEventFields() {
+		fetchEvents();
+		setTitle("");
+		setDescription("");
+		setStartDate("");
+		setEndDate("");
+		setStartTime("");
+		setEndTime("");
+		setLocation("");
+		setAttendees([]);
+	}
+
 	return (
 		<>
+			<ToastContainer
+				position="top-center"
+				newestOnTop={true}
+				autoClose={2000}
+				closeOnClick
+				rtl={false}
+				pauseOnHover={false}
+				theme="colored"
+			/>
 			<Modal
 				show={show}
 				onHide={handleClose}

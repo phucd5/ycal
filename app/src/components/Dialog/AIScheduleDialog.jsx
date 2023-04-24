@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import RingLoader from "react-spinners/RingLoader";
+
 const { Configuration, OpenAIApi } = require("openai");
 
 const AISchedule = (props) => {
@@ -27,7 +32,6 @@ const AISchedule = (props) => {
 		} else {
 			setLoading(false);
 		}
-		console.log(prompt);
 	};
 
 	const fetchFriendsEvents = async () => {
@@ -110,9 +114,18 @@ const AISchedule = (props) => {
 
 	return (
 		<div>
-			<h1>AI Schedule Suggestion</h1>
+			<ToastContainer
+				position="top-center"
+				newestOnTop={true}
+				autoClose={2000}
+				closeOnClick
+				rtl={false}
+				pauseOnHover={false}
+				theme="colored"
+			/>
+			<br />
 			{loading ? (
-				<div>Loading AI Suggestion...</div>
+				<RingLoader color="#0194ff" />
 			) : (
 				<div>{GPTResponse}</div>
 			)}

@@ -4,9 +4,21 @@ import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
 
 import { getTermString } from "../../utils/helpers";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CourseDetailsDialog = (props) => {
 	const { user, course, fetchCourses, show, handleClose } = props;
+
+	const handleCloseSuccess = (msg) => {
+		toast.success(msg);
+		handleClose();
+	};
+
+	const handleCloseError = (msg) => {
+		toast.error(msg);
+		handleClose();
+	};
 
 	/* Callback Functions */
 
@@ -19,10 +31,10 @@ const CourseDetailsDialog = (props) => {
 			fetchCourses();
 		} catch (error) {
 			console.log(error);
-			handleClose();
+			handleCloseError("Failed to delete course");
 			return;
 		}
-		handleClose();
+		handleCloseSuccess("Sucessfully deleted course");
 	};
 
 	return (
