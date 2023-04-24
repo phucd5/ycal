@@ -38,7 +38,7 @@ const RegistrationPage = () => {
 				navigate("/login");
 			})
 			.catch((error) => {
-				console.log(error);
+				toast.error("Error: User already have an account");
 			});
 	};
 
