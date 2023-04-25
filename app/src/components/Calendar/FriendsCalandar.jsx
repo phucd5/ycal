@@ -8,7 +8,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import "../Dialog/Modal.css"
+import "../Dialog/Modal.css";
 
 const FriendsCalandar = ({ friendId }) => {
 	const handleClose = () => setShow(false);
@@ -25,7 +25,7 @@ const FriendsCalandar = ({ friendId }) => {
 	const fetchFriend = async () => {
 		try {
 			const response = await axios.get(
-				`http://localhost:3002/users/${friendId}`
+				`${process.env.REACT_APP_SERVER_API_URL}users/${friendId}`
 			);
 			setFriend(response.data);
 		} catch (error) {
@@ -36,7 +36,7 @@ const FriendsCalandar = ({ friendId }) => {
 	const fetchEvents = async () => {
 		try {
 			const response = await axios.get(
-				`http://localhost:3002/users/${friendId}/events`
+				`${process.env.REACT_APP_SERVER_API_URL}users/${friendId}/events`
 			);
 			setEvents(response.data);
 		} catch (error) {
@@ -47,13 +47,13 @@ const FriendsCalandar = ({ friendId }) => {
 	async function fetchClasses() {
 		const allClass = [];
 		const classesResponse = await axios.get(
-			`http://localhost:3002/users/${friendId}/classes`
+			`${process.env.REACT_APP_SERVER_API_URL}users/${friendId}/classes`
 		);
 		const classesData = classesResponse.data;
 
 		for (const classObj of classesData) {
 			const scheduleResponse = await axios.get(
-				`http://localhost:3002/yclasses/${classObj._id}/schedule`
+				`${process.env.REACT_APP_SERVER_API_URL}yclasses/${classObj._id}/schedule`
 			);
 			const scheduleData = scheduleResponse.data;
 

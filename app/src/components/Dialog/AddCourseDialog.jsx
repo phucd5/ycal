@@ -49,7 +49,7 @@ const AddCourseDialog = (props) => {
 	const handleCourseSearch = debounce(async () => {
 		try {
 			const response = await axios.get(
-				`http://localhost:3002/yclasses/${courseCode}/name`
+				`${process.env.REACT_APP_SERVER_API_URL}yclasses/${courseCode}/name`
 			);
 			setsearchedCourses(response.data);
 		} catch (error) {}
@@ -57,10 +57,13 @@ const AddCourseDialog = (props) => {
 
 	const handleAddSelectedCourse = async (courseId) => {
 		try {
-			await axios.put(`http://localhost:3002/users/${user._id}/classes`, {
-				courseId: courseId,
-				action: "add",
-			});
+			await axios.put(
+				`${process.env.REACT_APP_SERVER_API_URL}users/${user._id}/classes`,
+				{
+					courseId: courseId,
+					action: "add",
+				}
+			);
 		} catch (err) {
 			handleCloseError();
 		}

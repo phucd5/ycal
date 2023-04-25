@@ -28,7 +28,7 @@ const RegistrationPage = () => {
 		}
 
 		axios
-			.post("http://localhost:3002/auth/register", {
+			.post(`${process.env.REACT_APP_SERVER_API_URL}auth/register`, {
 				firstName: firstName,
 				lastName: lastName,
 				email: email,

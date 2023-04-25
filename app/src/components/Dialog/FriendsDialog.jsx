@@ -22,11 +22,11 @@ const FriendsDialog = (props) => {
 	const handleAddFriend = async (friendId, friendEmail) => {
 		try {
 			const response = await axios.get(
-				`http://localhost:3002/users/${friendEmail}/email`
+				`${process.env.REACT_APP_SERVER_API_URL}users/${friendEmail}/email`
 			);
 			try {
 				const response_2 = await axios.put(
-					`http://localhost:3002/users/${user._id}/friends`,
+					`${process.env.REACT_APP_SERVER_API_URL}users/${user._id}/friends`,
 					{
 						friendId: response.data._id,
 						action: "add",
@@ -45,7 +45,7 @@ const FriendsDialog = (props) => {
 	const handleRemoveFriendRequest = async (friendId, msg) => {
 		try {
 			const response = await axios.put(
-				`http://localhost:3002/users/${user._id}/friendrequests`,
+				`${process.env.REACT_APP_SERVER_API_URL}users/${user._id}/friendrequests`,
 				{
 					friendId: friendId,
 					action: "remove",
@@ -64,7 +64,7 @@ const FriendsDialog = (props) => {
 	const handleRemoveFriend = async (friendId) => {
 		try {
 			const response = await axios.put(
-				`http://localhost:3002/users/${user._id}/friends`,
+				`${process.env.REACT_APP_SERVER_API_URL}users/${user._id}/friends`,
 				{
 					friendId: friendId,
 					action: "remove",
@@ -106,7 +106,7 @@ const FriendsDialog = (props) => {
 				</Modal.Header>
 				<Modal.Body>
 					<AddFriendDialog user={user} />
-					<h2 className = "modal-label">Friend Requests</h2>
+					<h2 className="modal-label">Friend Requests</h2>
 					{friendRequests.length > 0 ? (
 						<Table style={{ marginTop: "10px" }}>
 							<thead>
@@ -148,7 +148,7 @@ const FriendsDialog = (props) => {
 													marginRight: "15px",
 													marginLeft: "15px",
 													backgroundColor: "#007bff",
-													color: "white"
+													color: "white",
 												}}
 												onClick={() =>
 													handleAddFriend(
@@ -168,7 +168,7 @@ const FriendsDialog = (props) => {
 						<p>No friends requests!</p>
 					)}
 
-					<h2 className = "modal-label">My Friends</h2>
+					<h2 className="modal-label">My Friends</h2>
 					{friends.length > 0 ? (
 						<Table style={{ marginTop: "10px" }}>
 							<thead>

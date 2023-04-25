@@ -20,14 +20,13 @@ function LoginPage() {
 
 		try {
 			const response = await axios.post(
-				"http://localhost:3002/auth/login",
+				`${process.env.REACT_APP_SERVER_API_URL}auth/login`,
 				{
 					email: email,
 					password: password,
 				}
 			);
 
-			console.log(response.data);
 			localStorage.setItem("token", response.data.token);
 			localStorage.setItem("user", JSON.stringify(response.data.user));
 			navigate("/calendar");

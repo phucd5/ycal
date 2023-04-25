@@ -23,10 +23,13 @@ const CourseDetailsDialog = (props) => {
 
 	const handleDelete = async (courseId) => {
 		try {
-			await axios.put(`http://localhost:3002/users/${user._id}/classes`, {
-				courseId: courseId,
-				action: "remove",
-			});
+			await axios.put(
+				`${process.env.REACT_APP_SERVER_API_URL}users/${user._id}/classes`,
+				{
+					courseId: courseId,
+					action: "remove",
+				}
+			);
 			fetchCourses();
 		} catch (error) {
 			console.log(error);

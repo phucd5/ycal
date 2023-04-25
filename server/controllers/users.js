@@ -99,7 +99,6 @@ export const getUserEvents = async (req, res) => {
 };
 
 export const updateUserEvents = async (req, res) => {
-	console.log("addED");
 	const { userId } = req.params;
 	const { eventId, action } = req.body;
 	try {
@@ -119,7 +118,6 @@ export const updateUserEvents = async (req, res) => {
 				);
 			}
 			user.events.push(eventId);
-			console.log("ADDED");
 		} else if (action === "remove") {
 			user.events.remove(eventId);
 		}

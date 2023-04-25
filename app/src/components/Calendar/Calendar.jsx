@@ -93,7 +93,7 @@ const Calendar = () => {
 	async function fetchEvents() {
 		try {
 			const response = await axios.get(
-				`http://localhost:3002/users/${user._id}/events`
+				`${process.env.REACT_APP_SERVER_API_URL}users/${user._id}/events`
 			);
 			setEvents(response.data);
 		} catch (error) {
@@ -104,12 +104,12 @@ const Calendar = () => {
 	async function fetchCourses() {
 		const allClass = [];
 		const classesResponse = await axios.get(
-			`http://localhost:3002/users/${user._id}/classes`
+			`${process.env.REACT_APP_SERVER_API_URL}users/${user._id}/classes`
 		);
 
 		for (const classObj of classesResponse.data) {
 			const scheduleResponse = await axios.get(
-				`http://localhost:3002/yclasses/${classObj._id}/schedule`
+				`${process.env.REACT_APP_SERVER_API_URL}yclasses/${classObj._id}/schedule`
 			);
 			const scheduleData = scheduleResponse.data;
 
@@ -123,7 +123,7 @@ const Calendar = () => {
 
 	const fetchCourseDetails = async (event) => {
 		const classResponse = await axios.get(
-			`http://localhost:3002/yclasses/${event.extendedProps.class}`
+			`${process.env.REACT_APP_SERVER_API_URL}yclasses/${event.extendedProps.class}`
 		);
 		setSelectedCourse(classResponse.data);
 	};
@@ -131,7 +131,7 @@ const Calendar = () => {
 	async function fetchFriends() {
 		try {
 			const response = await axios.get(
-				`http://localhost:3002/users/${user._id}/friends`
+				`${process.env.REACT_APP_SERVER_API_URL}users/${user._id}/friends`
 			);
 			setFriends(response.data);
 		} catch (error) {
@@ -142,7 +142,7 @@ const Calendar = () => {
 	async function fetchFriendRequests() {
 		try {
 			const response = await axios.get(
-				`http://localhost:3002/users/${user._id}/friendrequests`
+				`${process.env.REACT_APP_SERVER_API_URL}users/${user._id}/friendrequests`
 			);
 			setFriendRequests(response.data);
 		} catch (error) {

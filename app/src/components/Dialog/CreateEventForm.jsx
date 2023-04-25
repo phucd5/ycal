@@ -69,7 +69,7 @@ const CreateEventForm = (props) => {
 		}
 		try {
 			const response = await axios.post(
-				"http://localhost:3002/events/create",
+				`${process.env.REACT_APP_SERVER_API_URL}events/create`,
 				{
 					organizer: user,
 					title,
@@ -83,7 +83,7 @@ const CreateEventForm = (props) => {
 			);
 			try {
 				await axios.put(
-					`http://localhost:3002/users/${user._id}/events`,
+					`${process.env.REACT_APP_SERVER_API_URL}users/${user._id}/events`,
 					{
 						eventId: response.data._id,
 						action: "add",
@@ -153,11 +153,7 @@ const CreateEventForm = (props) => {
 						</Form.Group>
 						<br />
 						<Form.Group as={Row}>
-							<Form.Label
-								column
-								sm={2}
-								className ="modal-label"
-							>
+							<Form.Label column sm={2} className="modal-label">
 								Start
 							</Form.Label>
 							<Col sm={4}>
@@ -187,11 +183,7 @@ const CreateEventForm = (props) => {
 						</Form.Group>
 						<br />
 						<Form.Group as={Row}>
-							<Form.Label
-								column
-								sm={2}
-								className ="modal-label"
-							>
+							<Form.Label column sm={2} className="modal-label">
 								End
 							</Form.Label>
 							<Col sm={4}>
@@ -217,9 +209,7 @@ const CreateEventForm = (props) => {
 						</Form.Group>
 						<br />
 						<Form.Group>
-							<Form.Label
-								className ="modal-label"
-							>
+							<Form.Label className="modal-label">
 								Location
 							</Form.Label>
 							<Form.Control
@@ -233,9 +223,7 @@ const CreateEventForm = (props) => {
 						</Form.Group>
 						<br />
 						<Form.Group>
-							<Form.Label
-								className ="modal-label"
-							>
+							<Form.Label className="modal-label">
 								Attendees
 							</Form.Label>
 							{friends.map((friend) => (

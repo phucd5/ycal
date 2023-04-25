@@ -15,7 +15,7 @@ const AISchedule = (props) => {
 
 	const openAi = new OpenAIApi(
 		new Configuration({
-			apiKey: process.env.OPENAI_API_KEY,
+			apiKey: process.env.REACT_APP_OPENAI_API_KEY,
 		})
 	);
 
@@ -48,20 +48,20 @@ const AISchedule = (props) => {
 		for (const friendId of new_friends) {
 			try {
 				const userResponse = await axios.get(
-					`http://localhost:3002/users/${friendId}`
+					`${process.env.REACT_APP_SERVER_API_URL}users/${friendId}`
 				);
 
 				const response = await axios.get(
-					`http://localhost:3002/users/${friendId}/events`
+					`${process.env.REACT_APP_SERVER_API_URL}users/${friendId}/events`
 				);
 
 				const classesResponse = await axios.get(
-					`http://localhost:3002/users/${friendId}/classes`
+					`${process.env.REACT_APP_SERVER_API_URL}users/${friendId}/classes`
 				);
 
 				for (const classObj of classesResponse.data) {
 					const scheduleResponse = await axios.get(
-						`http://localhost:3002/yclasses/${classObj._id}/schedule`
+						`${process.env.REACT_APP_SERVER_API_URL}yclasses/${classObj._id}/schedule`
 					);
 					const scheduleData = scheduleResponse.data;
 

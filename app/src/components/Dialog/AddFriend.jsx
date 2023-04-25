@@ -40,11 +40,11 @@ const AddFriendDialog = (props) => {
 		event.preventDefault();
 		try {
 			const friendResponse = await axios.get(
-				`http://localhost:3002/users/${email}/email`
+				`${process.env.REACT_APP_SERVER_API_URL}users/${email}/email`
 			);
 			try {
 				await axios.put(
-					`http://localhost:3002/users/${user._id}/friendrequests`,
+					`${process.env.REACT_APP_SERVER_API_URL}users/${user._id}/friendrequests`,
 					{
 						friendId: friendResponse.data._id,
 						action: "add",

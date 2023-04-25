@@ -112,7 +112,7 @@ function mapScheduletoEvent(schedule) {
 async function fetchCourses() {
 	const subjectCodes = ["CHEM"];
 	const termCode = "202301";
-	const apiKey = process.env.YALE_DEV_API_KEY;
+	const apiKey = process.env.REACT_APP_YALE_DEV_API_KEY;
 
 	try {
 		for (const subjectCode of subjectCodes) {
@@ -133,7 +133,7 @@ async function addCoursesToDatabase() {
 			try {
 				// store the course in our database
 				const courseResponse = await axios.post(
-					"http://localhost:3002/yclasses/create",
+					`${process.env.REACT_APP_SERVER_API_URL}yclasses/create`,
 					{
 						className: course.subjectNumber,
 						displayName: `${course.department} ${course.courseNumber} ${course.sectionNumber}`,
@@ -151,7 +151,7 @@ async function addCoursesToDatabase() {
 				)) {
 					// create the yClassEvent
 					const eventResponse = await axios.post(
-						"http://localhost:3002/yclassevents/create",
+						`${process.env.REACT_APP_SERVER_API_URL}yclassevents/create`,
 						{
 							class: courseResponse.data,
 							title: `${course.department} ${course.courseNumber} ${course.sectionNumber}`,
@@ -163,7 +163,7 @@ async function addCoursesToDatabase() {
 
 					//  add the event to the class schedule
 					await axios.put(
-						`http://localhost:3002/yclasses/${courseResponse.data._id}/schedule`,
+						`${process.env.REACT_APP_SERVER_API_URL}yclasses/${courseResponse.data._id}/schedule`,
 						{
 							eventId: eventResponse.data._id,
 							action: "add",

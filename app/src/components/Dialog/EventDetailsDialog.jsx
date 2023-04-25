@@ -22,10 +22,13 @@ const EventDetailsDialog = (props) => {
 
 	const handleDelete = async (eventId) => {
 		try {
-			await axios.put(`http://localhost:3002/users/${user._id}/events`, {
-				eventId: eventId,
-				action: "remove",
-			});
+			await axios.put(
+				`${process.env.REACT_APP_SERVER_API_URL}users/${user._id}/events`,
+				{
+					eventId: eventId,
+					action: "remove",
+				}
+			);
 			setEvents((prevEvents) =>
 				prevEvents.filter((event) => event._id !== eventId)
 			);
@@ -37,11 +40,14 @@ const EventDetailsDialog = (props) => {
 
 	const handleAttendDelete = async (event, attendeeId) => {
 		try {
-			await axios.put(`http://localhost:3002/events/${event._id}`, {
-				attendees: event.attendees.filter(
-					(attendee) => attendee._id !== attendeeId
-				),
-			});
+			await axios.put(
+				`${process.env.REACT_APP_SERVER_API_URL}events/${event._id}`,
+				{
+					attendees: event.attendees.filter(
+						(attendee) => attendee._id !== attendeeId
+					),
+				}
+			);
 			fetchEvents();
 		} catch (error) {
 			handleCloseError("Failed to delete attendee");
@@ -74,15 +80,15 @@ const EventDetailsDialog = (props) => {
 				</Modal.Header>
 				{event ? (
 					<Modal.Body>
-						<h3 className = "modal-label">Description</h3>
+						<h3 className="modal-label">Description</h3>
 						<p>{event.extendedProps.description}</p>
-						<h3 className = "modal-label">Start Date</h3>
+						<h3 className="modal-label">Start Date</h3>
 						<p>{event.startStr.slice(0, 10)}</p>
-						<h3 className = "modal-label">End Date</h3>
+						<h3 className="modal-label">End Date</h3>
 						<p>{event.endStr.slice(0, 10)}</p>
-						<h3 className = "modal-label">Location</h3>
+						<h3 className="modal-label">Location</h3>
 						<p>{event.extendedProps.location}</p>
-						<h3 className = "modal-label">Attendees</h3>
+						<h3 className="modal-label">Attendees</h3>
 						<p>
 							{event.extendedProps.attendees.length > 0 ? (
 								event.extendedProps.attendees.map(
