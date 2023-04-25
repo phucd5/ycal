@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Button from "react-bootstrap/button";
+import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { ToastContainer, toast } from "react-toastify";

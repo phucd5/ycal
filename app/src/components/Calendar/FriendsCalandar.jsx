@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
-import Button from "react-bootstrap/button";
+import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 import FullCalendar from "@fullcalendar/react";
