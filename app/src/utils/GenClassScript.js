@@ -112,7 +112,7 @@ function mapScheduletoEvent(schedule) {
 async function fetchCourses() {
 	const subjectCodes = ["CHEM"];
 	const termCode = "202301";
-	const apiKey = "l757ed321eec474c04827ac3fc0f128df8";
+	const apiKey = process.env.YALE_DEV_API_KEY;
 
 	try {
 		for (const subjectCode of subjectCodes) {

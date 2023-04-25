@@ -15,7 +15,7 @@ const AISchedule = (props) => {
 
 	const openAi = new OpenAIApi(
 		new Configuration({
-			apiKey: "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",
+			apiKey: process.env.OPENAI_API_KEY,
 		})
 	);
 
