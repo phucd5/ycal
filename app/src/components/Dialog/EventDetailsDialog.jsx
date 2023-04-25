@@ -1,5 +1,5 @@
 import axios from "axios";
-import Button from "react-bootstrap/Button";
+import Button from "react-bootstrap/button";
 import Modal from "react-bootstrap/Modal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
+import Button from "react-bootstrap/button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import AIScheduleDialog from "./AIScheduleDialog";
