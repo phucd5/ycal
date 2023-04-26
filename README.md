@@ -1,6 +1,8 @@
-YCAL 2023 MVP
+YCAL 2023 CPSC 419 Project
 
-Project: Eric Wang, Phuc Duong, Tony Wang
+Project Members: Eric Wang, Phuc Duong, Tony Wang
+
+Hosting: https://ycal.netlify.app/
 
 Running Instructions:
 
@@ -18,12 +20,5 @@ App Instructions:
 - npm i
 - npm start
 
-PLEASE NOTE: While creating a new event, DO NOT change the item in the textbox directly. Rather, to set date, click on a date in the mini calendar interface. To set time, click on the time below the mini calendar interface. 
 
-NOTE: Script is still populating courses so right now to test the feature would recommend: CPSC490, CPSC223, CPSC323.
-
-TO DO:
-
-- Add friend request system
-- Finish getting courses from YSC
 
