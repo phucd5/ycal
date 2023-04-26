@@ -25,11 +25,7 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(
 	cors({
-		origin: [
-			"https://ycal.onrender.com",
-			"http://localhost",
-			"https://ycal.netlify.app",
-		],
+		origin: ["*"],
 	})
 );
 
