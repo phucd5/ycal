@@ -26,3 +26,4 @@ yarn-error.log*
 app/.env
 server/.env
 app/src/.env
+app/src/utils/GenClass.js
